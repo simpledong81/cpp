@@ -1,0 +1,329 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><p>在C++中，<code>std::string</code> 类是C++标准库提供的用于处理字符串的高级工具。与C风格的字符数组相比，<code>std::string</code> 更安全、更易用，并且提供了丰富的成员函数来操作字符串。以下是 <code>std::string</code> 类及其相关函数的详细说明和示例：</p>
+<hr />
+<h3><strong>1. <code>std::string</code> 类的定义与初始化</strong></h3>
+<p><code>std::string</code> 类是 <code>std::basic_string&lt;char&gt;</code> 的别名，定义在 <code>&lt;string&gt;</code> 头文件中。</p>
+<h4><strong>(1) 定义与初始化</strong></h4>
+<ul>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">#include &lt;string&gt;
+using namespace std;
+
+string 变量名;
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">#include &lt;string&gt;
+#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    string str1;               // 默认初始化，空字符串
+    string str2 = &quot;Hello&quot;;     // 使用字符串字面量初始化
+    string str3(&quot;World&quot;);      // 使用构造函数初始化
+    string str4(str2);         // 使用另一个 string 对象初始化
+
+    cout &lt;&lt; str2 &lt;&lt; &quot; &quot; &lt;&lt; str3 &lt;&lt; endl;  // 输出：Hello World
+    return 0;
+}
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>2. <code>std::string</code> 的常用成员函数</strong></h3>
+<p><code>std::string</code> 提供了许多成员函数来操作字符串。</p>
+<h4><strong>(1) <code>length()</code> 或 <code>size()</code></strong></h4>
+<ul>
+<li><strong>作用</strong>：返回字符串的长度。</li>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">size_t length() const;
+size_t size() const;
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">string str = &quot;Hello&quot;;
+cout &lt;&lt; &quot;Length: &quot; &lt;&lt; str.length() &lt;&lt; endl;  // 输出：5
+</code></pre>
+</li>
+</ul>
+<h4><strong>(2) <code>empty()</code></strong></h4>
+<ul>
+<li><strong>作用</strong>：判断字符串是否为空。</li>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">bool empty() const;
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">string str = &quot;&quot;;
+if (str.empty()) {
+    cout &lt;&lt; &quot;String is empty&quot; &lt;&lt; endl;  // 输出
+}
+</code></pre>
+</li>
+</ul>
+<h4><strong>(3) <code>append()</code></strong></h4>
+<ul>
+<li><strong>作用</strong>：在字符串末尾追加内容。</li>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">string&amp; append(const string&amp; str);
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">string str = &quot;Hello&quot;;
+str.append(&quot; World&quot;);
+cout &lt;&lt; str &lt;&lt; endl;  // 输出：Hello World
+</code></pre>
+</li>
+</ul>
+<h4><strong>(4) <code>operator+=</code></strong></h4>
+<ul>
+<li><strong>作用</strong>：在字符串末尾追加内容（与 <code>append()</code> 类似）。</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">string str = &quot;Hello&quot;;
+str += &quot; World&quot;;
+cout &lt;&lt; str &lt;&lt; endl;  // 输出：Hello World
+</code></pre>
+</li>
+</ul>
+<h4><strong>(5) <code>compare()</code></strong></h4>
+<ul>
+<li><strong>作用</strong>：比较两个字符串。
+<ul>
+<li>返回值为 0：字符串相等。</li>
+<li>返回值小于 0：当前字符串小于参数字符串。</li>
+<li>返回值大于 0：当前字符串大于参数字符串。</li>
+</ul>
+</li>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">int compare(const string&amp; str) const;
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">string str1 = &quot;Hello&quot;;
+string str2 = &quot;World&quot;;
+int result = str1.compare(str2);
+if (result == 0) {
+    cout &lt;&lt; &quot;Strings are equal&quot; &lt;&lt; endl;
+} else if (result &lt; 0) {
+    cout &lt;&lt; &quot;str1 is less than str2&quot; &lt;&lt; endl;  // 输出
+} else {
+    cout &lt;&lt; &quot;str1 is greater than str2&quot; &lt;&lt; endl;
+}
+</code></pre>
+</li>
+</ul>
+<h4><strong>(6) <code>substr()</code></strong></h4>
+<ul>
+<li><strong>作用</strong>：返回字符串的子串。</li>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">string substr(size_t pos = 0, size_t len = npos) const;
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">string str = &quot;Hello World&quot;;
+string sub = str.substr(6, 5);  // 从位置 6 开始，取 5 个字符
+cout &lt;&lt; sub &lt;&lt; endl;  // 输出：World
+</code></pre>
+</li>
+</ul>
+<h4><strong>(7) <code>find()</code></strong></h4>
+<ul>
+<li><strong>作用</strong>：在字符串中查找子字符串或字符的第一次出现位置。</li>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">size_t find(const string&amp; str, size_t pos = 0) const;
+size_t find(char ch, size_t pos = 0) const;
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">string str = &quot;Hello World&quot;;
+size_t pos = str.find(&quot;World&quot;);
+if (pos != string::npos) {
+    cout &lt;&lt; &quot;Found at position: &quot; &lt;&lt; pos &lt;&lt; endl;  // 输出：6
+} else {
+    cout &lt;&lt; &quot;Not found&quot; &lt;&lt; endl;
+}
+</code></pre>
+</li>
+</ul>
+<h4><strong>(8) <code>replace()</code></strong></h4>
+<ul>
+<li><strong>作用</strong>：替换字符串中的一部分。</li>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">string&amp; replace(size_t pos, size_t len, const string&amp; str);
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">string str = &quot;Hello World&quot;;
+str.replace(6, 5, &quot;C++&quot;);
+cout &lt;&lt; str &lt;&lt; endl;  // 输出：Hello C++
+</code></pre>
+</li>
+</ul>
+<h4><strong>(9) <code>insert()</code></strong></h4>
+<ul>
+<li><strong>作用</strong>：在指定位置插入字符串或字符。</li>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">string&amp; insert(size_t pos, const string&amp; str);
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">string str = &quot;Hello World&quot;;
+str.insert(5, &quot; C++&quot;);
+cout &lt;&lt; str &lt;&lt; endl;  // 输出：Hello C++ World
+</code></pre>
+</li>
+</ul>
+<h4><strong>(10) <code>erase()</code></strong></h4>
+<ul>
+<li><strong>作用</strong>：删除字符串中的一部分。</li>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">string&amp; erase(size_t pos = 0, size_t len = npos);
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">string str = &quot;Hello World&quot;;
+str.erase(5, 6);
+cout &lt;&lt; str &lt;&lt; endl;  // 输出：Hello
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>3. 综合示例</strong></h3>
+<p>以下是一个完整的C++程序，演示了 <code>std::string</code> 类的定义、初始化和常用成员函数的使用：</p>
+<pre><code class="language-cpp">#include &lt;string&gt;
+#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    // 定义并初始化字符串
+    string str1 = &quot;Hello&quot;;
+    string str2 = &quot;World&quot;;
+
+    // 获取字符串长度
+    cout &lt;&lt; &quot;Length of str1: &quot; &lt;&lt; str1.length() &lt;&lt; endl;  // 输出：5
+
+    // 连接字符串
+    string str3 = str1 + &quot; &quot; + str2;
+    cout &lt;&lt; &quot;Concatenated string: &quot; &lt;&lt; str3 &lt;&lt; endl;  // 输出：Hello World
+
+    // 比较字符串
+    int result = str1.compare(str2);
+    if (result == 0) {
+        cout &lt;&lt; &quot;Strings are equal&quot; &lt;&lt; endl;
+    } else if (result &lt; 0) {
+        cout &lt;&lt; &quot;str1 is less than str2&quot; &lt;&lt; endl;  // 输出
+    } else {
+        cout &lt;&lt; &quot;str1 is greater than str2&quot; &lt;&lt; endl;
+    }
+
+    // 查找子字符串
+    size_t pos = str3.find(&quot;World&quot;);
+    if (pos != string::npos) {
+        cout &lt;&lt; &quot;Found 'World' at position: &quot; &lt;&lt; pos &lt;&lt; endl;  // 输出：6
+    } else {
+        cout &lt;&lt; &quot;Substring not found&quot; &lt;&lt; endl;
+    }
+
+    // 替换字符串
+    str3.replace(6, 5, &quot;C++&quot;);
+    cout &lt;&lt; &quot;After replacement: &quot; &lt;&lt; str3 &lt;&lt; endl;  // 输出：Hello C++
+
+    // 插入字符串
+    str3.insert(5, &quot; Awesome&quot;);
+    cout &lt;&lt; &quot;After insertion: &quot; &lt;&lt; str3 &lt;&lt; endl;  // 输出：Hello Awesome C++
+
+    // 删除字符串
+    str3.erase(5, 8);
+    cout &lt;&lt; &quot;After erasure: &quot; &lt;&lt; str3 &lt;&lt; endl;  // 输出：Hello C++
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>4. 总结</strong></h3>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>作用</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>length()</code></td>
+<td>返回字符串的长度</td>
+<td><code>str.length()</code></td>
+</tr>
+<tr>
+<td><code>empty()</code></td>
+<td>判断字符串是否为空</td>
+<td><code>str.empty()</code></td>
+</tr>
+<tr>
+<td><code>append()</code></td>
+<td>在字符串末尾追加内容</td>
+<td><code>str.append(&quot; World&quot;)</code></td>
+</tr>
+<tr>
+<td><code>operator+=</code></td>
+<td>在字符串末尾追加内容</td>
+<td><code>str += &quot; World&quot;</code></td>
+</tr>
+<tr>
+<td><code>compare()</code></td>
+<td>比较两个字符串</td>
+<td><code>str1.compare(str2)</code></td>
+</tr>
+<tr>
+<td><code>substr()</code></td>
+<td>返回字符串的子串</td>
+<td><code>str.substr(6, 5)</code></td>
+</tr>
+<tr>
+<td><code>find()</code></td>
+<td>查找子字符串或字符</td>
+<td><code>str.find(&quot;World&quot;)</code></td>
+</tr>
+<tr>
+<td><code>replace()</code></td>
+<td>替换字符串中的一部分</td>
+<td><code>str.replace(6, 5, &quot;C++&quot;)</code></td>
+</tr>
+<tr>
+<td><code>insert()</code></td>
+<td>在指定位置插入字符串或字符</td>
+<td><code>str.insert(5, &quot; C++&quot;)</code></td>
+</tr>
+<tr>
+<td><code>erase()</code></td>
+<td>删除字符串中的一部分</td>
+<td><code>str.erase(5, 6)</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>std::string</code> 类是C++中处理字符串的强大工具，熟练掌握其用法可以高效地操作字符串。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

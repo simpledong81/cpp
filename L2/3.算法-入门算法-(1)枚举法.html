@@ -1,0 +1,200 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><p><strong>枚举法</strong>（也称为穷举法）是一种基本的算法设计方法，通过遍历所有可能的解来解决问题。枚举法的核心思想是系统地检查所有可能的候选解，直到找到满足条件的解或确定无解。</p>
+<hr />
+<h3><strong>1. 枚举法的特点</strong></h3>
+<ul>
+<li><strong>优点</strong>：
+<ul>
+<li>简单直观，易于实现。</li>
+<li>适用于问题规模较小的情况。</li>
+</ul>
+</li>
+<li><strong>缺点</strong>：
+<ul>
+<li>时间复杂度高，通常为指数级或阶乘级。</li>
+<li>不适用于大规模问题。</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3><strong>2. 枚举法的应用场景</strong></h3>
+<ul>
+<li><strong>小规模问题</strong>：如排列组合、子集生成、简单搜索等。</li>
+<li><strong>验证算法</strong>：用于验证其他算法的正确性。</li>
+<li><strong>暴力破解</strong>：如密码破解、组合优化等。</li>
+</ul>
+<hr />
+<h3><strong>3. 枚举法的实现步骤</strong></h3>
+<ol>
+<li><strong>确定问题的解空间</strong>：明确所有可能的候选解。</li>
+<li><strong>遍历解空间</strong>：系统地检查每个候选解。</li>
+<li><strong>验证解的有效性</strong>：判断当前候选解是否满足问题的条件。</li>
+<li><strong>输出结果</strong>：找到满足条件的解或确定无解。</li>
+</ol>
+<hr />
+<h3><strong>4. 枚举法的示例</strong></h3>
+<h4><strong>(1) 示例 1：寻找数组中两个数的和等于目标值</strong></h4>
+<ul>
+<li><strong>问题描述</strong>：给定一个整数数组和一个目标值，找出数组中两个数的和等于目标值。</li>
+<li><strong>枚举法实现</strong>：
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+vector&lt;int&gt; twoSum(vector&lt;int&gt;&amp; nums, int target) {
+    for (int i = 0; i &lt; nums.size(); i++) {
+        for (int j = i + 1; j &lt; nums.size(); j++) {
+            if (nums[i] + nums[j] == target) {
+                return {i, j};
+            }
+        }
+    }
+    return {};  // 无解
+}
+
+int main() {
+    vector&lt;int&gt; nums = {2, 7, 11, 15};
+    int target = 9;
+    vector&lt;int&gt; result = twoSum(nums, target);
+    if (!result.empty()) {
+        cout &lt;&lt; &quot;Indices: &quot; &lt;&lt; result[0] &lt;&lt; &quot;, &quot; &lt;&lt; result[1] &lt;&lt; endl;  // 输出：0, 1
+    } else {
+        cout &lt;&lt; &quot;No solution found.&quot; &lt;&lt; endl;
+    }
+    return 0;
+}
+</code></pre>
+</li>
+</ul>
+<h4><strong>(2) 示例 2：生成所有子集</strong></h4>
+<ul>
+<li><strong>问题描述</strong>：给定一个集合，生成所有可能的子集。</li>
+<li><strong>枚举法实现</strong>：
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+void generateSubsets(vector&lt;int&gt;&amp; nums, vector&lt;int&gt;&amp; subset, int index) {
+    if (index == nums.size()) {
+        for (int num : subset) {
+            cout &lt;&lt; num &lt;&lt; &quot; &quot;;
+        }
+        cout &lt;&lt; endl;
+        return;
+    }
+    // 不选择当前元素
+    generateSubsets(nums, subset, index + 1);
+    // 选择当前元素
+    subset.push_back(nums[index]);
+    generateSubsets(nums, subset, index + 1);
+    subset.pop_back();  // 回溯
+}
+
+int main() {
+    vector&lt;int&gt; nums = {1, 2, 3};
+    vector&lt;int&gt; subset;
+    generateSubsets(nums, subset, 0);
+    return 0;
+}
+</code></pre>
+</li>
+</ul>
+<h5><strong>输出</strong></h5>
+<pre><code>3
+2
+2 3
+1
+1 3
+1 2
+1 2 3
+</code></pre>
+<h4><strong>(3) 示例 3：寻找最大子数组和</strong></h4>
+<ul>
+<li><strong>问题描述</strong>：给定一个整数数组，找到一个具有最大和的连续子数组。</li>
+<li><strong>枚举法实现</strong>：
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+int maxSubArray(vector&lt;int&gt;&amp; nums) {
+    int maxSum = INT_MIN;
+    for (int i = 0; i &lt; nums.size(); i++) {
+        int currentSum = 0;
+        for (int j = i; j &lt; nums.size(); j++) {
+            currentSum += nums[j];
+            if (currentSum &gt; maxSum) {
+                maxSum = currentSum;
+            }
+        }
+    }
+    return maxSum;
+}
+
+int main() {
+    vector&lt;int&gt; nums = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
+    cout &lt;&lt; &quot;Maximum Subarray Sum: &quot; &lt;&lt; maxSubArray(nums) &lt;&lt; endl;  // 输出：6
+    return 0;
+}
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>5. 枚举法的优化</strong></h3>
+<ul>
+<li><strong>剪枝</strong>：在遍历过程中，提前排除不可能的解，减少计算量。</li>
+<li><strong>记忆化</strong>：保存已经计算过的结果，避免重复计算。</li>
+<li><strong>分治法</strong>：将问题分解为更小的子问题，分别求解。</li>
+</ul>
+<hr />
+<h3><strong>6. 总结</strong></h3>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>枚举法</strong></td>
+<td>遍历所有可能的解</td>
+<td>寻找数组中两个数的和等于目标值</td>
+</tr>
+<tr>
+<td><strong>优点</strong></td>
+<td>简单直观，易于实现</td>
+<td>适用于小规模问题</td>
+</tr>
+<tr>
+<td><strong>缺点</strong></td>
+<td>时间复杂度高，不适用于大规模问题</td>
+<td>大规模问题效率低下</td>
+</tr>
+</tbody>
+</table>
+<p>枚举法是一种基础的算法设计方法，适用于小规模问题或作为验证其他算法的工具。在实际应用中，通常需要结合其他优化技术来提高效率。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

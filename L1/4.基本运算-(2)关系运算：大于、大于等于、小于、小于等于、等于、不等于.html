@@ -1,0 +1,206 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><p>在C++中，<strong>关系运算</strong>用于比较两个值的大小或相等性，并返回一个布尔值（<code>true</code> 或 <code>false</code>）。关系运算符通常用于条件语句（如 <code>if</code>、<code>while</code>）中，以控制程序的逻辑流程。以下是C++中常见的关系运算符及其用法：</p>
+<hr />
+<h3><strong>1. 大于运算符 (<code>&gt;</code>)</strong></h3>
+<ul>
+<li><strong>作用</strong>：判断左操作数是否大于右操作数。</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">int a = 10, b = 5;
+bool result = a &gt; b;  // result = true
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>2. 大于等于运算符 (<code>&gt;=</code>)</strong></h3>
+<ul>
+<li><strong>作用</strong>：判断左操作数是否大于或等于右操作数。</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">int a = 10, b = 10;
+bool result = a &gt;= b;  // result = true
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>3. 小于运算符 (<code>&lt;</code>)</strong></h3>
+<ul>
+<li><strong>作用</strong>：判断左操作数是否小于右操作数。</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">int a = 5, b = 10;
+bool result = a &lt; b;  // result = true
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>4. 小于等于运算符 (<code>&lt;=</code>)</strong></h3>
+<ul>
+<li><strong>作用</strong>：判断左操作数是否小于或等于右操作数。</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">int a = 10, b = 10;
+bool result = a &lt;= b;  // result = true
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>5. 等于运算符 (<code>==</code>)</strong></h3>
+<ul>
+<li><strong>作用</strong>：判断两个操作数是否相等。</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">int a = 10, b = 10;
+bool result = a == b;  // result = true
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>6. 不等于运算符 (<code>!=</code>)</strong></h3>
+<ul>
+<li><strong>作用</strong>：判断两个操作数是否不相等。</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">int a = 10, b = 5;
+bool result = a != b;  // result = true
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>7. 综合示例</strong></h3>
+<p>以下是一个完整的C++程序，演示了各种关系运算符的用法：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int a = 10, b = 5;
+
+    // 大于
+    cout &lt;&lt; &quot;a &gt; b: &quot; &lt;&lt; (a &gt; b) &lt;&lt; endl;  // 输出：1 (true)
+
+    // 大于等于
+    cout &lt;&lt; &quot;a &gt;= b: &quot; &lt;&lt; (a &gt;= b) &lt;&lt; endl;  // 输出：1 (true)
+
+    // 小于
+    cout &lt;&lt; &quot;a &lt; b: &quot; &lt;&lt; (a &lt; b) &lt;&lt; endl;  // 输出：0 (false)
+
+    // 小于等于
+    cout &lt;&lt; &quot;a &lt;= b: &quot; &lt;&lt; (a &lt;= b) &lt;&lt; endl;  // 输出：0 (false)
+
+    // 等于
+    cout &lt;&lt; &quot;a == b: &quot; &lt;&lt; (a == b) &lt;&lt; endl;  // 输出：0 (false)
+
+    // 不等于
+    cout &lt;&lt; &quot;a != b: &quot; &lt;&lt; (a != b) &lt;&lt; endl;  // 输出：1 (true)
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>8. 注意事项</strong></h3>
+<ol>
+<li>
+<p><strong>布尔值输出</strong>：</p>
+<ul>
+<li>在C++中，<code>true</code> 被输出为 <code>1</code>，<code>false</code> 被输出为 <code>0</code>。</li>
+<li>可以使用 <code>boolalpha</code> 来输出 <code>true</code> 或 <code>false</code>：
+<pre><code class="language-cpp">cout &lt;&lt; boolalpha &lt;&lt; (a &gt; b) &lt;&lt; endl;  // 输出：true
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>浮点数比较</strong>：</p>
+<ul>
+<li>由于浮点数的精度问题，直接使用 <code>==</code> 比较浮点数可能会导致错误。</li>
+<li>通常使用一个很小的误差范围（如 <code>1e-9</code>）来判断浮点数是否相等：
+<pre><code class="language-cpp">double x = 0.1 + 0.2;
+double y = 0.3;
+if (abs(x - y) &lt; 1e-9) {
+    cout &lt;&lt; &quot;x and y are equal&quot; &lt;&lt; endl;
+}
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>链式比较</strong>：</p>
+<ul>
+<li>C++不支持链式比较（如 <code>a &lt; b &lt; c</code>），需要拆分为多个条件：
+<pre><code class="language-cpp">if (a &lt; b &amp;&amp; b &lt; c) {
+    // do something
+}
+</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h3><strong>总结</strong></h3>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>作用</th>
+<th>示例</th>
+<th>结果（示例）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&gt;</code></td>
+<td>大于</td>
+<td><code>10 &gt; 5</code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>&gt;=</code></td>
+<td>大于等于</td>
+<td><code>10 &gt;= 10</code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>&lt;</code></td>
+<td>小于</td>
+<td><code>5 &lt; 10</code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>&lt;=</code></td>
+<td>小于等于</td>
+<td><code>10 &lt;= 10</code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>==</code></td>
+<td>等于</td>
+<td><code>10 == 10</code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>!=</code></td>
+<td>不等于</td>
+<td><code>10 != 5</code></td>
+<td><code>true</code></td>
+</tr>
+</tbody>
+</table>
+<p>关系运算符是C++编程中实现条件判断的基础工具，熟练掌握它们可以编写出灵活的程序逻辑。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

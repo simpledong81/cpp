@@ -1,0 +1,223 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><h3>广度优先遍历（Breadth-First Traversal, BFT）</h3>
+<h4>1. 什么是广度优先遍历？</h4>
+<p>广度优先遍历是一种用于遍历或搜索树或图的算法。它的核心思想是从起始节点开始，逐层访问其邻居节点，直到遍历完所有节点或找到目标节点。</p>
+<hr />
+<h4>2. 广度优先遍历的基本思想</h4>
+<ol>
+<li><strong>从起始节点开始</strong>：选择一个起始节点作为当前节点。</li>
+<li><strong>访问当前节点</strong>：标记当前节点为已访问。</li>
+<li><strong>访问邻居节点</strong>：将当前节点的所有未访问的邻居节点加入队列。</li>
+<li><strong>逐层遍历</strong>：从队列中取出下一个节点，重复上述过程，直到队列为空。</li>
+</ol>
+<hr />
+<h4>3. 广度优先遍历的步骤</h4>
+<ol>
+<li>选择一个起始节点，标记为已访问，并将其加入队列。</li>
+<li>从队列中取出一个节点，访问该节点。</li>
+<li>将该节点的所有未访问的邻居节点加入队列，并标记为已访问。</li>
+<li>重复上述过程，直到队列为空。</li>
+</ol>
+<hr />
+<h4>4. 广度优先遍历的代码实现</h4>
+<h5>（1）图的表示</h5>
+<p>图可以用邻接表或邻接矩阵表示。以下代码使用邻接表表示图。</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;queue&gt;
+using namespace std;
+
+// 图的邻接表表示
+class Graph {
+public:
+    int V; // 顶点数
+    vector&lt;vector&lt;int&gt;&gt; adj; // 邻接表
+
+    Graph(int V) : V(V), adj(V) {}
+
+    // 添加边
+    void addEdge(int u, int v) {
+        adj[u].push_back(v);
+        adj[v].push_back(u); // 无向图需要添加双向边
+    }
+
+    // 广度优先遍历
+    void BFT(int start) {
+        vector&lt;bool&gt; visited(V, false); // 初始化访问标记数组
+        queue&lt;int&gt; queue;
+
+        visited[start] = true; // 标记起始节点为已访问
+        queue.push(start); // 将起始节点加入队列
+
+        while (!queue.empty()) {
+            int v = queue.front();
+            queue.pop();
+            cout &lt;&lt; v &lt;&lt; &quot; &quot;; // 输出当前节点
+
+            // 遍历所有邻居节点
+            for (int neighbor : adj[v]) {
+                if (!visited[neighbor]) {
+                    visited[neighbor] = true; // 标记邻居节点为已访问
+                    queue.push(neighbor); // 将邻居节点加入队列
+                }
+            }
+        }
+    }
+};
+
+int main() {
+    Graph g(6); // 创建一个有 6 个顶点的图
+
+    // 添加边
+    g.addEdge(0, 1);
+    g.addEdge(0, 2);
+    g.addEdge(1, 3);
+    g.addEdge(1, 4);
+    g.addEdge(2, 4);
+    g.addEdge(3, 4);
+    g.addEdge(3, 5);
+    g.addEdge(4, 5);
+
+    cout &lt;&lt; &quot;广度优先遍历结果: &quot;;
+    g.BFT(0); // 从顶点 0 开始 BFT
+
+    return 0;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>广度优先遍历结果: 0 1 2 3 4 5
+</code></pre>
+<hr />
+<h5>（2）BFT 的应用：最短路径（无权图）</h5>
+<p>在无权图中，BFT 可以用于求解从起始节点到其他节点的最短路径。</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;queue&gt;
+using namespace std;
+
+// 图的邻接表表示
+class Graph {
+public:
+    int V; // 顶点数
+    vector&lt;vector&lt;int&gt;&gt; adj; // 邻接表
+
+    Graph(int V) : V(V), adj(V) {}
+
+    // 添加边
+    void addEdge(int u, int v) {
+        adj[u].push_back(v);
+        adj[v].push_back(u); // 无向图需要添加双向边
+    }
+
+    // 广度优先遍历（求解最短路径）
+    vector&lt;int&gt; shortestPath(int start) {
+        vector&lt;bool&gt; visited(V, false); // 初始化访问标记数组
+        vector&lt;int&gt; distance(V, -1); // 初始化距离数组
+        queue&lt;int&gt; queue;
+
+        visited[start] = true; // 标记起始节点为已访问
+        distance[start] = 0; // 起始节点的距离为 0
+        queue.push(start); // 将起始节点加入队列
+
+        while (!queue.empty()) {
+            int v = queue.front();
+            queue.pop();
+
+            // 遍历所有邻居节点
+            for (int neighbor : adj[v]) {
+                if (!visited[neighbor]) {
+                    visited[neighbor] = true; // 标记邻居节点为已访问
+                    distance[neighbor] = distance[v] + 1; // 更新邻居节点的距离
+                    queue.push(neighbor); // 将邻居节点加入队列
+                }
+            }
+        }
+
+        return distance;
+    }
+};
+
+int main() {
+    Graph g(6); // 创建一个有 6 个顶点的图
+
+    // 添加边
+    g.addEdge(0, 1);
+    g.addEdge(0, 2);
+    g.addEdge(1, 3);
+    g.addEdge(1, 4);
+    g.addEdge(2, 4);
+    g.addEdge(3, 4);
+    g.addEdge(3, 5);
+    g.addEdge(4, 5);
+
+    vector&lt;int&gt; distances = g.shortestPath(0); // 从顶点 0 开始 BFT
+
+    cout &lt;&lt; &quot;从顶点 0 到其他顶点的最短路径: &quot;;
+    for (int dist : distances) {
+        cout &lt;&lt; dist &lt;&lt; &quot; &quot;;
+    }
+    cout &lt;&lt; endl;
+
+    return 0;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>从顶点 0 到其他顶点的最短路径: 0 1 1 2 2 3
+</code></pre>
+<hr />
+<h4>5. 广度优先遍历的时间复杂度</h4>
+<ul>
+<li><strong>时间复杂度</strong>：O(V + E)，其中 <code>V</code> 是顶点数，<code>E</code> 是边数。</li>
+<li><strong>空间复杂度</strong>：O(V)，用于存储访问标记和队列。</li>
+</ul>
+<hr />
+<h4>6. 广度优先遍历的应用</h4>
+<ul>
+<li><strong>最短路径（无权图）</strong>：求解从起始节点到其他节点的最短路径。</li>
+<li><strong>连通性检测</strong>：判断图中是否存在路径。</li>
+<li><strong>拓扑排序</strong>：用于有向无环图（DAG）的拓扑排序。</li>
+<li><strong>求解迷宫问题</strong>：寻找从起点到终点的最短路径。</li>
+</ul>
+<hr />
+<h4>7. 广度优先遍历的优缺点</h4>
+<ul>
+<li><strong>优点</strong>：
+<ul>
+<li>适合求解最短路径问题（无权图）。</li>
+<li>逐层遍历，适合解决层次相关的问题。</li>
+</ul>
+</li>
+<li><strong>缺点</strong>：
+<ul>
+<li>空间复杂度较高，尤其是在图的分支因子较大时。</li>
+<li>不适合求解深度较大的问题（深度优先搜索更适合）。</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h4>8. 总结</h4>
+<p>广度优先遍历是一种重要的图遍历算法，适用于解决最短路径问题、连通性问题等。通过队列实现，BFT 可以高效地遍历图或树结构。掌握 BFT 的思想和实现方法，有助于解决许多与图相关的问题。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

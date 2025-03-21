@@ -1,0 +1,268 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><p>在C++中，STL（Standard Template Library，标准模板库）提供了多种容器类，用于存储和管理数据。其中，<strong>链表（list）</strong> 和 <strong>向量（vector）</strong> 是两种常用的容器。以下是它们的详细说明和示例：</p>
+<hr />
+<h3><strong>1. 链表（list）</strong></h3>
+<p><code>list</code> 是一个双向链表容器，支持高效的插入和删除操作，但不支持随机访问。</p>
+<h4><strong>(1) 特点</strong></h4>
+<ul>
+<li><strong>数据结构</strong>：双向链表。</li>
+<li><strong>优点</strong>：
+<ul>
+<li>在任意位置插入和删除元素的时间复杂度为 ( O(1) )。</li>
+</ul>
+</li>
+<li><strong>缺点</strong>：
+<ul>
+<li>不支持随机访问，访问元素的时间复杂度为 ( O(n) )。</li>
+</ul>
+</li>
+<li><strong>适用场景</strong>：
+<ul>
+<li>需要频繁插入和删除元素的场景。</li>
+</ul>
+</li>
+</ul>
+<h4><strong>(2) 常用操作</strong></h4>
+<ul>
+<li><code>push_back()</code>：在链表末尾插入元素。</li>
+<li><code>push_front()</code>：在链表开头插入元素。</li>
+<li><code>pop_back()</code>：删除链表末尾元素。</li>
+<li><code>pop_front()</code>：删除链表开头元素。</li>
+<li><code>insert()</code>：在指定位置插入元素。</li>
+<li><code>erase()</code>：删除指定位置的元素。</li>
+<li><code>size()</code>：返回链表中元素的数量。</li>
+<li><code>empty()</code>：判断链表是否为空。</li>
+</ul>
+<h4><strong>(3) 示例</strong></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;list&gt;
+using namespace std;
+
+int main() {
+    list&lt;int&gt; myList;
+
+    // 插入元素
+    myList.push_back(10);  // 链表：10
+    myList.push_back(20);  // 链表：10 -&gt; 20
+    myList.push_front(5);  // 链表：5 -&gt; 10 -&gt; 20
+
+    // 遍历链表
+    cout &lt;&lt; &quot;List elements: &quot;;
+    for (int num : myList) {
+        cout &lt;&lt; num &lt;&lt; &quot; &quot;;  // 输出：5 10 20
+    }
+    cout &lt;&lt; endl;
+
+    // 删除元素
+    myList.pop_front();  // 链表：10 -&gt; 20
+    myList.pop_back();   // 链表：10
+
+    // 插入元素
+    auto it = myList.begin();
+    advance(it, 1);  // 移动到第 2 个位置
+    myList.insert(it, 15);  // 链表：10 -&gt; 15
+
+    // 删除元素
+    it = myList.begin();
+    advance(it, 1);  // 移动到第 2 个位置
+    myList.erase(it);  // 链表：10
+
+    // 输出链表大小
+    cout &lt;&lt; &quot;List size: &quot; &lt;&lt; myList.size() &lt;&lt; endl;  // 输出：1
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>2. 向量（vector）</strong></h3>
+<p><code>vector</code> 是一个动态数组容器，支持高效的随机访问，但在中间插入和删除元素的效率较低。</p>
+<h4><strong>(1) 特点</strong></h4>
+<ul>
+<li><strong>数据结构</strong>：动态数组。</li>
+<li><strong>优点</strong>：
+<ul>
+<li>支持随机访问，访问元素的时间复杂度为 ( O(1) )。</li>
+<li>在末尾插入和删除元素的时间复杂度为 ( O(1) )。</li>
+</ul>
+</li>
+<li><strong>缺点</strong>：
+<ul>
+<li>在中间插入和删除元素的时间复杂度为 ( O(n) )。</li>
+</ul>
+</li>
+<li><strong>适用场景</strong>：
+<ul>
+<li>需要频繁随机访问元素的场景。</li>
+</ul>
+</li>
+</ul>
+<h4><strong>(2) 常用操作</strong></h4>
+<ul>
+<li><code>push_back()</code>：在向量末尾插入元素。</li>
+<li><code>pop_back()</code>：删除向量末尾元素。</li>
+<li><code>insert()</code>：在指定位置插入元素。</li>
+<li><code>erase()</code>：删除指定位置的元素。</li>
+<li><code>size()</code>：返回向量中元素的数量。</li>
+<li><code>empty()</code>：判断向量是否为空。</li>
+<li><code>at()</code>：访问指定位置的元素（带边界检查）。</li>
+<li><code>operator[]</code>：访问指定位置的元素（不带边界检查）。</li>
+</ul>
+<h4><strong>(3) 示例</strong></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+int main() {
+    vector&lt;int&gt; myVector;
+
+    // 插入元素
+    myVector.push_back(10);  // 向量：10
+    myVector.push_back(20);  // 向量：10, 20
+    myVector.push_back(30);  // 向量：10, 20, 30
+
+    // 遍历向量
+    cout &lt;&lt; &quot;Vector elements: &quot;;
+    for (int num : myVector) {
+        cout &lt;&lt; num &lt;&lt; &quot; &quot;;  // 输出：10 20 30
+    }
+    cout &lt;&lt; endl;
+
+    // 删除元素
+    myVector.pop_back();  // 向量：10, 20
+
+    // 插入元素
+    auto it = myVector.begin();
+    advance(it, 1);  // 移动到第 2 个位置
+    myVector.insert(it, 15);  // 向量：10, 15, 20
+
+    // 删除元素
+    it = myVector.begin();
+    advance(it, 1);  // 移动到第 2 个位置
+    myVector.erase(it);  // 向量：10, 20
+
+    // 输出向量大小
+    cout &lt;&lt; &quot;Vector size: &quot; &lt;&lt; myVector.size() &lt;&lt; endl;  // 输出：2
+
+    // 访问元素
+    cout &lt;&lt; &quot;Element at index 1: &quot; &lt;&lt; myVector.at(1) &lt;&lt; endl;  // 输出：20
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>3. 链表与向量的比较</strong></h3>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>链表（list）</th>
+<th>向量（vector）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>数据结构</strong></td>
+<td>双向链表</td>
+<td>动态数组</td>
+</tr>
+<tr>
+<td><strong>随机访问</strong></td>
+<td>不支持，访问元素的时间复杂度为 ( O(n) )</td>
+<td>支持，访问元素的时间复杂度为 ( O(1) )</td>
+</tr>
+<tr>
+<td><strong>插入/删除</strong></td>
+<td>在任意位置插入和删除的时间复杂度为 ( O(1) )</td>
+<td>在末尾插入和删除的时间复杂度为 ( O(1) )，在中间插入和删除的时间复杂度为 ( O(n) )</td>
+</tr>
+<tr>
+<td><strong>适用场景</strong></td>
+<td>需要频繁插入和删除元素的场景</td>
+<td>需要频繁随机访问元素的场景</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3><strong>4. 综合示例</strong></h3>
+<p>以下是一个完整的C++程序，演示了链表和向量的使用：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;list&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+int main() {
+    // 链表示例
+    list&lt;int&gt; myList;
+    myList.push_back(10);
+    myList.push_back(20);
+    myList.push_front(5);
+
+    cout &lt;&lt; &quot;List elements: &quot;;
+    for (int num : myList) {
+        cout &lt;&lt; num &lt;&lt; &quot; &quot;;  // 输出：5 10 20
+    }
+    cout &lt;&lt; endl;
+
+    // 向量示例
+    vector&lt;int&gt; myVector;
+    myVector.push_back(10);
+    myVector.push_back(20);
+    myVector.push_back(30);
+
+    cout &lt;&lt; &quot;Vector elements: &quot;;
+    for (int num : myVector) {
+        cout &lt;&lt; num &lt;&lt; &quot; &quot;;  // 输出：10 20 30
+    }
+    cout &lt;&lt; endl;
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>5. 总结</strong></h3>
+<table>
+<thead>
+<tr>
+<th>容器</th>
+<th>特点</th>
+<th>常用操作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>链表（list）</strong></td>
+<td>双向链表，适合频繁插入和删除</td>
+<td><code>push_back()</code>、<code>push_front()</code>、<code>insert()</code></td>
+</tr>
+<tr>
+<td><strong>向量（vector）</strong></td>
+<td>动态数组，适合随机访问</td>
+<td><code>push_back()</code>、<code>pop_back()</code>、<code>at()</code></td>
+</tr>
+</tbody>
+</table>
+<p>链表和向量是C++ STL中常用的容器，根据具体需求选择合适的容器可以提高程序的效率。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

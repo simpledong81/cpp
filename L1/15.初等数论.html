@@ -1,0 +1,296 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><p>初等数论是数学的一个重要分支，主要研究整数的性质及其相互关系。以下是初等数论中一些基本概念和算法的详细说明：</p>
+<hr />
+<h3><strong>1. 整除、因数、倍数、指数、质(素)数、合数</strong></h3>
+<h4><strong>(1) 整除</strong></h4>
+<ul>
+<li><strong>定义</strong>：若整数 ( a ) 和 ( b ) 满足 ( b = a \times q )（其中 ( q ) 为整数），则称 ( a ) 整除 ( b )，记作 ( a \mid b )。</li>
+<li><strong>性质</strong>：
+<ul>
+<li>若 ( a \mid b ) 且 ( b \mid c )，则 ( a \mid c )。</li>
+<li>若 ( a \mid b ) 且 ( a \mid c )，则 ( a \mid (b + c) )。</li>
+</ul>
+</li>
+</ul>
+<h4><strong>(2) 因数与倍数</strong></h4>
+<ul>
+<li><strong>因数</strong>：若 ( a \mid b )，则 ( a ) 是 ( b ) 的因数。</li>
+<li><strong>倍数</strong>：若 ( a \mid b )，则 ( b ) 是 ( a ) 的倍数。</li>
+</ul>
+<h4><strong>(3) 指数</strong></h4>
+<ul>
+<li><strong>定义</strong>：若 ( a \mid b )，则 ( b ) 是 ( a ) 的指数倍。</li>
+</ul>
+<h4><strong>(4) 质(素)数</strong></h4>
+<ul>
+<li><strong>定义</strong>：大于 1 的自然数，除了 1 和它本身外，没有其他因数。</li>
+<li><strong>示例</strong>：2, 3, 5, 7, 11, ...</li>
+</ul>
+<h4><strong>(5) 合数</strong></h4>
+<ul>
+<li><strong>定义</strong>：大于 1 的自然数，除了 1 和它本身外，还有其他因数。</li>
+<li><strong>示例</strong>：4, 6, 8, 9, 10, ...</li>
+</ul>
+<hr />
+<h3><strong>2. 取整</strong></h3>
+<ul>
+<li><strong>向下取整</strong>：( \lfloor x \rfloor ) 表示不大于 ( x ) 的最大整数。</li>
+<li><strong>向上取整</strong>：( \lceil x \rceil ) 表示不小于 ( x ) 的最小整数。</li>
+<li><strong>示例</strong>：
+<ul>
+<li>( \lfloor 3.7 \rfloor = 3 )</li>
+<li>( \lceil 3.2 \rceil = 4 )</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3><strong>3. 模运算与同余</strong></h3>
+<h4><strong>(1) 模运算</strong></h4>
+<ul>
+<li><strong>定义</strong>：对于整数 ( a ) 和正整数 ( m )，( a \mod m ) 表示 ( a ) 除以 ( m ) 的余数。</li>
+<li><strong>示例</strong>：
+<ul>
+<li>( 7 \mod 3 = 1 )</li>
+<li>( 10 \mod 5 = 0 )</li>
+</ul>
+</li>
+</ul>
+<h4><strong>(2) 同余</strong></h4>
+<ul>
+<li><strong>定义</strong>：若 ( a \mod m = b \mod m )，则称 ( a ) 与 ( b ) 对模 ( m ) 同余，记作 ( a \equiv b \pmod{m} )。</li>
+<li><strong>性质</strong>：
+<ul>
+<li>若 ( a \equiv b \pmod{m} ) 且 ( c \equiv d \pmod{m} )，则 ( a + c \equiv b + d \pmod{m} )。</li>
+<li>若 ( a \equiv b \pmod{m} )，则 ( a \times c \equiv b \times c \pmod{m} )。</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3><strong>4. 整数唯一分解定理</strong></h3>
+<ul>
+<li><strong>定理</strong>：每个大于 1 的整数都可以唯一地分解为若干个素数的乘积。</li>
+<li><strong>示例</strong>：
+<ul>
+<li>( 12 = 2^2 \times 3 )</li>
+<li>( 30 = 2 \times 3 \times 5 )</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3><strong>5. 辗转相除法（欧几里得算法）</strong></h3>
+<ul>
+<li><strong>用途</strong>：计算两个整数的最大公约数（GCD）。</li>
+<li><strong>算法步骤</strong>：
+<ol>
+<li>若 ( b = 0 )，则 ( \gcd(a, b) = a )。</li>
+<li>否则，计算 ( \gcd(b, a \mod b) )。</li>
+</ol>
+</li>
+<li><strong>示例</strong>：
+<ul>
+<li>( \gcd(48, 18) = \gcd(18, 12) = \gcd(12, 6) = \gcd(6, 0) = 6 )</li>
+</ul>
+</li>
+</ul>
+<h4><strong>代码实现</strong></h4>
+<pre><code class="language-cpp">int gcd(int a, int b) {
+    return b == 0 ? a : gcd(b, a % b);
+}
+</code></pre>
+<hr />
+<h3><strong>6. 素数筛法</strong></h3>
+<h4><strong>(1) 埃氏筛法</strong></h4>
+<ul>
+<li><strong>用途</strong>：快速筛选出一定范围内的所有素数。</li>
+<li><strong>算法步骤</strong>：
+<ol>
+<li>初始化一个布尔数组，标记所有数为素数。</li>
+<li>从 2 开始，将每个素数的倍数标记为合数。</li>
+</ol>
+</li>
+<li><strong>时间复杂度</strong>：( O(n \log \log n) )</li>
+</ul>
+<h4><strong>代码实现</strong></h4>
+<pre><code class="language-cpp">#include &lt;vector&gt;
+using namespace std;
+
+vector&lt;int&gt; sieveOfEratosthenes(int n) {
+    vector&lt;bool&gt; isPrime(n + 1, true);
+    vector&lt;int&gt; primes;
+    for (int p = 2; p * p &lt;= n; p++) {
+        if (isPrime[p]) {
+            for (int i = p * p; i &lt;= n; i += p) {
+                isPrime[i] = false;
+            }
+        }
+    }
+    for (int p = 2; p &lt;= n; p++) {
+        if (isPrime[p]) {
+            primes.push_back(p);
+        }
+    }
+    return primes;
+}
+</code></pre>
+<h4><strong>(2) 线性筛法</strong></h4>
+<ul>
+<li><strong>用途</strong>：更高效地筛选素数。</li>
+<li><strong>算法步骤</strong>：
+<ol>
+<li>初始化一个布尔数组，标记所有数为素数。</li>
+<li>使用最小质因数法，确保每个合数只被标记一次。</li>
+</ol>
+</li>
+<li><strong>时间复杂度</strong>：( O(n) )</li>
+</ul>
+<h4><strong>代码实现</strong></h4>
+<pre><code class="language-cpp">#include &lt;vector&gt;
+using namespace std;
+
+vector&lt;int&gt; linearSieve(int n) {
+    vector&lt;int&gt; primes;
+    vector&lt;int&gt; minFactor(n + 1, 0);
+    for (int i = 2; i &lt;= n; i++) {
+        if (minFactor[i] == 0) {
+            primes.push_back(i);
+            minFactor[i] = i;
+        }
+        for (int p : primes) {
+            if (p &gt; minFactor[i] || i * p &gt; n) break;
+            minFactor[i * p] = p;
+        }
+    }
+    return primes;
+}
+</code></pre>
+<hr />
+<h3><strong>7. 综合示例</strong></h3>
+<p>以下是一个完整的C++程序，演示了初等数论中的一些算法：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+// 辗转相除法
+int gcd(int a, int b) {
+    return b == 0 ? a : gcd(b, a % b);
+}
+
+// 埃氏筛法
+vector&lt;int&gt; sieveOfEratosthenes(int n) {
+    vector&lt;bool&gt; isPrime(n + 1, true);
+    vector&lt;int&gt; primes;
+    for (int p = 2; p * p &lt;= n; p++) {
+        if (isPrime[p]) {
+            for (int i = p * p; i &lt;= n; i += p) {
+                isPrime[i] = false;
+            }
+        }
+    }
+    for (int p = 2; p &lt;= n; p++) {
+        if (isPrime[p]) {
+            primes.push_back(p);
+        }
+    }
+    return primes;
+}
+
+int main() {
+    // 计算最大公约数
+    int a = 48, b = 18;
+    cout &lt;&lt; &quot;GCD of &quot; &lt;&lt; a &lt;&lt; &quot; and &quot; &lt;&lt; b &lt;&lt; &quot; is: &quot; &lt;&lt; gcd(a, b) &lt;&lt; endl;  // 输出：6
+
+    // 使用埃氏筛法筛选素数
+    int n = 30;
+    vector&lt;int&gt; primes = sieveOfEratosthenes(n);
+    cout &lt;&lt; &quot;Primes up to &quot; &lt;&lt; n &lt;&lt; &quot;: &quot;;
+    for (int p : primes) {
+        cout &lt;&lt; p &lt;&lt; &quot; &quot;;  // 输出：2 3 5 7 11 13 17 19 23 29
+    }
+    cout &lt;&lt; endl;
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>8. 总结</strong></h3>
+<table>
+<thead>
+<tr>
+<th>概念/算法</th>
+<th>说明</th>
+<th>示例/代码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>整除</strong></td>
+<td>( a \mid b ) 表示 ( a ) 整除 ( b )</td>
+<td>( 3 \mid 6 )</td>
+</tr>
+<tr>
+<td><strong>质数</strong></td>
+<td>大于 1 的自然数，只有 1 和自身两个因数</td>
+<td>2, 3, 5, 7, 11, ...</td>
+</tr>
+<tr>
+<td><strong>取整</strong></td>
+<td>向下取整 ( \lfloor x \rfloor )，向上取整 ( \lceil x \rceil )</td>
+<td>( \lfloor 3.7 \rfloor = 3 )</td>
+</tr>
+<tr>
+<td><strong>模运算</strong></td>
+<td>( a \mod m ) 表示 ( a ) 除以 ( m ) 的余数</td>
+<td>( 7 \mod 3 = 1 )</td>
+</tr>
+<tr>
+<td><strong>同余</strong></td>
+<td>( a \equiv b \pmod{m} ) 表示 ( a ) 和 ( b ) 对模 ( m ) 同余</td>
+<td>( 7 \equiv 1 \pmod{3} )</td>
+</tr>
+<tr>
+<td><strong>整数唯一分解</strong></td>
+<td>每个整数可以唯一分解为素数的乘积</td>
+<td>( 12 = 2^2 \times 3 )</td>
+</tr>
+<tr>
+<td><strong>辗转相除法</strong></td>
+<td>计算两个整数的最大公约数</td>
+<td>( \gcd(48, 18) = 6 )</td>
+</tr>
+<tr>
+<td><strong>埃氏筛法</strong></td>
+<td>筛选素数，时间复杂度 ( O(n \log \log n) )</td>
+<td><code>sieveOfEratosthenes(30)</code></td>
+</tr>
+<tr>
+<td><strong>线性筛法</strong></td>
+<td>更高效的素数筛选，时间复杂度 ( O(n) )</td>
+<td><code>linearSieve(30)</code></td>
+</tr>
+</tbody>
+</table>
+<p>初等数论是算法竞赛和编程中的重要基础，熟练掌握这些概念和算法可以解决许多数学和计算问题。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

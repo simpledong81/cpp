@@ -1,0 +1,243 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><p>在C++中，数组的读入和输出是常见的操作。通过循环和标准输入输出流（<code>cin</code> 和 <code>cout</code>），可以方便地实现数组的读入和输出。以下是详细说明和示例：</p>
+<hr />
+<h3><strong>1. 数组的读入</strong></h3>
+<p>数组的读入通常使用 <code>cin</code> 结合循环来实现。</p>
+<h4><strong>示例：读入一维数组</strong></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    const int size = 5;  // 数组大小
+    int numbers[size];   // 定义数组
+
+    // 读入数组
+    cout &lt;&lt; &quot;Enter &quot; &lt;&lt; size &lt;&lt; &quot; numbers: &quot;;
+    for (int i = 0; i &lt; size; i++) {
+        cin &gt;&gt; numbers[i];
+    }
+
+    // 输出数组
+    cout &lt;&lt; &quot;You entered: &quot;;
+    for (int i = 0; i &lt; size; i++) {
+        cout &lt;&lt; numbers[i] &lt;&lt; &quot; &quot;;
+    }
+    cout &lt;&lt; endl;
+
+    return 0;
+}
+</code></pre>
+<h4><strong>示例：读入二维数组</strong></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    const int rows = 2, cols = 3;  // 数组大小
+    int matrix[rows][cols];         // 定义二维数组
+
+    // 读入二维数组
+    cout &lt;&lt; &quot;Enter &quot; &lt;&lt; rows &lt;&lt; &quot;x&quot; &lt;&lt; cols &lt;&lt; &quot; matrix:&quot; &lt;&lt; endl;
+    for (int i = 0; i &lt; rows; i++) {
+        for (int j = 0; j &lt; cols; j++) {
+            cin &gt;&gt; matrix[i][j];
+        }
+    }
+
+    // 输出二维数组
+    cout &lt;&lt; &quot;The matrix is:&quot; &lt;&lt; endl;
+    for (int i = 0; i &lt; rows; i++) {
+        for (int j = 0; j &lt; cols; j++) {
+            cout &lt;&lt; matrix[i][j] &lt;&lt; &quot; &quot;;
+        }
+        cout &lt;&lt; endl;
+    }
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>2. 数组的输出</strong></h3>
+<p>数组的输出通常使用 <code>cout</code> 结合循环来实现。</p>
+<h4><strong>示例：输出一维数组</strong></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    const int size = 5;  // 数组大小
+    int numbers[size] = {1, 2, 3, 4, 5};  // 初始化数组
+
+    // 输出数组
+    cout &lt;&lt; &quot;Array elements: &quot;;
+    for (int i = 0; i &lt; size; i++) {
+        cout &lt;&lt; numbers[i] &lt;&lt; &quot; &quot;;
+    }
+    cout &lt;&lt; endl;
+
+    return 0;
+}
+</code></pre>
+<h4><strong>示例：输出二维数组</strong></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    const int rows = 2, cols = 3;  // 数组大小
+    int matrix[rows][cols] = {
+        {1, 2, 3},
+        {4, 5, 6}
+    };  // 初始化二维数组
+
+    // 输出二维数组
+    cout &lt;&lt; &quot;The matrix is:&quot; &lt;&lt; endl;
+    for (int i = 0; i &lt; rows; i++) {
+        for (int j = 0; j &lt; cols; j++) {
+            cout &lt;&lt; matrix[i][j] &lt;&lt; &quot; &quot;;
+        }
+        cout &lt;&lt; endl;
+    }
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>3. 综合示例</strong></h3>
+<p>以下是一个完整的C++程序，演示了数组的读入和输出：</p>
+<h4><strong>一维数组</strong></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    const int size = 5;  // 数组大小
+    int numbers[size];   // 定义数组
+
+    // 读入数组
+    cout &lt;&lt; &quot;Enter &quot; &lt;&lt; size &lt;&lt; &quot; numbers: &quot;;
+    for (int i = 0; i &lt; size; i++) {
+        cin &gt;&gt; numbers[i];
+    }
+
+    // 输出数组
+    cout &lt;&lt; &quot;You entered: &quot;;
+    for (int i = 0; i &lt; size; i++) {
+        cout &lt;&lt; numbers[i] &lt;&lt; &quot; &quot;;
+    }
+    cout &lt;&lt; endl;
+
+    return 0;
+}
+</code></pre>
+<h4><strong>二维数组</strong></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    const int rows = 2, cols = 3;  // 数组大小
+    int matrix[rows][cols];        // 定义二维数组
+
+    // 读入二维数组
+    cout &lt;&lt; &quot;Enter &quot; &lt;&lt; rows &lt;&lt; &quot;x&quot; &lt;&lt; cols &lt;&lt; &quot; matrix:&quot; &lt;&lt; endl;
+    for (int i = 0; i &lt; rows; i++) {
+        for (int j = 0; j &lt; cols; j++) {
+            cin &gt;&gt; matrix[i][j];
+        }
+    }
+
+    // 输出二维数组
+    cout &lt;&lt; &quot;The matrix is:&quot; &lt;&lt; endl;
+    for (int i = 0; i &lt; rows; i++) {
+        for (int j = 0; j &lt; cols; j++) {
+            cout &lt;&lt; matrix[i][j] &lt;&lt; &quot; &quot;;
+        }
+        cout &lt;&lt; endl;
+    }
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>4. 注意事项</strong></h3>
+<ol>
+<li>
+<p><strong>数组大小</strong>：</p>
+<ul>
+<li>数组的大小在定义时必须确定，且不能动态改变。</li>
+<li>可以使用常量或宏定义数组大小，便于维护。</li>
+</ul>
+</li>
+<li>
+<p><strong>下标越界</strong>：</p>
+<ul>
+<li>访问数组时，下标必须在 <code>0</code> 到 <code>数组大小 - 1</code> 的范围内，否则会导致未定义行为。</li>
+</ul>
+</li>
+<li>
+<p><strong>输入格式</strong>：</p>
+<ul>
+<li>输入时，数据之间可以用空格或换行分隔。</li>
+</ul>
+</li>
+<li>
+<p><strong>输出格式</strong>：</p>
+<ul>
+<li>输出时，可以使用空格、换行或制表符（<code>\t</code>）格式化输出。</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h3><strong>5. 总结</strong></h3>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>数组读入</strong></td>
+<td>使用 <code>cin</code> 结合循环读入数组元素</td>
+<td><code>cin &gt;&gt; numbers[i];</code></td>
+</tr>
+<tr>
+<td><strong>数组输出</strong></td>
+<td>使用 <code>cout</code> 结合循环输出数组元素</td>
+<td><code>cout &lt;&lt; numbers[i] &lt;&lt; &quot; &quot;;</code></td>
+</tr>
+<tr>
+<td><strong>一维数组</strong></td>
+<td>使用单层循环读入和输出</td>
+<td><code>for (int i = 0; i &lt; size; i++) { ... }</code></td>
+</tr>
+<tr>
+<td><strong>二维数组</strong></td>
+<td>使用嵌套循环读入和输出</td>
+<td><code>for (int i = 0; i &lt; rows; i++) { ... }</code></td>
+</tr>
+</tbody>
+</table>
+<p>数组的读入和输出是C++编程中的基本操作，熟练掌握这些操作可以高效地处理数据。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

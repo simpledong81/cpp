@@ -1,0 +1,257 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><p>在C++程序设计中，<strong>流程图</strong>是一种图形化工具，用于描述程序的逻辑流程。它通过图形符号表示程序的各个步骤和决策点，帮助开发者更直观地理解和设计程序。</p>
+<hr />
+<h3><strong>1. 流程图的概念</strong></h3>
+<ul>
+<li><strong>定义</strong>：流程图是用图形符号表示程序逻辑的工具，展示程序从开始到结束的执行流程。</li>
+<li><strong>作用</strong>：
+<ul>
+<li>帮助开发者理清思路，设计程序逻辑。</li>
+<li>便于团队沟通和代码维护。</li>
+<li>作为文档的一部分，记录程序的设计过程。</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3><strong>2. 流程图的符号</strong></h3>
+<p>以下是流程图中常用的符号及其含义：</p>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>名称</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Flowchart_Terminator.png" alt="Terminator" /></td>
+<td><strong>起止框</strong></td>
+<td>表示程序的开始或结束。</td>
+</tr>
+<tr>
+<td><img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Flowchart_Process.png" alt="Process" /></td>
+<td><strong>处理框</strong></td>
+<td>表示程序的处理步骤（如计算、赋值等）。</td>
+</tr>
+<tr>
+<td><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Flowchart_Decision.png" alt="Decision" /></td>
+<td><strong>判断框</strong></td>
+<td>表示条件判断（如 <code>if</code> 语句）。</td>
+</tr>
+<tr>
+<td><img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Flowchart_IO.png" alt="Input/Output" /></td>
+<td><strong>输入/输出框</strong></td>
+<td>表示输入或输出操作（如 <code>cin</code>、<code>cout</code>）。</td>
+</tr>
+<tr>
+<td><img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Flowchart_Arrow.png" alt="Arrow" /></td>
+<td><strong>流程线</strong></td>
+<td>表示程序的执行方向。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3><strong>3. 流程图的绘制步骤</strong></h3>
+<ol>
+<li><strong>确定程序的开始和结束</strong>：用起止框表示。</li>
+<li><strong>分解程序的主要步骤</strong>：用处理框表示。</li>
+<li><strong>添加条件判断</strong>：用判断框表示。</li>
+<li><strong>连接各个步骤</strong>：用流程线表示执行顺序。</li>
+<li><strong>标注输入和输出</strong>：用输入/输出框表示。</li>
+</ol>
+<hr />
+<h3><strong>4. 流程图示例</strong></h3>
+<p>以下是一个简单的C++程序的流程图描述：<strong>计算两个数的和并输出结果</strong>。</p>
+<h4><strong>C++代码</strong></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int a, b, sum;
+
+    // 输入
+    cout &lt;&lt; &quot;Enter two numbers: &quot;;
+    cin &gt;&gt; a &gt;&gt; b;
+
+    // 计算
+    sum = a + b;
+
+    // 输出
+    cout &lt;&lt; &quot;Sum: &quot; &lt;&lt; sum &lt;&lt; endl;
+
+    return 0;
+}
+</code></pre>
+<h4><strong>流程图描述</strong></h4>
+<ol>
+<li><strong>开始</strong>：用起止框表示程序的开始。</li>
+<li><strong>输入</strong>：用输入/输出框表示输入两个数。</li>
+<li><strong>计算</strong>：用处理框表示计算两个数的和。</li>
+<li><strong>输出</strong>：用输入/输出框表示输出结果。</li>
+<li><strong>结束</strong>：用起止框表示程序的结束。</li>
+</ol>
+<h4><strong>流程图图示</strong></h4>
+<pre><code>+-------------------+
+|      Start        |
++-------------------+
+          |
+          v
++-------------------+
+| 输入两个数 (a, b) |
++-------------------+
+          |
+          v
++-------------------+
+| 计算 sum = a + b  |
++-------------------+
+          |
+          v
++-------------------+
+| 输出 sum          |
++-------------------+
+          |
+          v
++-------------------+
+|      End          |
++-------------------+
+</code></pre>
+<hr />
+<h3><strong>5. 复杂流程图的示例</strong></h3>
+<p>以下是一个更复杂的C++程序的流程图描述：<strong>判断一个数是否为偶数</strong>。</p>
+<h4><strong>C++代码</strong></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int num;
+
+    // 输入
+    cout &lt;&lt; &quot;Enter a number: &quot;;
+    cin &gt;&gt; num;
+
+    // 判断
+    if (num % 2 == 0) {
+        cout &lt;&lt; num &lt;&lt; &quot; is even.&quot; &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; num &lt;&lt; &quot; is odd.&quot; &lt;&lt; endl;
+    }
+
+    return 0;
+}
+</code></pre>
+<h4><strong>流程图描述</strong></h4>
+<ol>
+<li><strong>开始</strong>：用起止框表示程序的开始。</li>
+<li><strong>输入</strong>：用输入/输出框表示输入一个数。</li>
+<li><strong>判断</strong>：用判断框表示判断该数是否为偶数。
+<ul>
+<li>如果是偶数，输出“偶数”。</li>
+<li>如果是奇数，输出“奇数”。</li>
+</ul>
+</li>
+<li><strong>结束</strong>：用起止框表示程序的结束。</li>
+</ol>
+<h4><strong>流程图图示</strong></h4>
+<pre><code>+-------------------+
+|      Start        |
++-------------------+
+          |
+          v
++-------------------+
+| 输入一个数 (num)  |
++-------------------+
+          |
+          v
++-------------------+
+| num % 2 == 0 ?    |
++-------------------+
+          |
+    +----+----+
+    |         |
+    v         v
++-------+  +-------+
+| 偶数  |  | 奇数  |
++-------+  +-------+
+    |         |
+    v         v
++-------------------+
+|      End          |
++-------------------+
+</code></pre>
+<hr />
+<h3><strong>6. 流程图的工具</strong></h3>
+<ul>
+<li><strong>手绘</strong>：在纸上绘制流程图。</li>
+<li><strong>软件工具</strong>：
+<ul>
+<li>Microsoft Visio</li>
+<li>Lucidchart</li>
+<li>Draw.io</li>
+<li>PlantUML</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3><strong>7. 总结</strong></h3>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>确定开始和结束</strong></td>
+<td>用起止框表示程序的开始和结束</td>
+<td><code>Start</code> 和 <code>End</code></td>
+</tr>
+<tr>
+<td><strong>分解步骤</strong></td>
+<td>用处理框表示程序的主要步骤</td>
+<td>输入、计算、输出</td>
+</tr>
+<tr>
+<td><strong>添加判断</strong></td>
+<td>用判断框表示条件判断</td>
+<td><code>if (num % 2 == 0)</code></td>
+</tr>
+<tr>
+<td><strong>连接步骤</strong></td>
+<td>用流程线表示执行顺序</td>
+<td>箭头连接各个步骤</td>
+</tr>
+<tr>
+<td><strong>标注输入/输出</strong></td>
+<td>用输入/输出框表示输入和输出操作</td>
+<td><code>cin &gt;&gt; num</code> 和 <code>cout &lt;&lt; sum</code></td>
+</tr>
+</tbody>
+</table>
+<p>流程图是C++程序设计中非常重要的工具，能够帮助开发者清晰地描述程序逻辑，提高代码的可读性和可维护性。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

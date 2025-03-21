@@ -1,0 +1,189 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><h3>动态规划（Dynamic Programming, DP）</h3>
+<h4>1. 什么是动态规划？</h4>
+<p>动态规划是一种用于解决<strong>最优化问题</strong>的算法设计方法。它通过将问题分解为子问题，并保存子问题的解（通常称为“状态”），避免重复计算，从而提高算法的效率。</p>
+<hr />
+<h4>2. 动态规划的基本思想</h4>
+<ol>
+<li><strong>分解问题</strong>：将原问题分解为若干子问题。</li>
+<li><strong>保存状态</strong>：将子问题的解保存起来，避免重复计算。</li>
+<li><strong>递推求解</strong>：通过子问题的解推导出原问题的解。</li>
+<li><strong>最优子结构</strong>：原问题的最优解可以通过子问题的最优解推导出来。</li>
+<li><strong>重叠子问题</strong>：子问题之间存在重叠，即多个子问题共享相同的子子问题。</li>
+</ol>
+<hr />
+<h4>3. 动态规划的适用场景</h4>
+<ul>
+<li><strong>最优化问题</strong>：如最短路径、最大子数组和、背包问题等。</li>
+<li><strong>计数问题</strong>：如爬楼梯问题、路径计数问题等。</li>
+<li><strong>决策问题</strong>：如最长公共子序列、编辑距离等。</li>
+</ul>
+<hr />
+<h4>4. 动态规划的基本步骤</h4>
+<ol>
+<li><strong>定义状态</strong>：明确问题的状态表示，通常用一个数组或矩阵表示。</li>
+<li><strong>确定状态转移方程</strong>：找到状态之间的关系，即如何从子问题的解推导出当前问题的解。</li>
+<li><strong>初始化</strong>：确定初始状态的值。</li>
+<li><strong>计算顺序</strong>：按照一定的顺序计算状态值，通常是从小到大或从简单到复杂。</li>
+<li><strong>返回结果</strong>：根据状态值得到原问题的解。</li>
+</ol>
+<hr />
+<h4>5. 动态规划的经典问题</h4>
+<h5>（1）斐波那契数列</h5>
+<p><strong>问题描述</strong>：计算第 <code>n</code> 个斐波那契数。</p>
+<p><strong>状态定义</strong>：</p>
+<ul>
+<li><code>dp[i]</code> 表示第 <code>i</code> 个斐波那契数。</li>
+</ul>
+<p><strong>状态转移方程</strong>：</p>
+<ul>
+<li><code>dp[i] = dp[i-1] + dp[i-2]</code></li>
+</ul>
+<p><strong>代码实现</strong>：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+int fibonacci(int n) {
+    if (n &lt;= 1) return n;
+
+    vector&lt;int&gt; dp(n + 1);
+    dp[0] = 0; // 初始状态
+    dp[1] = 1; // 初始状态
+
+    for (int i = 2; i &lt;= n; i++) {
+        dp[i] = dp[i - 1] + dp[i - 2]; // 状态转移方程
+    }
+
+    return dp[n];
+}
+
+int main() {
+    int n = 10;
+    cout &lt;&lt; &quot;第 &quot; &lt;&lt; n &lt;&lt; &quot; 个斐波那契数是: &quot; &lt;&lt; fibonacci(n) &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>第 10 个斐波那契数是: 55
+</code></pre>
+<hr />
+<h5>（2）爬楼梯问题</h5>
+<p><strong>问题描述</strong>：有 <code>n</code> 阶楼梯，每次可以爬 1 阶或 2 阶，问有多少种不同的方法可以爬到楼顶。</p>
+<p><strong>状态定义</strong>：</p>
+<ul>
+<li><code>dp[i]</code> 表示爬到第 <code>i</code> 阶楼梯的方法数。</li>
+</ul>
+<p><strong>状态转移方程</strong>：</p>
+<ul>
+<li><code>dp[i] = dp[i-1] + dp[i-2]</code></li>
+</ul>
+<p><strong>代码实现</strong>：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+int climbStairs(int n) {
+    if (n &lt;= 2) return n;
+
+    vector&lt;int&gt; dp(n + 1);
+    dp[0] = 1; // 初始状态
+    dp[1] = 1; // 初始状态
+
+    for (int i = 2; i &lt;= n; i++) {
+        dp[i] = dp[i - 1] + dp[i - 2]; // 状态转移方程
+    }
+
+    return dp[n];
+}
+
+int main() {
+    int n = 5;
+    cout &lt;&lt; &quot;爬到第 &quot; &lt;&lt; n &lt;&lt; &quot; 阶楼梯的方法数是: &quot; &lt;&lt; climbStairs(n) &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>爬到第 5 阶楼梯的方法数是: 8
+</code></pre>
+<hr />
+<h5>（3）背包问题</h5>
+<p><strong>问题描述</strong>：给定一组物品，每个物品有重量和价值，在不超过背包容量的情况下，选择物品使得总价值最大。</p>
+<p><strong>状态定义</strong>：</p>
+<ul>
+<li><code>dp[i][j]</code> 表示前 <code>i</code> 个物品在容量为 <code>j</code> 的情况下的最大价值。</li>
+</ul>
+<p><strong>状态转移方程</strong>：</p>
+<ul>
+<li>如果第 <code>i</code> 个物品不放入背包：<code>dp[i][j] = dp[i-1][j]</code></li>
+<li>如果第 <code>i</code> 个物品放入背包：<code>dp[i][j] = dp[i-1][j-w[i]] + v[i]</code></li>
+<li>最终结果：<code>dp[i][j] = max(dp[i-1][j], dp[i-1][j-w[i]] + v[i])</code></li>
+</ul>
+<p><strong>代码实现</strong>：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+int knapsack(int W, vector&lt;int&gt;&amp; weights, vector&lt;int&gt;&amp; values) {
+    int n = weights.size();
+    vector&lt;vector&lt;int&gt;&gt; dp(n + 1, vector&lt;int&gt;(W + 1, 0));
+
+    for (int i = 1; i &lt;= n; i++) {
+        for (int j = 1; j &lt;= W; j++) {
+            if (weights[i - 1] &lt;= j) {
+                dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - weights[i - 1]] + values[i - 1]);
+            } else {
+                dp[i][j] = dp[i - 1][j];
+            }
+        }
+    }
+
+    return dp[n][W];
+}
+
+int main() {
+    vector&lt;int&gt; weights = {2, 3, 4, 5};
+    vector&lt;int&gt; values = {3, 4, 5, 6};
+    int W = 5;
+
+    cout &lt;&lt; &quot;背包问题的最大价值是: &quot; &lt;&lt; knapsack(W, weights, values) &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>背包问题的最大价值是: 7
+</code></pre>
+<hr />
+<h4>6. 动态规划的优化</h4>
+<ul>
+<li><strong>空间优化</strong>：如果状态转移只依赖于前一个状态，可以使用滚动数组或一维数组优化空间复杂度。</li>
+<li><strong>状态压缩</strong>：对于某些问题，可以使用位运算或其他技巧压缩状态表示。</li>
+</ul>
+<hr />
+<h4>7. 动态规划的总结</h4>
+<p>动态规划是一种强大的算法设计方法，适用于解决最优化问题、计数问题和决策问题。通过定义状态、确定状态转移方程、初始化和计算顺序，可以高效地求解复杂问题。掌握动态规划的基本思路和经典问题，有助于解决许多实际问题。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

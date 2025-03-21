@@ -1,0 +1,206 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><p>在C++中，**栈（Stack）<strong>和</strong>队列（Queue）<strong>是两种常用的线性数据结构，分别遵循</strong>后进先出（LIFO）<strong>和</strong>先进先出（FIFO）**的原则。STL（标准模板库）提供了 <code>stack</code> 和 <code>queue</code> 容器，用于方便地实现这两种数据结构。以下是栈和队列的详细说明和示例：</p>
+<hr />
+<h3><strong>1. 栈（Stack）</strong></h3>
+<p>栈是一种后进先出（LIFO）的数据结构，最后入栈的元素最先出栈。</p>
+<h4><strong>(1) 栈的特点</strong></h4>
+<ul>
+<li><strong>操作</strong>：
+<ul>
+<li><code>push()</code>：将元素压入栈顶。</li>
+<li><code>pop()</code>：弹出栈顶元素。</li>
+<li><code>top()</code>：返回栈顶元素。</li>
+<li><code>empty()</code>：判断栈是否为空。</li>
+<li><code>size()</code>：返回栈中元素的数量。</li>
+</ul>
+</li>
+<li><strong>应用场景</strong>：
+<ul>
+<li>函数调用栈。</li>
+<li>表达式求值。</li>
+<li>括号匹配。</li>
+</ul>
+</li>
+</ul>
+<h4><strong>(2) 栈的STL实现</strong></h4>
+<ul>
+<li><strong>头文件</strong>：<code>&lt;stack&gt;</code></li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;stack&gt;
+using namespace std;
+
+int main() {
+    stack&lt;int&gt; s;
+
+    // 压入元素
+    s.push(10);
+    s.push(20);
+    s.push(30);
+
+    // 访问栈顶元素
+    cout &lt;&lt; &quot;Top element: &quot; &lt;&lt; s.top() &lt;&lt; endl;  // 输出：30
+
+    // 弹出栈顶元素
+    s.pop();
+    cout &lt;&lt; &quot;Top element after pop: &quot; &lt;&lt; s.top() &lt;&lt; endl;  // 输出：20
+
+    // 判断栈是否为空
+    cout &lt;&lt; &quot;Is stack empty? &quot; &lt;&lt; (s.empty() ? &quot;Yes&quot; : &quot;No&quot;) &lt;&lt; endl;  // 输出：No
+
+    // 获取栈的大小
+    cout &lt;&lt; &quot;Stack size: &quot; &lt;&lt; s.size() &lt;&lt; endl;  // 输出：2
+
+    return 0;
+}
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>2. 队列（Queue）</strong></h3>
+<p>队列是一种先进先出（FIFO）的数据结构，最先入队的元素最先出队。</p>
+<h4><strong>(1) 队列的特点</strong></h4>
+<ul>
+<li><strong>操作</strong>：
+<ul>
+<li><code>push()</code>：将元素加入队尾。</li>
+<li><code>pop()</code>：移除队首元素。</li>
+<li><code>front()</code>：返回队首元素。</li>
+<li><code>back()</code>：返回队尾元素。</li>
+<li><code>empty()</code>：判断队列是否为空。</li>
+<li><code>size()</code>：返回队列中元素的数量。</li>
+</ul>
+</li>
+<li><strong>应用场景</strong>：
+<ul>
+<li>任务调度。</li>
+<li>消息队列。</li>
+<li>广度优先搜索（BFS）。</li>
+</ul>
+</li>
+</ul>
+<h4><strong>(2) 队列的STL实现</strong></h4>
+<ul>
+<li><strong>头文件</strong>：<code>&lt;queue&gt;</code></li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;queue&gt;
+using namespace std;
+
+int main() {
+    queue&lt;int&gt; q;
+
+    // 加入元素
+    q.push(10);
+    q.push(20);
+    q.push(30);
+
+    // 访问队首和队尾元素
+    cout &lt;&lt; &quot;Front element: &quot; &lt;&lt; q.front() &lt;&lt; endl;  // 输出：10
+    cout &lt;&lt; &quot;Back element: &quot; &lt;&lt; q.back() &lt;&lt; endl;    // 输出：30
+
+    // 移除队首元素
+    q.pop();
+    cout &lt;&lt; &quot;Front element after pop: &quot; &lt;&lt; q.front() &lt;&lt; endl;  // 输出：20
+
+    // 判断队列是否为空
+    cout &lt;&lt; &quot;Is queue empty? &quot; &lt;&lt; (q.empty() ? &quot;Yes&quot; : &quot;No&quot;) &lt;&lt; endl;  // 输出：No
+
+    // 获取队列的大小
+    cout &lt;&lt; &quot;Queue size: &quot; &lt;&lt; q.size() &lt;&lt; endl;  // 输出：2
+
+    return 0;
+}
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>3. 栈和队列的综合示例</strong></h3>
+<p>以下是一个完整的C++程序，演示了栈和队列的使用：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;stack&gt;
+#include &lt;queue&gt;
+using namespace std;
+
+int main() {
+    // 栈的使用
+    stack&lt;int&gt; s;
+    s.push(10);
+    s.push(20);
+    s.push(30);
+
+    cout &lt;&lt; &quot;Stack operations:&quot; &lt;&lt; endl;
+    cout &lt;&lt; &quot;Top element: &quot; &lt;&lt; s.top() &lt;&lt; endl;  // 输出：30
+    s.pop();
+    cout &lt;&lt; &quot;Top element after pop: &quot; &lt;&lt; s.top() &lt;&lt; endl;  // 输出：20
+    cout &lt;&lt; &quot;Stack size: &quot; &lt;&lt; s.size() &lt;&lt; endl;  // 输出：2
+    cout &lt;&lt; &quot;Is stack empty? &quot; &lt;&lt; (s.empty() ? &quot;Yes&quot; : &quot;No&quot;) &lt;&lt; endl;  // 输出：No
+
+    // 队列的使用
+    queue&lt;int&gt; q;
+    q.push(10);
+    q.push(20);
+    q.push(30);
+
+    cout &lt;&lt; &quot;\nQueue operations:&quot; &lt;&lt; endl;
+    cout &lt;&lt; &quot;Front element: &quot; &lt;&lt; q.front() &lt;&lt; endl;  // 输出：10
+    cout &lt;&lt; &quot;Back element: &quot; &lt;&lt; q.back() &lt;&lt; endl;    // 输出：30
+    q.pop();
+    cout &lt;&lt; &quot;Front element after pop: &quot; &lt;&lt; q.front() &lt;&lt; endl;  // 输出：20
+    cout &lt;&lt; &quot;Queue size: &quot; &lt;&lt; q.size() &lt;&lt; endl;  // 输出：2
+    cout &lt;&lt; &quot;Is queue empty? &quot; &lt;&lt; (q.empty() ? &quot;Yes&quot; : &quot;No&quot;) &lt;&lt; endl;  // 输出：No
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>4. 总结</strong></h3>
+<table>
+<thead>
+<tr>
+<th>数据结构</th>
+<th>特点</th>
+<th>常用操作</th>
+<th>应用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>栈</strong></td>
+<td>后进先出（LIFO）</td>
+<td><code>push()</code>、<code>pop()</code>、<code>top()</code>、<code>empty()</code></td>
+<td>函数调用栈、括号匹配</td>
+</tr>
+<tr>
+<td><strong>队列</strong></td>
+<td>先进先出（FIFO）</td>
+<td><code>push()</code>、<code>pop()</code>、<code>front()</code>、<code>back()</code></td>
+<td>任务调度、广度优先搜索（BFS）</td>
+</tr>
+</tbody>
+</table>
+<p>栈和队列是C++编程中常用的数据结构，熟练掌握它们的用法可以高效地解决许多实际问题。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

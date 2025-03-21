@@ -1,0 +1,181 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><p>在C++中，<strong>自增（<code>++</code>）</strong> 和 <strong>自减（<code>--</code>）</strong> 运算符用于对变量的值进行加 1 或减 1 操作。它们可以放在变量的前面（前缀形式）或后面（后缀形式），具体行为有所不同。以下是它们的详细说明和示例：</p>
+<hr />
+<h3><strong>1. 自增运算符 (<code>++</code>)</strong></h3>
+<ul>
+<li><strong>作用</strong>：将变量的值加 1。</li>
+<li><strong>前缀形式</strong>：<code>++变量</code>
+<ul>
+<li>先对变量加 1，然后返回加 1 后的值。</li>
+</ul>
+</li>
+<li><strong>后缀形式</strong>：<code>变量++</code>
+<ul>
+<li>先返回变量的当前值，然后对变量加 1。</li>
+</ul>
+</li>
+</ul>
+<h4><strong>示例</strong></h4>
+<pre><code class="language-cpp">int a = 5;
+
+// 前缀形式
+int b = ++a;  // a = 6, b = 6
+
+// 后缀形式
+int c = a++;  // a = 7, c = 6
+</code></pre>
+<hr />
+<h3><strong>2. 自减运算符 (<code>--</code>)</strong></h3>
+<ul>
+<li><strong>作用</strong>：将变量的值减 1。</li>
+<li><strong>前缀形式</strong>：<code>--变量</code>
+<ul>
+<li>先对变量减 1，然后返回减 1 后的值。</li>
+</ul>
+</li>
+<li><strong>后缀形式</strong>：<code>变量--</code>
+<ul>
+<li>先返回变量的当前值，然后对变量减 1。</li>
+</ul>
+</li>
+</ul>
+<h4><strong>示例</strong></h4>
+<pre><code class="language-cpp">int a = 5;
+
+// 前缀形式
+int b = --a;  // a = 4, b = 4
+
+// 后缀形式
+int c = a--;  // a = 3, c = 4
+</code></pre>
+<hr />
+<h3><strong>3. 综合示例</strong></h3>
+<p>以下是一个完整的C++程序，演示了自增和自减运算符的用法：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int a = 10;
+
+    // 自增运算符
+    cout &lt;&lt; &quot;Initial value of a: &quot; &lt;&lt; a &lt;&lt; endl;  // 输出：10
+
+    int b = ++a;  // 前缀形式
+    cout &lt;&lt; &quot;After prefix increment (++a): a = &quot; &lt;&lt; a &lt;&lt; &quot;, b = &quot; &lt;&lt; b &lt;&lt; endl;  // 输出：a = 11, b = 11
+
+    int c = a++;  // 后缀形式
+    cout &lt;&lt; &quot;After postfix increment (a++): a = &quot; &lt;&lt; a &lt;&lt; &quot;, c = &quot; &lt;&lt; c &lt;&lt; endl;  // 输出：a = 12, c = 11
+
+    // 自减运算符
+    int d = --a;  // 前缀形式
+    cout &lt;&lt; &quot;After prefix decrement (--a): a = &quot; &lt;&lt; a &lt;&lt; &quot;, d = &quot; &lt;&lt; d &lt;&lt; endl;  // 输出：a = 11, d = 11
+
+    int e = a--;  // 后缀形式
+    cout &lt;&lt; &quot;After postfix decrement (a--): a = &quot; &lt;&lt; a &lt;&lt; &quot;, e = &quot; &lt;&lt; e &lt;&lt; endl;  // 输出：a = 10, e = 11
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>4. 注意事项</strong></h3>
+<ol>
+<li>
+<p><strong>前缀与后缀的区别</strong>：</p>
+<ul>
+<li>前缀形式（<code>++a</code> 或 <code>--a</code>）先修改值，再使用变量。</li>
+<li>后缀形式（<code>a++</code> 或 <code>a--</code>）先使用变量，再修改值。</li>
+</ul>
+</li>
+<li>
+<p><strong>副作用</strong>：</p>
+<ul>
+<li>自增和自减运算符会修改变量的值，因此在使用时要注意副作用。</li>
+<li>示例：
+<pre><code class="language-cpp">int a = 5;
+int b = a++ + ++a;  // 行为未定义，避免在同一表达式中多次修改同一变量
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>非整数类型</strong>：</p>
+<ul>
+<li>自增和自减运算符也可以用于指针和迭代器。</li>
+<li>示例：
+<pre><code class="language-cpp">int arr[] = {1, 2, 3};
+int* p = arr;
+cout &lt;&lt; *p++ &lt;&lt; endl;  // 输出：1（先取 *p，然后 p++）
+cout &lt;&lt; *p &lt;&lt; endl;    // 输出：2
+</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h3><strong>5. 总结</strong></h3>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>形式</th>
+<th>作用</th>
+<th>示例</th>
+<th>结果（示例）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>++</code></td>
+<td>前缀形式</td>
+<td>先加 1，再使用值</td>
+<td><code>++a</code></td>
+<td><code>a = 6, b = 6</code></td>
+</tr>
+<tr>
+<td><code>++</code></td>
+<td>后缀形式</td>
+<td>先使用值，再加 1</td>
+<td><code>a++</code></td>
+<td><code>a = 7, c = 6</code></td>
+</tr>
+<tr>
+<td><code>--</code></td>
+<td>前缀形式</td>
+<td>先减 1，再使用值</td>
+<td><code>--a</code></td>
+<td><code>a = 4, b = 4</code></td>
+</tr>
+<tr>
+<td><code>--</code></td>
+<td>后缀形式</td>
+<td>先使用值，再减 1</td>
+<td><code>a--</code></td>
+<td><code>a = 3, c = 4</code></td>
+</tr>
+</tbody>
+</table>
+<p>自增和自减运算符是C++编程中常用的工具，熟练掌握它们可以编写出简洁高效的代码。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

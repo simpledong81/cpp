@@ -1,0 +1,288 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><p>在C++中，<strong>作用范围</strong>（Scope）是指变量或常量在程序中可见和可用的区域。作用范围分为<strong>局部作用范围</strong>和<strong>全局作用范围</strong>。以下是常量与变量的作用范围的详细说明和示例：</p>
+<hr />
+<h3><strong>1. 局部作用范围</strong></h3>
+<p>局部作用范围是指变量或常量在函数或代码块内部定义，只能在该函数或代码块内访问。</p>
+<h4><strong>(1) 局部变量</strong></h4>
+<ul>
+<li><strong>定义</strong>：在函数或代码块内部定义的变量。</li>
+<li><strong>特点</strong>：
+<ul>
+<li>生命周期从定义处开始，到函数或代码块结束时结束。</li>
+<li>只能在定义它的函数或代码块内访问。</li>
+</ul>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+void myFunction() {
+    int x = 10;  // 局部变量
+    cout &lt;&lt; &quot;Inside function: &quot; &lt;&lt; x &lt;&lt; endl;  // 输出：10
+}
+
+int main() {
+    myFunction();
+    // cout &lt;&lt; x &lt;&lt; endl;  // 错误：x 不可访问
+    return 0;
+}
+</code></pre>
+</li>
+</ul>
+<h4><strong>(2) 局部常量</strong></h4>
+<ul>
+<li><strong>定义</strong>：在函数或代码块内部定义的常量。</li>
+<li><strong>特点</strong>：
+<ul>
+<li>生命周期和作用范围与局部变量相同。</li>
+<li>只能在定义它的函数或代码块内访问。</li>
+</ul>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+void myFunction() {
+    const int y = 20;  // 局部常量
+    cout &lt;&lt; &quot;Inside function: &quot; &lt;&lt; y &lt;&lt; endl;  // 输出：20
+}
+
+int main() {
+    myFunction();
+    // cout &lt;&lt; y &lt;&lt; endl;  // 错误：y 不可访问
+    return 0;
+}
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>2. 全局作用范围</strong></h3>
+<p>全局作用范围是指变量或常量在函数外部定义，可以在整个程序内访问。</p>
+<h4><strong>(1) 全局变量</strong></h4>
+<ul>
+<li><strong>定义</strong>：在函数外部定义的变量。</li>
+<li><strong>特点</strong>：
+<ul>
+<li>生命周期从程序开始到程序结束。</li>
+<li>可以在程序的任何地方访问。</li>
+</ul>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int x = 10;  // 全局变量
+
+void myFunction() {
+    cout &lt;&lt; &quot;Inside function: &quot; &lt;&lt; x &lt;&lt; endl;  // 输出：10
+}
+
+int main() {
+    cout &lt;&lt; &quot;Outside function: &quot; &lt;&lt; x &lt;&lt; endl;  // 输出：10
+    myFunction();
+    return 0;
+}
+</code></pre>
+</li>
+</ul>
+<h4><strong>(2) 全局常量</strong></h4>
+<ul>
+<li><strong>定义</strong>：在函数外部定义的常量。</li>
+<li><strong>特点</strong>：
+<ul>
+<li>生命周期和作用范围与全局变量相同。</li>
+<li>可以在程序的任何地方访问。</li>
+</ul>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+const int y = 20;  // 全局常量
+
+void myFunction() {
+    cout &lt;&lt; &quot;Inside function: &quot; &lt;&lt; y &lt;&lt; endl;  // 输出：20
+}
+
+int main() {
+    cout &lt;&lt; &quot;Outside function: &quot; &lt;&lt; y &lt;&lt; endl;  // 输出：20
+    myFunction();
+    return 0;
+}
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>3. 块作用范围</strong></h3>
+<p>块作用范围是指变量或常量在代码块（如 <code>if</code>、<code>for</code>、<code>while</code> 等）内部定义，只能在该代码块内访问。</p>
+<h4><strong>(1) 块变量</strong></h4>
+<ul>
+<li><strong>定义</strong>：在代码块内部定义的变量。</li>
+<li><strong>特点</strong>：
+<ul>
+<li>生命周期从定义处开始，到代码块结束时结束。</li>
+<li>只能在定义它的代码块内访问。</li>
+</ul>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int x = 10;  // 局部变量
+    if (x &gt; 5) {
+        int y = 20;  // 块变量
+        cout &lt;&lt; &quot;Inside block: &quot; &lt;&lt; y &lt;&lt; endl;  // 输出：20
+    }
+    // cout &lt;&lt; y &lt;&lt; endl;  // 错误：y 不可访问
+    return 0;
+}
+</code></pre>
+</li>
+</ul>
+<h4><strong>(2) 块常量</strong></h4>
+<ul>
+<li><strong>定义</strong>：在代码块内部定义的常量。</li>
+<li><strong>特点</strong>：
+<ul>
+<li>生命周期和作用范围与块变量相同。</li>
+<li>只能在定义它的代码块内访问。</li>
+</ul>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int x = 10;  // 局部变量
+    if (x &gt; 5) {
+        const int y = 20;  // 块常量
+        cout &lt;&lt; &quot;Inside block: &quot; &lt;&lt; y &lt;&lt; endl;  // 输出：20
+    }
+    // cout &lt;&lt; y &lt;&lt; endl;  // 错误：y 不可访问
+    return 0;
+}
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>4. 作用范围冲突</strong></h3>
+<p>如果在不同作用范围内定义了同名变量或常量，内层作用范围的变量或常量会<strong>隐藏</strong>外层作用范围的变量或常量。</p>
+<h4><strong>示例</strong></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int x = 10;  // 全局变量
+
+int main() {
+    int x = 20;  // 局部变量，隐藏全局变量 x
+    cout &lt;&lt; &quot;Local x: &quot; &lt;&lt; x &lt;&lt; endl;  // 输出：20
+    cout &lt;&lt; &quot;Global x: &quot; &lt;&lt; ::x &lt;&lt; endl;  // 使用作用域解析运算符访问全局变量 x
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>5. 综合示例</strong></h3>
+<p>以下是一个完整的C++程序，演示了局部作用范围、全局作用范围和块作用范围的使用：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int globalVar = 100;  // 全局变量
+const int globalConst = 200;  // 全局常量
+
+void myFunction() {
+    int localVar = 10;  // 局部变量
+    const int localConst = 20;  // 局部常量
+
+    cout &lt;&lt; &quot;Inside function:&quot; &lt;&lt; endl;
+    cout &lt;&lt; &quot;Local variable: &quot; &lt;&lt; localVar &lt;&lt; endl;  // 输出：10
+    cout &lt;&lt; &quot;Local constant: &quot; &lt;&lt; localConst &lt;&lt; endl;  // 输出：20
+    cout &lt;&lt; &quot;Global variable: &quot; &lt;&lt; globalVar &lt;&lt; endl;  // 输出：100
+    cout &lt;&lt; &quot;Global constant: &quot; &lt;&lt; globalConst &lt;&lt; endl;  // 输出：200
+}
+
+int main() {
+    int localVar = 30;  // 局部变量，隐藏全局变量
+    const int localConst = 40;  // 局部常量
+
+    cout &lt;&lt; &quot;Inside main:&quot; &lt;&lt; endl;
+    cout &lt;&lt; &quot;Local variable: &quot; &lt;&lt; localVar &lt;&lt; endl;  // 输出：30
+    cout &lt;&lt; &quot;Local constant: &quot; &lt;&lt; localConst &lt;&lt; endl;  // 输出：40
+    cout &lt;&lt; &quot;Global variable: &quot; &lt;&lt; globalVar &lt;&lt; endl;  // 输出：100
+    cout &lt;&lt; &quot;Global constant: &quot; &lt;&lt; globalConst &lt;&lt; endl;  // 输出：200
+
+    if (localVar &gt; 20) {
+        int blockVar = 50;  // 块变量
+        const int blockConst = 60;  // 块常量
+
+        cout &lt;&lt; &quot;Inside block:&quot; &lt;&lt; endl;
+        cout &lt;&lt; &quot;Block variable: &quot; &lt;&lt; blockVar &lt;&lt; endl;  // 输出：50
+        cout &lt;&lt; &quot;Block constant: &quot; &lt;&lt; blockConst &lt;&lt; endl;  // 输出：60
+    }
+
+    myFunction();
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>6. 总结</strong></h3>
+<table>
+<thead>
+<tr>
+<th>作用范围</th>
+<th>定义位置</th>
+<th>生命周期</th>
+<th>访问范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>局部作用范围</strong></td>
+<td>函数或代码块内部</td>
+<td>函数或代码块内</td>
+<td>函数或代码块内</td>
+</tr>
+<tr>
+<td><strong>全局作用范围</strong></td>
+<td>函数外部</td>
+<td>整个程序</td>
+<td>整个程序</td>
+</tr>
+<tr>
+<td><strong>块作用范围</strong></td>
+<td>代码块内部（如 <code>if</code>、<code>for</code>）</td>
+<td>代码块内</td>
+<td>代码块内</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>局部变量/常量</strong>：在函数或代码块内定义，作用范围限于定义区域。</li>
+<li><strong>全局变量/常量</strong>：在函数外部定义，作用范围覆盖整个程序。</li>
+<li><strong>块变量/常量</strong>：在代码块内定义，作用范围限于代码块内。</li>
+</ul>
+<p>理解作用范围的概念有助于编写结构清晰、易于维护的代码。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

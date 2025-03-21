@@ -1,0 +1,239 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><p>在C++中，<strong>数组</strong>是一种用于存储相同类型数据的集合。数组中的每个元素通过<strong>下标</strong>（索引）访问，下标从 <code>0</code> 开始。以下是数组及其下标的相关概念和用法：</p>
+<hr />
+<h3><strong>1. 数组的定义</strong></h3>
+<ul>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">数据类型 数组名[数组大小];
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">int numbers[5];  // 定义一个包含 5 个整数的数组
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>2. 数组的初始化</strong></h3>
+<ul>
+<li><strong>静态初始化</strong>：在定义数组时直接赋值。
+<pre><code class="language-cpp">int numbers[5] = {1, 2, 3, 4, 5};  // 初始化数组
+</code></pre>
+</li>
+<li><strong>部分初始化</strong>：只初始化部分元素，未初始化的元素默认为 0。
+<pre><code class="language-cpp">int numbers[5] = {1, 2};  // 数组内容：{1, 2, 0, 0, 0}
+</code></pre>
+</li>
+<li><strong>自动推断大小</strong>：根据初始化值的数量自动确定数组大小。
+<pre><code class="language-cpp">int numbers[] = {1, 2, 3, 4, 5};  // 数组大小为 5
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>3. 数组与下标</strong></h3>
+<ul>
+<li><strong>下标</strong>：用于访问数组中的元素，下标从 <code>0</code> 开始。</li>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">数组名[下标]
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">int numbers[5] = {10, 20, 30, 40, 50};
+cout &lt;&lt; numbers[0] &lt;&lt; endl;  // 输出：10
+cout &lt;&lt; numbers[2] &lt;&lt; endl;  // 输出：30
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>4. 数组的遍历</strong></h3>
+<p>可以使用循环遍历数组中的所有元素。</p>
+<h4><strong>示例 1：使用 <code>for</code> 循环</strong></h4>
+<pre><code class="language-cpp">int numbers[5] = {10, 20, 30, 40, 50};
+for (int i = 0; i &lt; 5; i++) {
+    cout &lt;&lt; numbers[i] &lt;&lt; &quot; &quot;;
+}
+// 输出：10 20 30 40 50
+</code></pre>
+<h4><strong>示例 2：使用范围 <code>for</code> 循环（C++11）</strong></h4>
+<pre><code class="language-cpp">int numbers[5] = {10, 20, 30, 40, 50};
+for (int num : numbers) {
+    cout &lt;&lt; num &lt;&lt; &quot; &quot;;
+}
+// 输出：10 20 30 40 50
+</code></pre>
+<hr />
+<h3><strong>5. 多维数组</strong></h3>
+<p>C++支持多维数组（如二维数组、三维数组等）。</p>
+<h4><strong>二维数组的定义与初始化</strong></h4>
+<ul>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">数据类型 数组名[行数][列数];
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">int matrix[2][3] = {
+    {1, 2, 3},
+    {4, 5, 6}
+};
+</code></pre>
+</li>
+</ul>
+<h4><strong>二维数组的访问</strong></h4>
+<ul>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">数组名[行下标][列下标]
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">cout &lt;&lt; matrix[0][1] &lt;&lt; endl;  // 输出：2
+cout &lt;&lt; matrix[1][2] &lt;&lt; endl;  // 输出：6
+</code></pre>
+</li>
+</ul>
+<h4><strong>二维数组的遍历</strong></h4>
+<pre><code class="language-cpp">for (int i = 0; i &lt; 2; i++) {
+    for (int j = 0; j &lt; 3; j++) {
+        cout &lt;&lt; matrix[i][j] &lt;&lt; &quot; &quot;;
+    }
+    cout &lt;&lt; endl;
+}
+// 输出：
+// 1 2 3
+// 4 5 6
+</code></pre>
+<hr />
+<h3><strong>6. 数组的注意事项</strong></h3>
+<ol>
+<li>
+<p><strong>下标越界</strong>：</p>
+<ul>
+<li>访问数组时，下标必须在 <code>0</code> 到 <code>数组大小 - 1</code> 的范围内，否则会导致未定义行为。</li>
+<li>示例：
+<pre><code class="language-cpp">int numbers[5] = {1, 2, 3, 4, 5};
+cout &lt;&lt; numbers[5] &lt;&lt; endl;  // 错误：下标越界
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>数组大小固定</strong>：</p>
+<ul>
+<li>数组的大小在定义时必须确定，且不能动态改变。</li>
+</ul>
+</li>
+<li>
+<p><strong>数组名是常量指针</strong>：</p>
+<ul>
+<li>数组名表示数组的首地址，是一个常量指针。</li>
+<li>示例：
+<pre><code class="language-cpp">int numbers[5] = {1, 2, 3, 4, 5};
+int* ptr = numbers;  // ptr 指向数组的首地址
+</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h3><strong>7. 综合示例</strong></h3>
+<p>以下是一个完整的C++程序，演示了数组的定义、初始化、访问和遍历：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    // 定义并初始化数组
+    int numbers[5] = {10, 20, 30, 40, 50};
+
+    // 访问数组元素
+    cout &lt;&lt; &quot;First element: &quot; &lt;&lt; numbers[0] &lt;&lt; endl;  // 输出：10
+    cout &lt;&lt; &quot;Third element: &quot; &lt;&lt; numbers[2] &lt;&lt; endl;  // 输出：30
+
+    // 遍历数组
+    cout &lt;&lt; &quot;Array elements: &quot;;
+    for (int i = 0; i &lt; 5; i++) {
+        cout &lt;&lt; numbers[i] &lt;&lt; &quot; &quot;;
+    }
+    cout &lt;&lt; endl;  // 输出：10 20 30 40 50
+
+    // 二维数组
+    int matrix[2][3] = {
+        {1, 2, 3},
+        {4, 5, 6}
+    };
+
+    // 遍历二维数组
+    cout &lt;&lt; &quot;Matrix elements:&quot; &lt;&lt; endl;
+    for (int i = 0; i &lt; 2; i++) {
+        for (int j = 0; j &lt; 3; j++) {
+            cout &lt;&lt; matrix[i][j] &lt;&lt; &quot; &quot;;
+        }
+        cout &lt;&lt; endl;
+    }
+    // 输出：
+    // 1 2 3
+    // 4 5 6
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>8. 总结</strong></h3>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>数组定义</strong></td>
+<td>存储相同类型数据的集合</td>
+<td><code>int numbers[5];</code></td>
+</tr>
+<tr>
+<td><strong>数组初始化</strong></td>
+<td>定义时直接赋值</td>
+<td><code>int numbers[5] = {1, 2, 3, 4, 5};</code></td>
+</tr>
+<tr>
+<td><strong>数组下标</strong></td>
+<td>从 <code>0</code> 开始，用于访问数组元素</td>
+<td><code>numbers[0]</code> 访问第一个元素</td>
+</tr>
+<tr>
+<td><strong>数组遍历</strong></td>
+<td>使用循环访问数组中的所有元素</td>
+<td><code>for (int i = 0; i &lt; 5; i++) { ... }</code></td>
+</tr>
+<tr>
+<td><strong>多维数组</strong></td>
+<td>支持二维、三维等多维数组</td>
+<td><code>int matrix[2][3];</code></td>
+</tr>
+</tbody>
+</table>
+<p>数组是C++中非常重要的数据结构，熟练掌握其用法可以高效地处理大量数据。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

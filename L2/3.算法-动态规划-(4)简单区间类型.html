@@ -1,0 +1,166 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><h3>简单区间类型动态规划</h3>
+<h4>1. 什么是区间动态规划？</h4>
+<p>区间动态规划是一种用于解决<strong>区间最优化问题</strong>的动态规划方法。它的核心思想是将问题分解为若干子区间，通过求解子区间的最优解来推导出整个区间的最优解。</p>
+<hr />
+<h4>2. 区间动态规划的基本思路</h4>
+<ol>
+<li><strong>定义状态</strong>：
+<ul>
+<li>通常用 <code>dp[i][j]</code> 表示区间 <code>[i, j]</code> 的最优解。</li>
+</ul>
+</li>
+<li><strong>确定状态转移方程</strong>：
+<ul>
+<li>根据问题的性质，找到 <code>dp[i][j]</code> 与子区间 <code>dp[i][k]</code> 和 <code>dp[k+1][j]</code> 之间的关系。</li>
+</ul>
+</li>
+<li><strong>初始化</strong>：
+<ul>
+<li>确定最小子区间（通常是长度为 1 的区间）的状态值。</li>
+</ul>
+</li>
+<li><strong>计算顺序</strong>：
+<ul>
+<li>按照区间长度从小到大计算状态值。</li>
+</ul>
+</li>
+<li><strong>返回结果</strong>：
+<ul>
+<li>根据状态值得到整个区间的最优解。</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h4>3. 区间动态规划的经典问题</h4>
+<h5>（1）矩阵链乘法问题</h5>
+<p><strong>问题描述</strong>：给定一组矩阵，计算它们相乘的最小代价。矩阵乘法的代价取决于乘法的顺序。</p>
+<p><strong>状态定义</strong>：</p>
+<ul>
+<li><code>dp[i][j]</code> 表示计算矩阵 <code>A[i]</code> 到 <code>A[j]</code> 的最小代价。</li>
+</ul>
+<p><strong>状态转移方程</strong>：</p>
+<ul>
+<li><code>dp[i][j] = min(dp[i][k] + dp[k+1][j] + p[i-1] * p[k] * p[j])</code>，其中 <code>i &lt;= k &lt; j</code>。</li>
+</ul>
+<p><strong>代码实现</strong>：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;climits&gt;
+using namespace std;
+
+int matrixChainMultiplication(vector&lt;int&gt;&amp; p) {
+    int n = p.size() - 1; // 矩阵个数
+    vector&lt;vector&lt;int&gt;&gt; dp(n, vector&lt;int&gt;(n, 0));
+
+    // 按照区间长度从小到大计算
+    for (int len = 2; len &lt;= n; len++) { // len 是区间长度
+        for (int i = 0; i &lt;= n - len; i++) {
+            int j = i + len - 1;
+            dp[i][j] = INT_MAX;
+
+            for (int k = i; k &lt; j; k++) {
+                int cost = dp[i][k] + dp[k + 1][j] + p[i] * p[k + 1] * p[j + 1];
+                dp[i][j] = min(dp[i][j], cost);
+            }
+        }
+    }
+
+    return dp[0][n - 1];
+}
+
+int main() {
+    vector&lt;int&gt; p = {10, 20, 30, 40, 30}; // 矩阵的维度
+    cout &lt;&lt; &quot;矩阵链乘法的最小代价是: &quot; &lt;&lt; matrixChainMultiplication(p) &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>矩阵链乘法的最小代价是: 30000
+</code></pre>
+<hr />
+<h5>（2）石子合并问题</h5>
+<p><strong>问题描述</strong>：给定一排石子，每次可以合并相邻的两堆石子，合并的代价为两堆石子的总数。求将所有石子合并成一堆的最小总代价。</p>
+<p><strong>状态定义</strong>：</p>
+<ul>
+<li><code>dp[i][j]</code> 表示合并第 <code>i</code> 到第 <code>j</code> 堆石子的最小代价。</li>
+</ul>
+<p><strong>状态转移方程</strong>：</p>
+<ul>
+<li><code>dp[i][j] = min(dp[i][k] + dp[k+1][j] + sum[i][j])</code>，其中 <code>i &lt;= k &lt; j</code>。</li>
+<li><code>sum[i][j]</code> 表示第 <code>i</code> 到第 <code>j</code> 堆石子的总数。</li>
+</ul>
+<p><strong>代码实现</strong>：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;climits&gt;
+using namespace std;
+
+int stoneMerge(vector&lt;int&gt;&amp; stones) {
+    int n = stones.size();
+    vector&lt;vector&lt;int&gt;&gt; dp(n, vector&lt;int&gt;(n, 0));
+    vector&lt;int&gt; prefixSum(n + 1, 0);
+
+    // 计算前缀和
+    for (int i = 0; i &lt; n; i++) {
+        prefixSum[i + 1] = prefixSum[i] + stones[i];
+    }
+
+    // 按照区间长度从小到大计算
+    for (int len = 2; len &lt;= n; len++) { // len 是区间长度
+        for (int i = 0; i &lt;= n - len; i++) {
+            int j = i + len - 1;
+            dp[i][j] = INT_MAX;
+
+            for (int k = i; k &lt; j; k++) {
+                int cost = dp[i][k] + dp[k + 1][j] + prefixSum[j + 1] - prefixSum[i];
+                dp[i][j] = min(dp[i][j], cost);
+            }
+        }
+    }
+
+    return dp[0][n - 1];
+}
+
+int main() {
+    vector&lt;int&gt; stones = {4, 5, 9, 4}; // 每堆石子的数量
+    cout &lt;&lt; &quot;石子合并的最小代价是: &quot; &lt;&lt; stoneMerge(stones) &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>石子合并的最小代价是: 44
+</code></pre>
+<hr />
+<h4>4. 区间动态规划的优化</h4>
+<ul>
+<li><strong>四边形不等式优化</strong>：对于某些区间动态规划问题，可以利用四边形不等式优化状态转移的时间复杂度。</li>
+<li><strong>记忆化搜索</strong>：通过递归实现区间动态规划，并使用记忆化技术避免重复计算。</li>
+</ul>
+<hr />
+<h4>5. 区间动态规划的总结</h4>
+<p>区间动态规划是一种用于解决区间最优化问题的动态规划方法。通过定义状态、确定状态转移方程、初始化和计算顺序，可以高效地求解区间问题。掌握区间动态规划的基本思路和经典问题，有助于解决许多实际问题。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

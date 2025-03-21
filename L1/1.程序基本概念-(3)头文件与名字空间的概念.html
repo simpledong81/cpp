@@ -1,0 +1,190 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><p>在C++中，<strong>头文件</strong>和<strong>名字空间</strong>是两个重要的概念，它们分别用于组织代码和避免命名冲突。以下是它们的详细解释：</p>
+<hr />
+<h3><strong>1. 头文件（Header File）</strong></h3>
+<h4><strong>定义</strong></h4>
+<ul>
+<li>头文件通常以 <code>.h</code> 或 <code>.hpp</code> 为扩展名，用于声明函数、类、常量、宏等，以便在多个源文件中共享。</li>
+<li>头文件的内容通常包括：
+<ul>
+<li>函数声明（原型）</li>
+<li>类定义</li>
+<li>常量定义</li>
+<li>宏定义</li>
+<li>其他头文件的包含（嵌套包含）</li>
+</ul>
+</li>
+</ul>
+<h4><strong>作用</strong></h4>
+<ol>
+<li><strong>代码复用</strong>：通过将声明放在头文件中，可以在多个源文件中共享代码。</li>
+<li><strong>模块化</strong>：将程序分解为多个模块，每个模块对应一个头文件和一个源文件。</li>
+<li><strong>编译分离</strong>：头文件可以帮助编译器理解代码结构，减少编译时间。</li>
+</ol>
+<h4><strong>使用方法</strong></h4>
+<ul>
+<li>使用 <code>#include</code> 预处理指令将头文件包含到源文件中。</li>
+<li>示例：
+<pre><code class="language-cpp">#include &lt;iostream&gt;  // 包含标准库头文件
+#include &quot;myheader.h&quot; // 包含自定义头文件
+</code></pre>
+</li>
+</ul>
+<h4><strong>头文件保护</strong></h4>
+<p>为了防止头文件被多次包含导致的重复定义问题，通常使用 <strong>头文件保护</strong>（Header Guard）或 <code>#pragma once</code>。</p>
+<ul>
+<li>
+<p>示例：</p>
+<pre><code class="language-cpp">#ifndef MYHEADER_H  // 如果没有定义 MYHEADER_H
+#define MYHEADER_H  // 定义 MYHEADER_H
+
+// 头文件内容
+
+#endif // MYHEADER_H
+</code></pre>
+<p>或者：</p>
+<pre><code class="language-cpp">#pragma once
+// 头文件内容
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>2. 名字空间（Namespace）</strong></h3>
+<h4><strong>定义</strong></h4>
+<ul>
+<li>名字空间是一种将全局作用域划分为不同区域的机制，用于避免命名冲突。</li>
+<li>名字空间可以包含变量、函数、类、结构体等。</li>
+</ul>
+<h4><strong>作用</strong></h4>
+<ol>
+<li><strong>避免命名冲突</strong>：不同名字空间中的同名标识符不会冲突。</li>
+<li><strong>组织代码</strong>：将相关的代码组织到同一个名字空间中，提高代码的可读性和可维护性。</li>
+</ol>
+<h4><strong>使用方法</strong></h4>
+<ol>
+<li>
+<p><strong>定义名字空间</strong></p>
+<ul>
+<li>语法：
+<pre><code class="language-cpp">namespace 名字空间名 {
+    // 变量、函数、类等
+}
+</code></pre>
+</li>
+<li>示例：
+<pre><code class="language-cpp">namespace MyNamespace {
+    int value = 42;
+    void print() {
+        std::cout &lt;&lt; &quot;Hello from MyNamespace!&quot; &lt;&lt; std::endl;
+    }
+}
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>使用名字空间中的成员</strong></p>
+<ul>
+<li>使用作用域解析运算符 <code>::</code>：
+<pre><code class="language-cpp">MyNamespace::value = 100;
+MyNamespace::print();
+</code></pre>
+</li>
+<li>使用 <code>using</code> 指令：
+<pre><code class="language-cpp">using namespace MyNamespace;
+value = 100;  // 直接访问
+print();
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>标准名字空间</strong></p>
+<ul>
+<li>C++标准库中的内容都位于 <code>std</code> 名字空间中。</li>
+<li>示例：
+<pre><code class="language-cpp">std::cout &lt;&lt; &quot;Hello, World!&quot; &lt;&lt; std::endl;
+</code></pre>
+</li>
+<li>使用 <code>using namespace std;</code> 可以直接访问标准库内容，但可能会引起命名冲突，因此不推荐在大型项目中使用。</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h3><strong>头文件与名字空间的结合</strong></h3>
+<p>在头文件中定义名字空间是一种常见的做法，可以将相关的代码组织在一起，同时避免命名冲突。</p>
+<h4><strong>示例</strong></h4>
+<ul>
+<li>
+<p><strong>头文件 <code>mylib.h</code></strong>：</p>
+<pre><code class="language-cpp">#ifndef MYLIB_H
+#define MYLIB_H
+
+namespace MyLib {
+    void greet();
+    int add(int a, int b);
+}
+
+#endif // MYLIB_H
+</code></pre>
+</li>
+<li>
+<p><strong>源文件 <code>mylib.cpp</code></strong>：</p>
+<pre><code class="language-cpp">#include &quot;mylib.h&quot;
+#include &lt;iostream&gt;
+
+namespace MyLib {
+    void greet() {
+        std::cout &lt;&lt; &quot;Hello from MyLib!&quot; &lt;&lt; std::endl;
+    }
+
+    int add(int a, int b) {
+        return a + b;
+    }
+}
+</code></pre>
+</li>
+<li>
+<p><strong>主程序 <code>main.cpp</code></strong>：</p>
+<pre><code class="language-cpp">#include &quot;mylib.h&quot;
+
+int main() {
+    MyLib::greet();
+    int result = MyLib::add(3, 4);
+    std::cout &lt;&lt; &quot;3 + 4 = &quot; &lt;&lt; result &lt;&lt; std::endl;
+    return 0;
+}
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>总结</strong></h3>
+<ul>
+<li><strong>头文件</strong>用于声明和共享代码，通常包含函数原型、类定义等。</li>
+<li><strong>名字空间</strong>用于组织代码并避免命名冲突，可以将相关的代码封装在一起。</li>
+<li>在实际开发中，头文件和名字空间通常结合使用，以实现模块化和代码复用。</li>
+</ul>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

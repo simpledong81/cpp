@@ -1,0 +1,241 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><p>在C++中，<strong>多层循环语句</strong>是指在一个循环体内嵌套另一个或多个循环。多层循环通常用于处理多维数据（如二维数组）或复杂的逻辑结构。以下是多层循环的详细说明和示例：</p>
+<hr />
+<h3><strong>1. 多层 <code>for</code> 循环</strong></h3>
+<p>多层 <code>for</code> 循环是最常见的嵌套循环形式，通常用于遍历多维数组或生成组合。</p>
+<h4><strong>语法</strong></h4>
+<pre><code class="language-cpp">for (初始化1; 条件1; 更新1) {
+    for (初始化2; 条件2; 更新2) {
+        // 内层循环体
+    }
+    // 外层循环体
+}
+</code></pre>
+<h4><strong>示例 1：打印九九乘法表</strong></h4>
+<pre><code class="language-cpp">for (int i = 1; i &lt;= 9; i++) {
+    for (int j = 1; j &lt;= i; j++) {
+        cout &lt;&lt; j &lt;&lt; &quot;x&quot; &lt;&lt; i &lt;&lt; &quot;=&quot; &lt;&lt; i * j &lt;&lt; &quot;\t&quot;;
+    }
+    cout &lt;&lt; endl;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>1x1=1
+1x2=2   2x2=4
+1x3=3   2x3=6   3x3=9
+...
+1x9=9   2x9=18  ... 9x9=81
+</code></pre>
+<h4><strong>示例 2：遍历二维数组</strong></h4>
+<pre><code class="language-cpp">int matrix[3][3] = {
+    {1, 2, 3},
+    {4, 5, 6},
+    {7, 8, 9}
+};
+
+for (int i = 0; i &lt; 3; i++) {
+    for (int j = 0; j &lt; 3; j++) {
+        cout &lt;&lt; matrix[i][j] &lt;&lt; &quot; &quot;;
+    }
+    cout &lt;&lt; endl;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>1 2 3
+4 5 6
+7 8 9
+</code></pre>
+<hr />
+<h3><strong>2. 多层 <code>while</code> 循环</strong></h3>
+<p>多层 <code>while</code> 循环适用于不确定循环次数的情况。</p>
+<h4><strong>语法</strong></h4>
+<pre><code class="language-cpp">while (条件1) {
+    while (条件2) {
+        // 内层循环体
+    }
+    // 外层循环体
+}
+</code></pre>
+<h4><strong>示例：模拟猜数字游戏</strong></h4>
+<pre><code class="language-cpp">int target = 42;
+int guess;
+bool guessed = false;
+
+while (!guessed) {
+    cout &lt;&lt; &quot;Guess a number: &quot;;
+    cin &gt;&gt; guess;
+
+    while (guess != target) {
+        if (guess &lt; target) {
+            cout &lt;&lt; &quot;Too low! Try again: &quot;;
+        } else {
+            cout &lt;&lt; &quot;Too high! Try again: &quot;;
+        }
+        cin &gt;&gt; guess;
+    }
+
+    cout &lt;&lt; &quot;Congratulations! You guessed it!&quot; &lt;&lt; endl;
+    guessed = true;
+}
+</code></pre>
+<hr />
+<h3><strong>3. 多层 <code>do-while</code> 循环</strong></h3>
+<p>多层 <code>do-while</code> 循环与 <code>while</code> 循环类似，但至少会执行一次循环体。</p>
+<h4><strong>语法</strong></h4>
+<pre><code class="language-cpp">do {
+    do {
+        // 内层循环体
+    } while (条件2);
+} while (条件1);
+</code></pre>
+<h4><strong>示例：模拟菜单选择</strong></h4>
+<pre><code class="language-cpp">int choice;
+bool exit = false;
+
+do {
+    cout &lt;&lt; &quot;1. Play Game\n2. Settings\n3. Exit\nEnter your choice: &quot;;
+    cin &gt;&gt; choice;
+
+    do {
+        if (choice == 1) {
+            cout &lt;&lt; &quot;Starting game...&quot; &lt;&lt; endl;
+            break;
+        } else if (choice == 2) {
+            cout &lt;&lt; &quot;Opening settings...&quot; &lt;&lt; endl;
+            break;
+        } else if (choice == 3) {
+            exit = true;
+            break;
+        } else {
+            cout &lt;&lt; &quot;Invalid choice! Try again: &quot;;
+            cin &gt;&gt; choice;
+        }
+    } while (true);
+
+} while (!exit);
+</code></pre>
+<hr />
+<h3><strong>4. 混合多层循环</strong></h3>
+<p>多层循环可以是不同类型的循环混合嵌套，例如 <code>for</code> 循环嵌套 <code>while</code> 循环。</p>
+<h4><strong>示例：查找二维数组中的特定值</strong></h4>
+<pre><code class="language-cpp">int matrix[3][3] = {
+    {1, 2, 3},
+    {4, 5, 6},
+    {7, 8, 9}
+};
+int target = 5;
+bool found = false;
+
+for (int i = 0; i &lt; 3; i++) {
+    int j = 0;
+    while (j &lt; 3) {
+        if (matrix[i][j] == target) {
+            found = true;
+            break;
+        }
+        j++;
+    }
+    if (found) {
+        cout &lt;&lt; &quot;Found &quot; &lt;&lt; target &lt;&lt; &quot; at (&quot; &lt;&lt; i &lt;&lt; &quot;, &quot; &lt;&lt; j &lt;&lt; &quot;)&quot; &lt;&lt; endl;
+        break;
+    }
+}
+
+if (!found) {
+    cout &lt;&lt; &quot;Target not found.&quot; &lt;&lt; endl;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>Found 5 at (1, 1)
+</code></pre>
+<hr />
+<h3><strong>5. 多层循环的控制语句</strong></h3>
+<p>在多层循环中，可以使用 <code>break</code> 和 <code>continue</code> 控制循环的执行：</p>
+<ul>
+<li><strong><code>break</code></strong>：终止当前循环。</li>
+<li><strong><code>continue</code></strong>：跳过当前迭代，进入下一次循环。</li>
+</ul>
+<h4><strong>示例：使用 <code>break</code> 退出多层循环</strong></h4>
+<pre><code class="language-cpp">for (int i = 0; i &lt; 3; i++) {
+    for (int j = 0; j &lt; 3; j++) {
+        if (i == 1 &amp;&amp; j == 1) {
+            cout &lt;&lt; &quot;Breaking at (&quot; &lt;&lt; i &lt;&lt; &quot;, &quot; &lt;&lt; j &lt;&lt; &quot;)&quot; &lt;&lt; endl;
+            break;  // 退出内层循环
+        }
+        cout &lt;&lt; &quot;i = &quot; &lt;&lt; i &lt;&lt; &quot;, j = &quot; &lt;&lt; j &lt;&lt; endl;
+    }
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>i = 0, j = 0
+i = 0, j = 1
+i = 0, j = 2
+i = 1, j = 0
+Breaking at (1, 1)
+i = 2, j = 0
+i = 2, j = 1
+i = 2, j = 2
+</code></pre>
+<hr />
+<h3><strong>总结</strong></h3>
+<table>
+<thead>
+<tr>
+<th>循环类型</th>
+<th>特点</th>
+<th>适用场景</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>多层 <code>for</code></td>
+<td>已知循环次数，适合遍历多维数据</td>
+<td>九九乘法表、二维数组遍历</td>
+<td><code>for (int i = 0; i &lt; 3; i++) { ... }</code></td>
+</tr>
+<tr>
+<td>多层 <code>while</code></td>
+<td>不确定循环次数，适合复杂逻辑</td>
+<td>猜数字游戏</td>
+<td><code>while (条件) { ... }</code></td>
+</tr>
+<tr>
+<td>多层 <code>do-while</code></td>
+<td>至少执行一次，适合菜单选择</td>
+<td>菜单选择</td>
+<td><code>do { ... } while (条件);</code></td>
+</tr>
+<tr>
+<td>混合循环</td>
+<td>结合不同循环类型，灵活处理复杂逻辑</td>
+<td>查找特定值</td>
+<td><code>for</code> 嵌套 <code>while</code></td>
+</tr>
+</tbody>
+</table>
+<p>多层循环是C++编程中处理复杂逻辑和多维数据的重要工具，熟练掌握它们可以编写出高效的程序。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

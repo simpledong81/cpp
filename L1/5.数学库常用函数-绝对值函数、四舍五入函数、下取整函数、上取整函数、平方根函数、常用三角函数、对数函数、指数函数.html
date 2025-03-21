@@ -1,0 +1,321 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><p>在C++中，数学库 <code>&lt;cmath&gt;</code> 提供了许多常用的数学函数，用于执行各种数学运算。以下是常见的数学函数及其用法：</p>
+<hr />
+<h3><strong>1. 绝对值函数</strong></h3>
+<ul>
+<li><strong>函数</strong>：<code>abs()</code>、<code>fabs()</code>、<code>fabsf()</code>、<code>fabsl()</code></li>
+<li><strong>作用</strong>：返回一个数的绝对值。</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">#include &lt;cmath&gt;
+#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int a = -10;
+    double b = -3.14;
+
+    cout &lt;&lt; &quot;abs(a): &quot; &lt;&lt; abs(a) &lt;&lt; endl;  // 输出：10
+    cout &lt;&lt; &quot;fabs(b): &quot; &lt;&lt; fabs(b) &lt;&lt; endl;  // 输出：3.14
+
+    return 0;
+}
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>2. 四舍五入函数</strong></h3>
+<ul>
+<li><strong>函数</strong>：<code>round()</code></li>
+<li><strong>作用</strong>：返回最接近的整数（四舍五入）。</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">#include &lt;cmath&gt;
+#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    double a = 3.6;
+    cout &lt;&lt; &quot;round(a): &quot; &lt;&lt; round(a) &lt;&lt; endl;  // 输出：4
+
+    return 0;
+}
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>3. 下取整函数</strong></h3>
+<ul>
+<li><strong>函数</strong>：<code>floor()</code></li>
+<li><strong>作用</strong>：返回不大于给定数的最大整数（向下取整）。</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">#include &lt;cmath&gt;
+#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    double a = 3.6;
+    cout &lt;&lt; &quot;floor(a): &quot; &lt;&lt; floor(a) &lt;&lt; endl;  // 输出：3
+
+    return 0;
+}
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>4. 上取整函数</strong></h3>
+<ul>
+<li><strong>函数</strong>：<code>ceil()</code></li>
+<li><strong>作用</strong>：返回不小于给定数的最小整数（向上取整）。</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">#include &lt;cmath&gt;
+#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    double a = 3.2;
+    cout &lt;&lt; &quot;ceil(a): &quot; &lt;&lt; ceil(a) &lt;&lt; endl;  // 输出：4
+
+    return 0;
+}
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>5. 平方根函数</strong></h3>
+<ul>
+<li><strong>函数</strong>：<code>sqrt()</code></li>
+<li><strong>作用</strong>：返回给定数的平方根。</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">#include &lt;cmath&gt;
+#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    double a = 16;
+    cout &lt;&lt; &quot;sqrt(a): &quot; &lt;&lt; sqrt(a) &lt;&lt; endl;  // 输出：4
+
+    return 0;
+}
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>6. 常用三角函数</strong></h3>
+<ul>
+<li><strong>函数</strong>：
+<ul>
+<li><code>sin()</code>：正弦函数。</li>
+<li><code>cos()</code>：余弦函数。</li>
+<li><code>tan()</code>：正切函数。</li>
+</ul>
+</li>
+<li><strong>注意</strong>：参数以弧度为单位。</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">#include &lt;cmath&gt;
+#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    double angle = 45.0;  // 角度
+    double radians = angle * M_PI / 180.0;  // 转换为弧度
+
+    cout &lt;&lt; &quot;sin(angle): &quot; &lt;&lt; sin(radians) &lt;&lt; endl;  // 输出：0.707107
+    cout &lt;&lt; &quot;cos(angle): &quot; &lt;&lt; cos(radians) &lt;&lt; endl;  // 输出：0.707107
+    cout &lt;&lt; &quot;tan(angle): &quot; &lt;&lt; tan(radians) &lt;&lt; endl;  // 输出：1
+
+    return 0;
+}
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>7. 对数函数</strong></h3>
+<ul>
+<li><strong>函数</strong>：
+<ul>
+<li><code>log()</code>：自然对数（以 e 为底）。</li>
+<li><code>log10()</code>：常用对数（以 10 为底）。</li>
+</ul>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">#include &lt;cmath&gt;
+#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    double a = 2.71828;  // e 的近似值
+
+    cout &lt;&lt; &quot;log(a): &quot; &lt;&lt; log(a) &lt;&lt; endl;  // 输出：1（ln(e) = 1）
+    cout &lt;&lt; &quot;log10(100): &quot; &lt;&lt; log10(100) &lt;&lt; endl;  // 输出：2
+
+    return 0;
+}
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>8. 指数函数</strong></h3>
+<ul>
+<li><strong>函数</strong>：<code>exp()</code></li>
+<li><strong>作用</strong>：返回 e 的给定次幂。</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">#include &lt;cmath&gt;
+#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    double a = 1.0;
+    cout &lt;&lt; &quot;exp(a): &quot; &lt;&lt; exp(a) &lt;&lt; endl;  // 输出：2.71828（e 的近似值）
+
+    return 0;
+}
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>9. 综合示例</strong></h3>
+<p>以下是一个完整的C++程序，演示了各种数学函数的用法：</p>
+<pre><code class="language-cpp">#include &lt;cmath&gt;
+#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    double a = -3.14;
+    double b = 2.71828;
+    double angle = 45.0;  // 角度
+
+    // 绝对值
+    cout &lt;&lt; &quot;abs(a): &quot; &lt;&lt; abs(a) &lt;&lt; endl;  // 输出：3.14
+
+    // 四舍五入
+    cout &lt;&lt; &quot;round(a): &quot; &lt;&lt; round(a) &lt;&lt; endl;  // 输出：-3
+
+    // 下取整
+    cout &lt;&lt; &quot;floor(a): &quot; &lt;&lt; floor(a) &lt;&lt; endl;  // 输出：-4
+
+    // 上取整
+    cout &lt;&lt; &quot;ceil(a): &quot; &lt;&lt; ceil(a) &lt;&lt; endl;  // 输出：-3
+
+    // 平方根
+    cout &lt;&lt; &quot;sqrt(b): &quot; &lt;&lt; sqrt(b) &lt;&lt; endl;  // 输出：1.64872
+
+    // 三角函数
+    double radians = angle * M_PI / 180.0;  // 转换为弧度
+    cout &lt;&lt; &quot;sin(angle): &quot; &lt;&lt; sin(radians) &lt;&lt; endl;  // 输出：0.707107
+    cout &lt;&lt; &quot;cos(angle): &quot; &lt;&lt; cos(radians) &lt;&lt; endl;  // 输出：0.707107
+    cout &lt;&lt; &quot;tan(angle): &quot; &lt;&lt; tan(radians) &lt;&lt; endl;  // 输出：1
+
+    // 对数函数
+    cout &lt;&lt; &quot;log(b): &quot; &lt;&lt; log(b) &lt;&lt; endl;  // 输出：1（ln(e) = 1）
+    cout &lt;&lt; &quot;log10(100): &quot; &lt;&lt; log10(100) &lt;&lt; endl;  // 输出：2
+
+    // 指数函数
+    cout &lt;&lt; &quot;exp(1): &quot; &lt;&lt; exp(1) &lt;&lt; endl;  // 输出：2.71828
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>10. 总结</strong></h3>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>作用</th>
+<th>示例</th>
+<th>结果（示例）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>abs()</code></td>
+<td>绝对值</td>
+<td><code>abs(-3.14)</code></td>
+<td><code>3.14</code></td>
+</tr>
+<tr>
+<td><code>round()</code></td>
+<td>四舍五入</td>
+<td><code>round(3.6)</code></td>
+<td><code>4</code></td>
+</tr>
+<tr>
+<td><code>floor()</code></td>
+<td>下取整</td>
+<td><code>floor(3.6)</code></td>
+<td><code>3</code></td>
+</tr>
+<tr>
+<td><code>ceil()</code></td>
+<td>上取整</td>
+<td><code>ceil(3.2)</code></td>
+<td><code>4</code></td>
+</tr>
+<tr>
+<td><code>sqrt()</code></td>
+<td>平方根</td>
+<td><code>sqrt(16)</code></td>
+<td><code>4</code></td>
+</tr>
+<tr>
+<td><code>sin()</code></td>
+<td>正弦函数</td>
+<td><code>sin(45°)</code></td>
+<td><code>0.707107</code></td>
+</tr>
+<tr>
+<td><code>cos()</code></td>
+<td>余弦函数</td>
+<td><code>cos(45°)</code></td>
+<td><code>0.707107</code></td>
+</tr>
+<tr>
+<td><code>tan()</code></td>
+<td>正切函数</td>
+<td><code>tan(45°)</code></td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><code>log()</code></td>
+<td>自然对数（以 e 为底）</td>
+<td><code>log(2.71828)</code></td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><code>log10()</code></td>
+<td>常用对数（以 10 为底）</td>
+<td><code>log10(100)</code></td>
+<td><code>2</code></td>
+</tr>
+<tr>
+<td><code>exp()</code></td>
+<td>指数函数（e 的幂）</td>
+<td><code>exp(1)</code></td>
+<td><code>2.71828</code></td>
+</tr>
+</tbody>
+</table>
+<p>这些数学函数是C++编程中处理数学运算的重要工具，熟练掌握它们可以轻松实现各种数学计算。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

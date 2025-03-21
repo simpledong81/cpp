@@ -1,0 +1,136 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><h3>插入排序（Insertion Sort）</h3>
+<h4>1. 什么是插入排序？</h4>
+<p>插入排序是一种简单的排序算法。它的基本思想是将未排序部分的元素逐个插入到已排序部分的正确位置，从而逐步构建有序序列。插入排序类似于整理扑克牌的过程。</p>
+<hr />
+<h4>2. 插入排序的基本思想</h4>
+<ol>
+<li><strong>划分数组</strong>：将数组分为已排序部分和未排序部分。</li>
+<li><strong>选择元素</strong>：从未排序部分中选择第一个元素。</li>
+<li><strong>插入元素</strong>：将选中的元素插入到已排序部分的正确位置。</li>
+<li><strong>更新边界</strong>：将已排序部分的边界向右移动一位。</li>
+<li><strong>重复过程</strong>：直到未排序部分为空。</li>
+</ol>
+<hr />
+<h4>3. 插入排序的步骤</h4>
+<ol>
+<li>从数组的第二个元素开始，假设第一个元素已经是已排序部分。</li>
+<li>将当前元素与已排序部分的元素从后向前比较。</li>
+<li>如果当前元素小于已排序部分的元素，则将已排序部分的元素向后移动一位。</li>
+<li>找到当前元素的正确位置后，将其插入。</li>
+<li>重复上述过程，直到数组完全有序。</li>
+</ol>
+<hr />
+<h4>4. 插入排序的代码实现</h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+// 插入排序
+void insertionSort(vector&lt;int&gt;&amp; arr) {
+    int n = arr.size();
+    for (int i = 1; i &lt; n; i++) { // 从第二个元素开始
+        int key = arr[i]; // 当前需要插入的元素
+        int j = i - 1;
+
+        // 将比 key 大的元素向后移动
+        while (j &gt;= 0 &amp;&amp; arr[j] &gt; key) {
+            arr[j + 1] = arr[j];
+            j--;
+        }
+        arr[j + 1] = key; // 插入 key 到正确位置
+    }
+}
+
+int main() {
+    vector&lt;int&gt; arr = {12, 11, 13, 5, 6};
+
+    cout &lt;&lt; &quot;排序前: &quot;;
+    for (int num : arr) {
+        cout &lt;&lt; num &lt;&lt; &quot; &quot;;
+    }
+    cout &lt;&lt; endl;
+
+    insertionSort(arr);
+
+    cout &lt;&lt; &quot;排序后: &quot;;
+    for (int num : arr) {
+        cout &lt;&lt; num &lt;&lt; &quot; &quot;;
+    }
+    cout &lt;&lt; endl;
+
+    return 0;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>排序前: 12 11 13 5 6 
+排序后: 5 6 11 12 13
+</code></pre>
+<hr />
+<h4>5. 插入排序的时间复杂度</h4>
+<ul>
+<li><strong>最坏情况</strong>：O(n²)，当数组完全逆序时，每次插入都需要移动所有已排序元素。</li>
+<li><strong>最好情况</strong>：O(n)，当数组已经有序时，只需要比较一次即可。</li>
+<li><strong>平均情况</strong>：O(n²)。</li>
+</ul>
+<hr />
+<h4>6. 插入排序的空间复杂度</h4>
+<ul>
+<li><strong>空间复杂度</strong>：O(1)，插入排序是原地排序算法，不需要额外空间。</li>
+</ul>
+<hr />
+<h4>7. 插入排序的稳定性</h4>
+<ul>
+<li><strong>稳定性</strong>：稳定。插入排序不会改变相等元素的相对顺序。</li>
+</ul>
+<hr />
+<h4>8. 插入排序的优缺点</h4>
+<ul>
+<li><strong>优点</strong>：
+<ul>
+<li>实现简单，代码易于理解。</li>
+<li>原地排序，不需要额外空间。</li>
+<li>对于小规模数据或基本有序的数据，性能较好。</li>
+</ul>
+</li>
+<li><strong>缺点</strong>：
+<ul>
+<li>时间复杂度较高，不适合大规模数据。</li>
+<li>对于完全逆序的数据，性能较差。</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h4>9. 插入排序的应用</h4>
+<ul>
+<li><strong>小规模数据排序</strong>：当数据规模较小时，插入排序的性能可以接受。</li>
+<li><strong>基本有序的数据</strong>：如果数据已经基本有序，插入排序的效率较高。</li>
+<li><strong>在线算法</strong>：插入排序可以逐步处理数据流，适合在线排序场景。</li>
+</ul>
+<hr />
+<h4>10. 总结</h4>
+<p>插入排序是一种简单且高效的排序算法，适用于小规模数据或基本有序的数据。虽然它的时间复杂度较高，但由于实现简单且稳定，仍然有一定的应用价值。掌握插入排序的思想和实现方法，有助于理解更复杂的排序算法。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

@@ -1,0 +1,227 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><p>在C++中，<strong>基本数据类型</strong>是语言内置的数据类型，用于定义变量和存储数据。C++的基本数据类型可以分为以下几类：</p>
+<hr />
+<h3><strong>1. 整数类型</strong></h3>
+<p>用于存储整数值，包括正数、负数和零。</p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>大小（字节）</th>
+<th>范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>int</code></td>
+<td>4</td>
+<td>-2,147,483,648 到 2,147,483,647</td>
+</tr>
+<tr>
+<td><code>short</code></td>
+<td>2</td>
+<td>-32,768 到 32,767</td>
+</tr>
+<tr>
+<td><code>long</code></td>
+<td>4 或 8</td>
+<td>-2,147,483,648 到 2,147,483,647（4字节）</td>
+</tr>
+<tr>
+<td><code>long long</code></td>
+<td>8</td>
+<td>-9,223,372,036,854,775,808 到 9,223,372,036,854,775,807</td>
+</tr>
+<tr>
+<td><code>unsigned int</code></td>
+<td>4</td>
+<td>0 到 4,294,967,295</td>
+</tr>
+<tr>
+<td><code>unsigned short</code></td>
+<td>2</td>
+<td>0 到 65,535</td>
+</tr>
+<tr>
+<td><code>unsigned long</code></td>
+<td>4 或 8</td>
+<td>0 到 4,294,967,295（4字节）</td>
+</tr>
+<tr>
+<td><code>unsigned long long</code></td>
+<td>8</td>
+<td>0 到 18,446,744,073,709,551,615</td>
+</tr>
+</tbody>
+</table>
+<h4><strong>示例</strong></h4>
+<pre><code class="language-cpp">int age = 25;
+short count = 100;
+long population = 8000000000L;
+unsigned int distance = 3000;
+</code></pre>
+<hr />
+<h3><strong>2. 浮点类型</strong></h3>
+<p>用于存储小数值（实数）。</p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>大小（字节）</th>
+<th>范围（近似）</th>
+<th>精度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>float</code></td>
+<td>4</td>
+<td>±3.4e-38 到 ±3.4e38</td>
+<td>6-7 位小数</td>
+</tr>
+<tr>
+<td><code>double</code></td>
+<td>8</td>
+<td>±1.7e-308 到 ±1.7e308</td>
+<td>15-16 位小数</td>
+</tr>
+<tr>
+<td><code>long double</code></td>
+<td>8 或 16</td>
+<td>±1.7e-308 到 ±1.7e308（扩展精度）</td>
+<td>19-20 位小数</td>
+</tr>
+</tbody>
+</table>
+<h4><strong>示例</strong></h4>
+<pre><code class="language-cpp">float pi = 3.14f;
+double gravity = 9.81;
+long double atomicMass = 1.66053906660e-27L;
+</code></pre>
+<hr />
+<h3><strong>3. 字符类型</strong></h3>
+<p>用于存储单个字符。</p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>大小（字节）</th>
+<th>范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>char</code></td>
+<td>1</td>
+<td>-128 到 127 或 0 到 255</td>
+</tr>
+<tr>
+<td><code>unsigned char</code></td>
+<td>1</td>
+<td>0 到 255</td>
+</tr>
+<tr>
+<td><code>wchar_t</code></td>
+<td>2 或 4</td>
+<td>宽字符（支持 Unicode）</td>
+</tr>
+</tbody>
+</table>
+<h4><strong>示例</strong></h4>
+<pre><code class="language-cpp">char grade = 'A';
+unsigned char byte = 255;
+wchar_t wideChar = L'中';
+</code></pre>
+<hr />
+<h3><strong>4. 布尔类型</strong></h3>
+<p>用于存储逻辑值，只有两个可能的值：<code>true</code> 或 <code>false</code>。</p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>大小（字节）</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bool</code></td>
+<td>1</td>
+<td><code>true</code> 或 <code>false</code></td>
+</tr>
+</tbody>
+</table>
+<h4><strong>示例</strong></h4>
+<pre><code class="language-cpp">bool isCppFun = true;
+bool isRaining = false;
+</code></pre>
+<hr />
+<h3><strong>5. 空类型</strong></h3>
+<p>用于表示无类型或空值。</p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>void</code></td>
+<td>表示无类型，通常用于函数返回值或指针</td>
+</tr>
+</tbody>
+</table>
+<h4><strong>示例</strong></h4>
+<pre><code class="language-cpp">void printMessage() {
+    cout &lt;&lt; &quot;Hello, World!&quot; &lt;&lt; endl;
+}
+</code></pre>
+<hr />
+<h3><strong>6. 修饰符</strong></h3>
+<p>C++ 提供了类型修饰符，用于改变基本数据类型的含义：</p>
+<ul>
+<li><strong><code>signed</code></strong>：表示有符号数（默认）。</li>
+<li><strong><code>unsigned</code></strong>：表示无符号数（仅非负数）。</li>
+<li><strong><code>short</code></strong>：减小数据类型的大小。</li>
+<li><strong><code>long</code></strong>：增大数据类型的大小。</li>
+</ul>
+<h4><strong>示例</strong></h4>
+<pre><code class="language-cpp">unsigned int positiveNumber = 100;
+long double highPrecisionValue = 3.141592653589793238L;
+</code></pre>
+<hr />
+<h3><strong>总结</strong></h3>
+<p>C++ 的基本数据类型包括：</p>
+<ol>
+<li><strong>整数类型</strong>：<code>int</code>, <code>short</code>, <code>long</code>, <code>long long</code> 等。</li>
+<li><strong>浮点类型</strong>：<code>float</code>, <code>double</code>, <code>long double</code>。</li>
+<li><strong>字符类型</strong>：<code>char</code>, <code>unsigned char</code>, <code>wchar_t</code>。</li>
+<li><strong>布尔类型</strong>：<code>bool</code>。</li>
+<li><strong>空类型</strong>：<code>void</code>。</li>
+</ol>
+<p>这些数据类型是C++编程的基础，开发者可以根据需要选择合适的数据类型来存储和操作数据。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

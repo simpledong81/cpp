@@ -1,0 +1,246 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><h3>简单背包类型动态规划</h3>
+<h4>1. 什么是背包问题？</h4>
+<p>背包问题是一类经典的动态规划问题，通常描述为：给定一组物品，每个物品有重量和价值，在不超过背包容量的情况下，选择物品使得总价值最大。</p>
+<hr />
+<h4>2. 背包问题的分类</h4>
+<ul>
+<li><strong>0-1 背包问题</strong>：每个物品只能选择一次（选或不选）。</li>
+<li><strong>完全背包问题</strong>：每个物品可以选择多次。</li>
+<li><strong>多重背包问题</strong>：每个物品有数量限制。</li>
+</ul>
+<hr />
+<h4>3. 0-1 背包问题的基本思路</h4>
+<ol>
+<li><strong>定义状态</strong>：
+<ul>
+<li><code>dp[i][j]</code> 表示前 <code>i</code> 个物品在容量为 <code>j</code> 的情况下的最大价值。</li>
+</ul>
+</li>
+<li><strong>状态转移方程</strong>：
+<ul>
+<li>如果第 <code>i</code> 个物品不放入背包：<code>dp[i][j] = dp[i-1][j]</code></li>
+<li>如果第 <code>i</code> 个物品放入背包：<code>dp[i][j] = dp[i-1][j-w[i]] + v[i]</code></li>
+<li>最终结果：<code>dp[i][j] = max(dp[i-1][j], dp[i-1][j-w[i]] + v[i])</code></li>
+</ul>
+</li>
+<li><strong>初始化</strong>：
+<ul>
+<li><code>dp[0][j] = 0</code>（没有物品时，最大价值为 0）。</li>
+<li><code>dp[i][0] = 0</code>（容量为 0 时，最大价值为 0）。</li>
+</ul>
+</li>
+<li><strong>计算顺序</strong>：
+<ul>
+<li>外层循环遍历物品，内层循环遍历容量。</li>
+</ul>
+</li>
+<li><strong>返回结果</strong>：
+<ul>
+<li><code>dp[n][W]</code> 即为最大价值。</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h4>4. 0-1 背包问题的代码实现</h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+int knapsack(int W, vector&lt;int&gt;&amp; weights, vector&lt;int&gt;&amp; values) {
+    int n = weights.size();
+    vector&lt;vector&lt;int&gt;&gt; dp(n + 1, vector&lt;int&gt;(W + 1, 0));
+
+    for (int i = 1; i &lt;= n; i++) {
+        for (int j = 1; j &lt;= W; j++) {
+            if (weights[i - 1] &lt;= j) {
+                dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - weights[i - 1]] + values[i - 1]);
+            } else {
+                dp[i][j] = dp[i - 1][j];
+            }
+        }
+    }
+
+    return dp[n][W];
+}
+
+int main() {
+    vector&lt;int&gt; weights = {2, 3, 4, 5};
+    vector&lt;int&gt; values = {3, 4, 5, 6};
+    int W = 5;
+
+    cout &lt;&lt; &quot;背包问题的最大价值是: &quot; &lt;&lt; knapsack(W, weights, values) &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>背包问题的最大价值是: 7
+</code></pre>
+<hr />
+<h4>5. 0-1 背包问题的优化</h4>
+<ul>
+<li><strong>空间优化</strong>：由于 <code>dp[i][j]</code> 只依赖于 <code>dp[i-1][j]</code> 和 <code>dp[i-1][j-w[i]]</code>，可以使用一维数组优化空间复杂度。</li>
+</ul>
+<p><strong>优化后的代码</strong>：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+int knapsack(int W, vector&lt;int&gt;&amp; weights, vector&lt;int&gt;&amp; values) {
+    int n = weights.size();
+    vector&lt;int&gt; dp(W + 1, 0);
+
+    for (int i = 0; i &lt; n; i++) {
+        for (int j = W; j &gt;= weights[i]; j--) { // 从后向前遍历，避免覆盖
+            dp[j] = max(dp[j], dp[j - weights[i]] + values[i]);
+        }
+    }
+
+    return dp[W];
+}
+
+int main() {
+    vector&lt;int&gt; weights = {2, 3, 4, 5};
+    vector&lt;int&gt; values = {3, 4, 5, 6};
+    int W = 5;
+
+    cout &lt;&lt; &quot;背包问题的最大价值是: &quot; &lt;&lt; knapsack(W, weights, values) &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>背包问题的最大价值是: 7
+</code></pre>
+<hr />
+<h4>6. 完全背包问题的基本思路</h4>
+<ol>
+<li><strong>定义状态</strong>：
+<ul>
+<li><code>dp[i][j]</code> 表示前 <code>i</code> 个物品在容量为 <code>j</code> 的情况下的最大价值。</li>
+</ul>
+</li>
+<li><strong>状态转移方程</strong>：
+<ul>
+<li>如果第 <code>i</code> 个物品不放入背包：<code>dp[i][j] = dp[i-1][j]</code></li>
+<li>如果第 <code>i</code> 个物品放入背包：<code>dp[i][j] = dp[i][j-w[i]] + v[i]</code></li>
+<li>最终结果：<code>dp[i][j] = max(dp[i-1][j], dp[i][j-w[i]] + v[i])</code></li>
+</ul>
+</li>
+<li><strong>初始化</strong>：
+<ul>
+<li><code>dp[0][j] = 0</code>（没有物品时，最大价值为 0）。</li>
+<li><code>dp[i][0] = 0</code>（容量为 0 时，最大价值为 0）。</li>
+</ul>
+</li>
+<li><strong>计算顺序</strong>：
+<ul>
+<li>外层循环遍历物品，内层循环遍历容量。</li>
+</ul>
+</li>
+<li><strong>返回结果</strong>：
+<ul>
+<li><code>dp[n][W]</code> 即为最大价值。</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h4>7. 完全背包问题的代码实现</h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+int completeKnapsack(int W, vector&lt;int&gt;&amp; weights, vector&lt;int&gt;&amp; values) {
+    int n = weights.size();
+    vector&lt;vector&lt;int&gt;&gt; dp(n + 1, vector&lt;int&gt;(W + 1, 0));
+
+    for (int i = 1; i &lt;= n; i++) {
+        for (int j = 1; j &lt;= W; j++) {
+            if (weights[i - 1] &lt;= j) {
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - weights[i - 1]] + values[i - 1]);
+            } else {
+                dp[i][j] = dp[i - 1][j];
+            }
+        }
+    }
+
+    return dp[n][W];
+}
+
+int main() {
+    vector&lt;int&gt; weights = {2, 3, 4, 5};
+    vector&lt;int&gt; values = {3, 4, 5, 6};
+    int W = 5;
+
+    cout &lt;&lt; &quot;完全背包问题的最大价值是: &quot; &lt;&lt; completeKnapsack(W, weights, values) &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>完全背包问题的最大价值是: 7
+</code></pre>
+<hr />
+<h4>8. 完全背包问题的优化</h4>
+<ul>
+<li><strong>空间优化</strong>：与 0-1 背包问题类似，可以使用一维数组优化空间复杂度。</li>
+</ul>
+<p><strong>优化后的代码</strong>：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+int completeKnapsack(int W, vector&lt;int&gt;&amp; weights, vector&lt;int&gt;&amp; values) {
+    int n = weights.size();
+    vector&lt;int&gt; dp(W + 1, 0);
+
+    for (int i = 0; i &lt; n; i++) {
+        for (int j = weights[i]; j &lt;= W; j++) { // 从前向后遍历，允许重复选择
+            dp[j] = max(dp[j], dp[j - weights[i]] + values[i]);
+        }
+    }
+
+    return dp[W];
+}
+
+int main() {
+    vector&lt;int&gt; weights = {2, 3, 4, 5};
+    vector&lt;int&gt; values = {3, 4, 5, 6};
+    int W = 5;
+
+    cout &lt;&lt; &quot;完全背包问题的最大价值是: &quot; &lt;&lt; completeKnapsack(W, weights, values) &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>完全背包问题的最大价值是: 7
+</code></pre>
+<hr />
+<h4>9. 总结</h4>
+<p>背包问题是动态规划中的经典问题，分为 0-1 背包、完全背包和多重背包等类型。通过定义状态、确定状态转移方程、初始化和计算顺序，可以高效地求解背包问题。掌握背包问题的基本思路和优化方法，有助于解决许多实际问题。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

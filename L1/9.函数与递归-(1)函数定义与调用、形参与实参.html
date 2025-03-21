@@ -1,0 +1,260 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><p>在C++中，<strong>函数</strong>是程序的基本模块，用于封装可重用的代码逻辑。函数通过<strong>定义</strong>和<strong>调用</strong>来实现其功能。函数的参数分为<strong>形参</strong>（形式参数）和<strong>实参</strong>（实际参数）。以下是函数定义与调用、形参与实参的详细说明和示例：</p>
+<hr />
+<h3><strong>1. 函数的定义</strong></h3>
+<p>函数的定义包括函数名、返回类型、参数列表和函数体。</p>
+<h4><strong>语法</strong></h4>
+<pre><code class="language-cpp">返回类型 函数名(参数列表) {
+    // 函数体
+    return 返回值;  // 如果返回类型不是 void
+}
+</code></pre>
+<h4><strong>示例</strong></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+// 定义一个函数，计算两个整数的和
+int add(int a, int b) {
+    return a + b;
+}
+
+int main() {
+    int result = add(3, 5);  // 调用函数
+    cout &lt;&lt; &quot;Sum: &quot; &lt;&lt; result &lt;&lt; endl;  // 输出：Sum: 8
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>2. 函数的调用</strong></h3>
+<p>函数通过函数名和实参列表来调用。</p>
+<h4><strong>语法</strong></h4>
+<pre><code class="language-cpp">函数名(实参列表);
+</code></pre>
+<h4><strong>示例</strong></h4>
+<pre><code class="language-cpp">int sum = add(10, 20);  // 调用 add 函数，实参为 10 和 20
+</code></pre>
+<hr />
+<h3><strong>3. 形参与实参</strong></h3>
+<ul>
+<li><strong>形参</strong>：函数定义时声明的参数，用于接收调用时传递的值。</li>
+<li><strong>实参</strong>：函数调用时传递的具体值。</li>
+</ul>
+<h4><strong>示例</strong></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+// 定义一个函数，形参为 a 和 b
+void printSum(int a, int b) {
+    cout &lt;&lt; &quot;Sum: &quot; &lt;&lt; (a + b) &lt;&lt; endl;
+}
+
+int main() {
+    int x = 5, y = 10;
+    printSum(x, y);  // 调用函数，实参为 x 和 y
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>4. 函数的返回类型</strong></h3>
+<ul>
+<li>函数可以返回一个值，返回类型由函数定义时指定。</li>
+<li>如果函数不需要返回值，返回类型应为 <code>void</code>。</li>
+</ul>
+<h4><strong>示例</strong></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+// 返回类型为 int
+int multiply(int a, int b) {
+    return a * b;
+}
+
+// 返回类型为 void
+void printMessage() {
+    cout &lt;&lt; &quot;Hello, World!&quot; &lt;&lt; endl;
+}
+
+int main() {
+    int result = multiply(3, 4);  // 调用 multiply 函数
+    cout &lt;&lt; &quot;Product: &quot; &lt;&lt; result &lt;&lt; endl;  // 输出：Product: 12
+
+    printMessage();  // 调用 printMessage 函数
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>5. 函数的默认参数</strong></h3>
+<p>C++允许为函数的参数提供默认值。如果调用时未传递该参数，则使用默认值。</p>
+<h4><strong>语法</strong></h4>
+<pre><code class="language-cpp">返回类型 函数名(参数类型 参数名 = 默认值);
+</code></pre>
+<h4><strong>示例</strong></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+// 默认参数 b = 10
+int add(int a, int b = 10) {
+    return a + b;
+}
+
+int main() {
+    cout &lt;&lt; add(5) &lt;&lt; endl;    // 输出：15（使用默认值 b = 10）
+    cout &lt;&lt; add(5, 20) &lt;&lt; endl; // 输出：25（传递 b = 20）
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>6. 函数的重载</strong></h3>
+<p>C++支持函数重载，即定义多个同名函数，但参数列表不同（参数类型或数量不同）。</p>
+<h4><strong>示例</strong></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+// 重载 add 函数
+int add(int a, int b) {
+    return a + b;
+}
+
+double add(double a, double b) {
+    return a + b;
+}
+
+int main() {
+    cout &lt;&lt; add(3, 5) &lt;&lt; endl;          // 输出：8（调用 int 版本）
+    cout &lt;&lt; add(3.5, 2.5) &lt;&lt; endl;      // 输出：6.0（调用 double 版本）
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>7. 递归函数</strong></h3>
+<p>递归函数是指在函数体内调用自身的函数。递归通常用于解决可以分解为相似子问题的问题。</p>
+<h4><strong>示例：计算阶乘</strong></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+// 递归函数：计算阶乘
+int factorial(int n) {
+    if (n == 0 || n == 1) {
+        return 1;
+    }
+    return n * factorial(n - 1);  // 递归调用
+}
+
+int main() {
+    int n = 5;
+    cout &lt;&lt; &quot;Factorial of &quot; &lt;&lt; n &lt;&lt; &quot; is: &quot; &lt;&lt; factorial(n) &lt;&lt; endl;  // 输出：120
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>8. 综合示例</strong></h3>
+<p>以下是一个完整的C++程序，演示了函数的定义、调用、形参与实参、默认参数、函数重载和递归：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+// 函数定义：计算两个整数的和
+int add(int a, int b) {
+    return a + b;
+}
+
+// 默认参数
+int multiply(int a, int b = 10) {
+    return a * b;
+}
+
+// 函数重载
+double add(double a, double b) {
+    return a + b;
+}
+
+// 递归函数：计算阶乘
+int factorial(int n) {
+    if (n == 0 || n == 1) {
+        return 1;
+    }
+    return n * factorial(n - 1);
+}
+
+int main() {
+    // 调用 add 函数
+    cout &lt;&lt; &quot;Sum (int): &quot; &lt;&lt; add(3, 5) &lt;&lt; endl;          // 输出：8
+    cout &lt;&lt; &quot;Sum (double): &quot; &lt;&lt; add(3.5, 2.5) &lt;&lt; endl;  // 输出：6.0
+
+    // 调用 multiply 函数
+    cout &lt;&lt; &quot;Product (default): &quot; &lt;&lt; multiply(5) &lt;&lt; endl;    // 输出：50
+    cout &lt;&lt; &quot;Product: &quot; &lt;&lt; multiply(5, 20) &lt;&lt; endl;          // 输出：100
+
+    // 调用递归函数
+    cout &lt;&lt; &quot;Factorial of 5: &quot; &lt;&lt; factorial(5) &lt;&lt; endl;      // 输出：120
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>9. 总结</strong></h3>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>函数定义</strong></td>
+<td>定义函数名、返回类型、参数列表和函数体</td>
+<td><code>int add(int a, int b) { ... }</code></td>
+</tr>
+<tr>
+<td><strong>函数调用</strong></td>
+<td>通过函数名和实参列表调用函数</td>
+<td><code>add(3, 5)</code></td>
+</tr>
+<tr>
+<td><strong>形参与实参</strong></td>
+<td>形参是函数定义中的参数，实参是调用时传递的值</td>
+<td><code>void printSum(int a, int b)</code></td>
+</tr>
+<tr>
+<td><strong>默认参数</strong></td>
+<td>为函数参数提供默认值</td>
+<td><code>int multiply(int a, int b = 10)</code></td>
+</tr>
+<tr>
+<td><strong>函数重载</strong></td>
+<td>定义多个同名函数，参数列表不同</td>
+<td><code>int add(int a, int b)</code> 和 <code>double add(double a, double b)</code></td>
+</tr>
+<tr>
+<td><strong>递归函数</strong></td>
+<td>函数调用自身</td>
+<td><code>int factorial(int n) { ... }</code></td>
+</tr>
+</tbody>
+</table>
+<p>函数是C++编程中的核心概念，熟练掌握函数的定义、调用和参数传递可以编写出模块化、可重用的代码。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

@@ -1,0 +1,204 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><p>在C++中，<strong>算术运算</strong>是最基本的数学运算，用于对数值类型的数据进行计算。以下是C++中常见的算术运算符及其用法：</p>
+<hr />
+<h3><strong>1. 加法运算符 (<code>+</code>)</strong></h3>
+<ul>
+<li><strong>作用</strong>：计算两个操作数的和。</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">int a = 10, b = 20;
+int sum = a + b;  // sum = 30
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>2. 减法运算符 (<code>-</code>)</strong></h3>
+<ul>
+<li><strong>作用</strong>：计算两个操作数的差。</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">int a = 20, b = 10;
+int diff = a - b;  // diff = 10
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>3. 乘法运算符 (<code>*</code>)</strong></h3>
+<ul>
+<li><strong>作用</strong>：计算两个操作数的积。</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">int a = 5, b = 6;
+int product = a * b;  // product = 30
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>4. 除法运算符 (<code>/</code>)</strong></h3>
+<ul>
+<li><strong>作用</strong>：计算两个操作数的商。
+<ul>
+<li>如果操作数都是整数，结果为整数（整除）。</li>
+<li>如果操作数中有浮点数，结果为浮点数。</li>
+</ul>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">int a = 10, b = 3;
+int quotient1 = a / b;  // quotient1 = 3（整除）
+
+double c = 10.0, d = 3.0;
+double quotient2 = c / d;  // quotient2 = 3.33333
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>5. 整除运算符 (<code>/</code>)</strong></h3>
+<ul>
+<li><strong>作用</strong>：当操作数都是整数时，<code>/</code> 执行整除运算，结果舍弃小数部分。</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">int a = 10, b = 3;
+int quotient = a / b;  // quotient = 3
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>6. 求余运算符 (<code>%</code>)</strong></h3>
+<ul>
+<li><strong>作用</strong>：计算两个整数相除的余数。
+<ul>
+<li>只能用于整数类型。</li>
+</ul>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">int a = 10, b = 3;
+int remainder = a % b;  // remainder = 1
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>7. 综合示例</strong></h3>
+<p>以下是一个完整的C++程序，演示了各种算术运算的用法：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int a = 20, b = 6;
+
+    // 加法
+    int sum = a + b;
+    cout &lt;&lt; &quot;Sum: &quot; &lt;&lt; sum &lt;&lt; endl;  // 输出：Sum: 26
+
+    // 减法
+    int diff = a - b;
+    cout &lt;&lt; &quot;Difference: &quot; &lt;&lt; diff &lt;&lt; endl;  // 输出：Difference: 14
+
+    // 乘法
+    int product = a * b;
+    cout &lt;&lt; &quot;Product: &quot; &lt;&lt; product &lt;&lt; endl;  // 输出：Product: 120
+
+    // 除法（整除）
+    int quotient1 = a / b;
+    cout &lt;&lt; &quot;Quotient (int): &quot; &lt;&lt; quotient1 &lt;&lt; endl;  // 输出：Quotient (int): 3
+
+    // 除法（浮点数）
+    double quotient2 = static_cast&lt;double&gt;(a) / b;
+    cout &lt;&lt; &quot;Quotient (double): &quot; &lt;&lt; quotient2 &lt;&lt; endl;  // 输出：Quotient (double): 3.33333
+
+    // 求余
+    int remainder = a % b;
+    cout &lt;&lt; &quot;Remainder: &quot; &lt;&lt; remainder &lt;&lt; endl;  // 输出：Remainder: 2
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>8. 注意事项</strong></h3>
+<ol>
+<li><strong>整数除法</strong>：如果两个整数相除，结果会被截断为整数。
+<pre><code class="language-cpp">int a = 5, b = 2;
+int result = a / b;  // result = 2
+</code></pre>
+</li>
+<li><strong>浮点数除法</strong>：如果至少有一个操作数是浮点数，结果会是浮点数。
+<pre><code class="language-cpp">double a = 5.0, b = 2;
+double result = a / b;  // result = 2.5
+</code></pre>
+</li>
+<li><strong>求余运算</strong>：只能用于整数类型，不能用于浮点数。
+<pre><code class="language-cpp">int a = 10, b = 3;
+int remainder = a % b;  // remainder = 1
+</code></pre>
+</li>
+</ol>
+<hr />
+<h3><strong>总结</strong></h3>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>作用</th>
+<th>示例</th>
+<th>结果（示例）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>+</code></td>
+<td>加法</td>
+<td><code>10 + 20</code></td>
+<td><code>30</code></td>
+</tr>
+<tr>
+<td><code>-</code></td>
+<td>减法</td>
+<td><code>20 - 10</code></td>
+<td><code>10</code></td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>乘法</td>
+<td><code>5 * 6</code></td>
+<td><code>30</code></td>
+</tr>
+<tr>
+<td><code>/</code></td>
+<td>除法</td>
+<td><code>10 / 3</code>（整数）</td>
+<td><code>3</code></td>
+</tr>
+<tr>
+<td><code>/</code></td>
+<td>浮点除法</td>
+<td><code>10.0 / 3</code></td>
+<td><code>3.33333</code></td>
+</tr>
+<tr>
+<td><code>%</code></td>
+<td>求余</td>
+<td><code>10 % 3</code></td>
+<td><code>1</code></td>
+</tr>
+</tbody>
+</table>
+<p>这些算术运算符是C++编程中最基础的工具，熟练掌握它们可以轻松实现各种数学计算。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

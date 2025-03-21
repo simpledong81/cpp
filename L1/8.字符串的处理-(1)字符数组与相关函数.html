@@ -1,0 +1,316 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><p>在C++中，字符串可以通过<strong>字符数组</strong>或**<code>std::string</code> 类**来处理。字符数组是C风格的字符串表示方式，而 <code>std::string</code> 是C++标准库提供的更高级的字符串类。以下是字符数组及其相关函数的详细说明和示例：</p>
+<hr />
+<h3><strong>1. 字符数组</strong></h3>
+<p>字符数组是C风格字符串的基础，它以 <code>\0</code>（空字符）作为字符串的结束标志。</p>
+<h4><strong>(1) 定义与初始化</strong></h4>
+<ul>
+<li>
+<p><strong>语法</strong>：</p>
+<pre><code class="language-cpp">char 数组名[大小];
+</code></pre>
+</li>
+<li>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-cpp">char str1[10];  // 定义一个长度为 10 的字符数组
+char str2[] = &quot;Hello&quot;;  // 定义并初始化字符数组
+</code></pre>
+</li>
+<li>
+<p><strong>注意事项</strong>：</p>
+<ul>
+<li>字符数组的大小应足够容纳字符串及其结束符 <code>\0</code>。</li>
+<li>初始化时可以省略大小，编译器会自动计算。</li>
+</ul>
+</li>
+</ul>
+<h4><strong>(2) 访问元素</strong></h4>
+<ul>
+<li>通过下标访问字符数组中的元素。</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">char str[] = &quot;Hello&quot;;
+cout &lt;&lt; str[0] &lt;&lt; endl;  // 输出：H
+cout &lt;&lt; str[4] &lt;&lt; endl;  // 输出：o
+</code></pre>
+</li>
+</ul>
+<h4><strong>(3) 遍历字符数组</strong></h4>
+<ul>
+<li>使用循环遍历字符数组，直到遇到 <code>\0</code>。</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">char str[] = &quot;Hello&quot;;
+for (int i = 0; str[i] != '\0'; i++) {
+    cout &lt;&lt; str[i] &lt;&lt; &quot; &quot;;
+}
+// 输出：H e l l o
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>2. 字符数组的相关函数</strong></h3>
+<p>C++标准库 <code>&lt;cstring&gt;</code> 提供了许多用于操作字符数组的函数。</p>
+<h4><strong>(1) <code>strlen()</code></strong></h4>
+<ul>
+<li><strong>作用</strong>：返回字符串的长度（不包括 <code>\0</code>）。</li>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">size_t strlen(const char* str);
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">#include &lt;cstring&gt;
+#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    char str[] = &quot;Hello&quot;;
+    cout &lt;&lt; &quot;Length: &quot; &lt;&lt; strlen(str) &lt;&lt; endl;  // 输出：5
+    return 0;
+}
+</code></pre>
+</li>
+</ul>
+<h4><strong>(2) <code>strcpy()</code></strong></h4>
+<ul>
+<li><strong>作用</strong>：将一个字符串复制到另一个字符串。</li>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">char* strcpy(char* dest, const char* src);
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">#include &lt;cstring&gt;
+#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    char src[] = &quot;Hello&quot;;
+    char dest[10];
+    strcpy(dest, src);
+    cout &lt;&lt; &quot;Copied string: &quot; &lt;&lt; dest &lt;&lt; endl;  // 输出：Hello
+    return 0;
+}
+</code></pre>
+</li>
+</ul>
+<h4><strong>(3) <code>strcat()</code></strong></h4>
+<ul>
+<li><strong>作用</strong>：将一个字符串追加到另一个字符串的末尾。</li>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">char* strcat(char* dest, const char* src);
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">#include &lt;cstring&gt;
+#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    char str1[20] = &quot;Hello&quot;;
+    char str2[] = &quot; World&quot;;
+    strcat(str1, str2);
+    cout &lt;&lt; &quot;Concatenated string: &quot; &lt;&lt; str1 &lt;&lt; endl;  // 输出：Hello World
+    return 0;
+}
+</code></pre>
+</li>
+</ul>
+<h4><strong>(4) <code>strcmp()</code></strong></h4>
+<ul>
+<li><strong>作用</strong>：比较两个字符串。
+<ul>
+<li>返回值为 0：字符串相等。</li>
+<li>返回值小于 0：第一个字符串小于第二个字符串。</li>
+<li>返回值大于 0：第一个字符串大于第二个字符串。</li>
+</ul>
+</li>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">int strcmp(const char* str1, const char* str2);
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">#include &lt;cstring&gt;
+#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    char str1[] = &quot;Hello&quot;;
+    char str2[] = &quot;World&quot;;
+    int result = strcmp(str1, str2);
+    if (result == 0) {
+        cout &lt;&lt; &quot;Strings are equal&quot; &lt;&lt; endl;
+    } else if (result &lt; 0) {
+        cout &lt;&lt; &quot;str1 is less than str2&quot; &lt;&lt; endl;  // 输出
+    } else {
+        cout &lt;&lt; &quot;str1 is greater than str2&quot; &lt;&lt; endl;
+    }
+    return 0;
+}
+</code></pre>
+</li>
+</ul>
+<h4><strong>(5) <code>strchr()</code></strong></h4>
+<ul>
+<li><strong>作用</strong>：在字符串中查找指定字符的第一次出现位置。</li>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">char* strchr(const char* str, int ch);
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">#include &lt;cstring&gt;
+#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    char str[] = &quot;Hello&quot;;
+    char* p = strchr(str, 'l');
+    if (p != nullptr) {
+        cout &lt;&lt; &quot;Found at position: &quot; &lt;&lt; (p - str) &lt;&lt; endl;  // 输出：2
+    } else {
+        cout &lt;&lt; &quot;Character not found&quot; &lt;&lt; endl;
+    }
+    return 0;
+}
+</code></pre>
+</li>
+</ul>
+<h4><strong>(6) <code>strstr()</code></strong></h4>
+<ul>
+<li><strong>作用</strong>：在字符串中查找子字符串的第一次出现位置。</li>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">char* strstr(const char* str, const char* substr);
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">#include &lt;cstring&gt;
+#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    char str[] = &quot;Hello World&quot;;
+    char* p = strstr(str, &quot;World&quot;);
+    if (p != nullptr) {
+        cout &lt;&lt; &quot;Found at position: &quot; &lt;&lt; (p - str) &lt;&lt; endl;  // 输出：6
+    } else {
+        cout &lt;&lt; &quot;Substring not found&quot; &lt;&lt; endl;
+    }
+    return 0;
+}
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>3. 综合示例</strong></h3>
+<p>以下是一个完整的C++程序，演示了字符数组的定义、初始化和相关函数的使用：</p>
+<pre><code class="language-cpp">#include &lt;cstring&gt;
+#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    // 定义并初始化字符数组
+    char str1[] = &quot;Hello&quot;;
+    char str2[20];
+
+    // 复制字符串
+    strcpy(str2, str1);
+    cout &lt;&lt; &quot;Copied string: &quot; &lt;&lt; str2 &lt;&lt; endl;  // 输出：Hello
+
+    // 连接字符串
+    strcat(str2, &quot; World&quot;);
+    cout &lt;&lt; &quot;Concatenated string: &quot; &lt;&lt; str2 &lt;&lt; endl;  // 输出：Hello World
+
+    // 比较字符串
+    int result = strcmp(str1, str2);
+    if (result == 0) {
+        cout &lt;&lt; &quot;Strings are equal&quot; &lt;&lt; endl;
+    } else if (result &lt; 0) {
+        cout &lt;&lt; &quot;str1 is less than str2&quot; &lt;&lt; endl;  // 输出
+    } else {
+        cout &lt;&lt; &quot;str1 is greater than str2&quot; &lt;&lt; endl;
+    }
+
+    // 查找字符
+    char* p = strchr(str1, 'l');
+    if (p != nullptr) {
+        cout &lt;&lt; &quot;Found 'l' at position: &quot; &lt;&lt; (p - str1) &lt;&lt; endl;  // 输出：2
+    } else {
+        cout &lt;&lt; &quot;Character not found&quot; &lt;&lt; endl;
+    }
+
+    // 查找子字符串
+    p = strstr(str2, &quot;World&quot;);
+    if (p != nullptr) {
+        cout &lt;&lt; &quot;Found 'World' at position: &quot; &lt;&lt; (p - str2) &lt;&lt; endl;  // 输出：6
+    } else {
+        cout &lt;&lt; &quot;Substring not found&quot; &lt;&lt; endl;
+    }
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>4. 总结</strong></h3>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>作用</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>strlen()</code></td>
+<td>返回字符串的长度</td>
+<td><code>strlen(&quot;Hello&quot;)</code> 返回 <code>5</code></td>
+</tr>
+<tr>
+<td><code>strcpy()</code></td>
+<td>复制字符串</td>
+<td><code>strcpy(dest, src)</code></td>
+</tr>
+<tr>
+<td><code>strcat()</code></td>
+<td>连接字符串</td>
+<td><code>strcat(str1, str2)</code></td>
+</tr>
+<tr>
+<td><code>strcmp()</code></td>
+<td>比较字符串</td>
+<td><code>strcmp(str1, str2)</code></td>
+</tr>
+<tr>
+<td><code>strchr()</code></td>
+<td>查找字符</td>
+<td><code>strchr(str, 'l')</code></td>
+</tr>
+<tr>
+<td><code>strstr()</code></td>
+<td>查找子字符串</td>
+<td><code>strstr(str, &quot;World&quot;)</code></td>
+</tr>
+</tbody>
+</table>
+<p>字符数组是C++中处理字符串的基础工具，熟练掌握其用法可以高效地操作字符串。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

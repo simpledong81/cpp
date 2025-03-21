@@ -1,0 +1,199 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><p>在C++中，程序的基本语句用于实现输入、输出、赋值和控制程序逻辑。以下是常见的几种基本语句及其用法：</p>
+<hr />
+<h3><strong>1. <code>cin</code> 语句</strong></h3>
+<ul>
+<li><strong>作用</strong>：用于从标准输入（通常是键盘）读取数据。</li>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">cin &gt;&gt; 变量;
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">int age;
+cout &lt;&lt; &quot;Enter your age: &quot;;
+cin &gt;&gt; age;  // 从键盘读取一个整数并存储到 age 变量中
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>2. <code>scanf</code> 语句</strong></h3>
+<ul>
+<li><strong>作用</strong>：C语言风格的输入函数，用于从标准输入读取格式化数据。</li>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">scanf(&quot;格式控制字符串&quot;, &amp;变量);
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">int age;
+printf(&quot;Enter your age: &quot;);
+scanf(&quot;%d&quot;, &amp;age);  // 从键盘读取一个整数并存储到 age 变量中
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>3. <code>cout</code> 语句</strong></h3>
+<ul>
+<li><strong>作用</strong>：用于向标准输出（通常是屏幕）打印数据。</li>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">cout &lt;&lt; 数据;
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">int age = 25;
+cout &lt;&lt; &quot;Your age is: &quot; &lt;&lt; age &lt;&lt; endl;  // 输出变量 age 的值
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>4. <code>printf</code> 语句</strong></h3>
+<ul>
+<li><strong>作用</strong>：C语言风格的输出函数，用于向标准输出打印格式化数据。</li>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">printf(&quot;格式控制字符串&quot;, 变量);
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">int age = 25;
+printf(&quot;Your age is: %d\n&quot;, age);  // 输出变量 age 的值
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>5. 赋值语句</strong></h3>
+<ul>
+<li><strong>作用</strong>：将一个值赋给变量。</li>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">变量 = 值;
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">int x;
+x = 10;  // 将 10 赋值给变量 x
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>6. 复合语句</strong></h3>
+<ul>
+<li><strong>作用</strong>：将多条语句组合在一起，形成一个代码块。复合语句用花括号 <code>{}</code> 包围。</li>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">{
+    语句1;
+    语句2;
+    ...
+}
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">{
+    int x = 10;
+    int y = 20;
+    int sum = x + y;
+    cout &lt;&lt; &quot;Sum: &quot; &lt;&lt; sum &lt;&lt; endl;
+}
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>综合示例</strong></h3>
+<p>以下是一个完整的C++程序，演示了上述基本语句的使用：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    // 使用 cin 和 cout
+    int age;
+    cout &lt;&lt; &quot;Enter your age: &quot;;
+    cin &gt;&gt; age;
+    cout &lt;&lt; &quot;Your age is: &quot; &lt;&lt; age &lt;&lt; endl;
+
+    // 使用 scanf 和 printf
+    int height;
+    printf(&quot;Enter your height (in cm): &quot;);
+    scanf(&quot;%d&quot;, &amp;height);
+    printf(&quot;Your height is: %d cm\n&quot;, height);
+
+    // 赋值语句
+    int x = 10;
+    int y = 20;
+    int sum = x + y;
+
+    // 复合语句
+    {
+        int product = x * y;
+        cout &lt;&lt; &quot;Product: &quot; &lt;&lt; product &lt;&lt; endl;
+    }
+
+    cout &lt;&lt; &quot;Sum: &quot; &lt;&lt; sum &lt;&lt; endl;
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>总结</strong></h3>
+<table>
+<thead>
+<tr>
+<th>语句类型</th>
+<th>作用</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cin</code></td>
+<td>从标准输入读取数据</td>
+<td><code>cin &gt;&gt; age;</code></td>
+</tr>
+<tr>
+<td><code>scanf</code></td>
+<td>C语言风格的格式化输入</td>
+<td><code>scanf(&quot;%d&quot;, &amp;age);</code></td>
+</tr>
+<tr>
+<td><code>cout</code></td>
+<td>向标准输出打印数据</td>
+<td><code>cout &lt;&lt; &quot;Age: &quot; &lt;&lt; age &lt;&lt; endl;</code></td>
+</tr>
+<tr>
+<td><code>printf</code></td>
+<td>C语言风格的格式化输出</td>
+<td><code>printf(&quot;Age: %d\n&quot;, age);</code></td>
+</tr>
+<tr>
+<td>赋值语句</td>
+<td>将值赋给变量</td>
+<td><code>x = 10;</code></td>
+</tr>
+<tr>
+<td>复合语句</td>
+<td>将多条语句组合成一个代码块</td>
+<td><code>{ int x = 10; cout &lt;&lt; x &lt;&lt; endl; }</code></td>
+</tr>
+</tbody>
+</table>
+<p>这些基本语句是C++编程的基础，掌握它们对于编写和理解C++程序至关重要。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

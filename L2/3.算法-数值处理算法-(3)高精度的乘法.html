@@ -1,0 +1,190 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><h3>高精度乘法</h3>
+<h4>1. 什么是高精度乘法？</h4>
+<p>高精度乘法是指对超过标准数据类型（如 <code>int</code>、<code>long long</code>）表示范围的大整数进行乘法运算。由于计算机的整数类型有固定的位数限制，无法直接处理非常大的整数。因此，我们需要通过<strong>字符串</strong>或<strong>数组</strong>来表示大整数，并手动实现乘法运算。</p>
+<hr />
+<h4>2. 高精度乘法的实现思路</h4>
+<ol>
+<li>
+<p><strong>表示大整数</strong>：</p>
+<ul>
+<li>使用字符串或数组存储大整数，每一位对应一个数字。</li>
+<li>例如，数字 <code>123456789</code> 可以表示为字符串 <code>&quot;123456789&quot;</code> 或数组 <code>[9, 8, 7, 6, 5, 4, 3, 2, 1]</code>（逆序存储方便计算）。</li>
+</ul>
+</li>
+<li>
+<p><strong>模拟竖式乘法</strong>：</p>
+<ul>
+<li>逐位相乘，并处理进位。</li>
+<li>将每一位的乘积累加到正确的位置。</li>
+</ul>
+</li>
+<li>
+<p><strong>处理结果</strong>：</p>
+<ul>
+<li>去掉结果中的前导零。</li>
+<li>将结果转换为字符串或数组形式。</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h4>3. 高精度乘法的代码实现</h4>
+<h5>方法 1：使用字符串表示大整数</h5>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+// 高精度乘法
+string multiplyStrings(string num1, string num2) {
+    if (num1 == &quot;0&quot; || num2 == &quot;0&quot;) {
+        return &quot;0&quot;; // 如果有一个数为 0，结果为 0
+    }
+
+    int len1 = num1.length();
+    int len2 = num2.length();
+    vector&lt;int&gt; result(len1 + len2, 0); // 存储结果的每一位
+
+    // 逐位相乘
+    for (int i = len1 - 1; i &gt;= 0; i--) {
+        for (int j = len2 - 1; j &gt;= 0; j--) {
+            int digit1 = num1[i] - '0';
+            int digit2 = num2[j] - '0';
+            int product = digit1 * digit2;
+            int sum = product + result[i + j + 1]; // 当前位的和
+            result[i + j + 1] = sum % 10; // 当前位的结果
+            result[i + j] += sum / 10; // 进位
+        }
+    }
+
+    // 去掉前导零
+    int start = 0;
+    while (start &lt; result.size() &amp;&amp; result[start] == 0) {
+        start++;
+    }
+
+    // 将结果转换为字符串
+    string finalResult;
+    for (int i = start; i &lt; result.size(); i++) {
+        finalResult.push_back(result[i] + '0');
+    }
+
+    return finalResult;
+}
+
+int main() {
+    string num1 = &quot;123456789&quot;;
+    string num2 = &quot;987654321&quot;;
+
+    string product = multiplyStrings(num1, num2);
+    cout &lt;&lt; &quot;高精度乘法结果: &quot; &lt;&lt; product &lt;&lt; endl;
+
+    return 0;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>高精度乘法结果: 121932631112635269
+</code></pre>
+<hr />
+<h5>方法 2：使用数组表示大整数（逆序存储）</h5>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+// 高精度乘法
+vector&lt;int&gt; multiplyArrays(vector&lt;int&gt;&amp; num1, vector&lt;int&gt;&amp; num2) {
+    int len1 = num1.size();
+    int len2 = num2.size();
+    vector&lt;int&gt; result(len1 + len2, 0); // 存储结果的每一位
+
+    // 逐位相乘
+    for (int i = 0; i &lt; len1; i++) {
+        for (int j = 0; j &lt; len2; j++) {
+            int product = num1[i] * num2[j];
+            int sum = product + result[i + j]; // 当前位的和
+            result[i + j] = sum % 10; // 当前位的结果
+            result[i + j + 1] += sum / 10; // 进位
+        }
+    }
+
+    // 去掉前导零
+    while (result.size() &gt; 1 &amp;&amp; result.back() == 0) {
+        result.pop_back();
+    }
+
+    return result;
+}
+
+int main() {
+    vector&lt;int&gt; num1 = {9, 8, 7, 6, 5, 4, 3, 2, 1}; // 123456789 的逆序
+    vector&lt;int&gt; num2 = {1, 2, 3, 4, 5, 6, 7, 8, 9}; // 987654321 的逆序
+
+    vector&lt;int&gt; product = multiplyArrays(num1, num2);
+
+    // 输出结果（逆序）
+    cout &lt;&lt; &quot;高精度乘法结果: &quot;;
+    for (int i = product.size() - 1; i &gt;= 0; i--) {
+        cout &lt;&lt; product[i];
+    }
+    cout &lt;&lt; endl;
+
+    return 0;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>高精度乘法结果: 121932631112635269
+</code></pre>
+<hr />
+<h4>4. 高精度乘法的注意事项</h4>
+<ol>
+<li><strong>进位处理</strong>：
+<ul>
+<li>每一位相乘后，需要计算进位，并在下一位相加时加上进位。</li>
+</ul>
+</li>
+<li><strong>结果长度</strong>：
+<ul>
+<li>结果的位数最多为 <code>len1 + len2</code>，其中 <code>len1</code> 和 <code>len2</code> 分别是两个数的位数。</li>
+</ul>
+</li>
+<li><strong>前导零处理</strong>：
+<ul>
+<li>去掉结果中的前导零。</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h4>5. 高精度乘法的应用</h4>
+<ul>
+<li><strong>大整数计算</strong>：如大整数的加减乘除、幂运算等。</li>
+<li><strong>密码学</strong>：如 RSA 算法中的大数运算。</li>
+<li><strong>科学计算</strong>：如高精度浮点数运算。</li>
+</ul>
+<hr />
+<h4>6. 总结</h4>
+<p>高精度乘法是处理大整数运算的基础算法。通过字符串或数组表示大整数，并模拟竖式乘法，我们可以实现超出标准数据类型范围的乘法运算。掌握高精度乘法的实现方法，为进一步学习高精度加法、减法和除法打下基础。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

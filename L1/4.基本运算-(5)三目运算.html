@@ -1,0 +1,145 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><p>在C++中，<strong>三目运算符</strong>（也称为条件运算符）是一种简洁的条件表达式，用于根据条件选择两个值中的一个。它的语法如下：</p>
+<hr />
+<h3><strong>1. 三目运算符的语法</strong></h3>
+<pre><code class="language-cpp">条件 ? 表达式1 : 表达式2
+</code></pre>
+<ul>
+<li><strong>条件</strong>：一个布尔表达式，结果为 <code>true</code> 或 <code>false</code>。</li>
+<li><strong>表达式1</strong>：如果条件为 <code>true</code>，则返回此表达式的值。</li>
+<li><strong>表达式2</strong>：如果条件为 <code>false</code>，则返回此表达式的值。</li>
+</ul>
+<hr />
+<h3><strong>2. 三目运算符的作用</strong></h3>
+<ul>
+<li>三目运算符可以替代简单的 <code>if-else</code> 语句，使代码更简洁。</li>
+<li>它返回一个值，因此可以用于赋值操作或作为表达式的一部分。</li>
+</ul>
+<hr />
+<h3><strong>3. 示例</strong></h3>
+<h4><strong>示例 1：基本用法</strong></h4>
+<pre><code class="language-cpp">int a = 10, b = 20;
+int max = (a &gt; b) ? a : b;  // 如果 a &gt; b，max = a；否则 max = b
+cout &lt;&lt; &quot;Max: &quot; &lt;&lt; max &lt;&lt; endl;  // 输出：Max: 20
+</code></pre>
+<h4><strong>示例 2：嵌套三目运算符</strong></h4>
+<pre><code class="language-cpp">int a = 10, b = 20, c = 30;
+int max = (a &gt; b) ? (a &gt; c ? a : c) : (b &gt; c ? b : c);
+cout &lt;&lt; &quot;Max: &quot; &lt;&lt; max &lt;&lt; endl;  // 输出：Max: 30
+</code></pre>
+<h4><strong>示例 3：用于输出</strong></h4>
+<pre><code class="language-cpp">int score = 85;
+cout &lt;&lt; &quot;Result: &quot; &lt;&lt; (score &gt;= 60 ? &quot;Pass&quot; : &quot;Fail&quot;) &lt;&lt; endl;  // 输出：Result: Pass
+</code></pre>
+<hr />
+<h3><strong>4. 三目运算符与 <code>if-else</code> 的对比</strong></h3>
+<h4><strong>使用 <code>if-else</code></strong></h4>
+<pre><code class="language-cpp">int a = 10, b = 20;
+int max;
+if (a &gt; b) {
+    max = a;
+} else {
+    max = b;
+}
+</code></pre>
+<h4><strong>使用三目运算符</strong></h4>
+<pre><code class="language-cpp">int a = 10, b = 20;
+int max = (a &gt; b) ? a : b;
+</code></pre>
+<p>三目运算符的代码更简洁，但可读性可能较差，尤其是在嵌套使用时。</p>
+<hr />
+<h3><strong>5. 注意事项</strong></h3>
+<ol>
+<li>
+<p><strong>返回值类型</strong>：</p>
+<ul>
+<li>表达式1 和 表达式2 的类型应兼容，否则可能会导致编译错误或意外行为。</li>
+<li>示例：
+<pre><code class="language-cpp">int a = 10;
+double b = 3.14;
+auto result = (a &gt; 5) ? a : b;  // result 的类型为 double
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>避免过度嵌套</strong>：</p>
+<ul>
+<li>嵌套使用三目运算符会降低代码的可读性，建议在简单条件下使用。</li>
+<li>示例：
+<pre><code class="language-cpp">int a = 10, b = 20, c = 30;
+int max = (a &gt; b) ? (a &gt; c ? a : c) : (b &gt; c ? b : c);  // 可读性较差
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>副作用</strong>：</p>
+<ul>
+<li>如果表达式1 或 表达式2 有副作用（如修改变量），需要注意执行顺序。</li>
+<li>示例：
+<pre><code class="language-cpp">int a = 10, b = 20;
+int result = (a &gt; b) ? a++ : b++;  // 根据条件选择执行 a++ 或 b++
+</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h3><strong>6. 总结</strong></h3>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>语法</strong></td>
+<td><code>条件 ? 表达式1 : 表达式2</code></td>
+<td><code>(a &gt; b) ? a : b</code></td>
+</tr>
+<tr>
+<td><strong>返回值</strong></td>
+<td>根据条件返回表达式1 或 表达式2 的值</td>
+<td><code>max = (a &gt; b) ? a : b</code></td>
+</tr>
+<tr>
+<td><strong>简洁性</strong></td>
+<td>替代简单的 <code>if-else</code> 语句</td>
+<td><code>cout &lt;&lt; (a &gt; b ? &quot;Yes&quot; : &quot;No&quot;)</code></td>
+</tr>
+<tr>
+<td><strong>注意事项</strong></td>
+<td>避免过度嵌套，注意返回值类型和副作用</td>
+<td><code>int result = (a &gt; b) ? a++ : b++</code></td>
+</tr>
+</tbody>
+</table>
+<p>三目运算符是C++中一种简洁的条件表达式工具，适用于简单的条件判断和赋值操作。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

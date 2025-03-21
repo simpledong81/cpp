@@ -1,0 +1,172 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><h3>高精度整数除以单精度整数的商和余数</h3>
+<h4>1. 什么是高精度整数除以单精度整数？</h4>
+<p>高精度整数除以单精度整数是指将一个超出标准数据类型（如 <code>int</code>、<code>long long</code>）表示范围的大整数除以一个单精度整数（如 <code>int</code>），得到商和余数。由于计算机的整数类型有固定的位数限制，无法直接处理非常大的整数。因此，我们需要通过<strong>字符串</strong>或<strong>数组</strong>来表示大整数，并手动实现除法运算。</p>
+<hr />
+<h4>2. 高精度整数除以单精度整数的实现思路</h4>
+<ol>
+<li>
+<p><strong>表示大整数</strong>：</p>
+<ul>
+<li>使用字符串或数组存储大整数，每一位对应一个数字。</li>
+<li>例如，数字 <code>123456789</code> 可以表示为字符串 <code>&quot;123456789&quot;</code> 或数组 <code>[9, 8, 7, 6, 5, 4, 3, 2, 1]</code>（逆序存储方便计算）。</li>
+</ul>
+</li>
+<li>
+<p><strong>模拟竖式除法</strong>：</p>
+<ul>
+<li>从高位到低位逐位相除，并处理余数。</li>
+<li>将每一位的商存入结果中。</li>
+</ul>
+</li>
+<li>
+<p><strong>处理结果</strong>：</p>
+<ul>
+<li>去掉结果中的前导零。</li>
+<li>返回商和余数。</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h4>3. 高精度整数除以单精度整数的代码实现</h4>
+<h5>方法 1：使用字符串表示大整数</h5>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+// 高精度整数除以单精度整数
+pair&lt;string, int&gt; divideStringByInt(string num, int divisor) {
+    string quotient; // 存储商
+    int remainder = 0; // 存储余数
+
+    for (char ch : num) {
+        int digit = ch - '0'; // 当前位的数字
+        int current = remainder * 10 + digit; // 当前被除数
+        quotient.push_back((current / divisor) + '0'); // 当前位的商
+        remainder = current % divisor; // 当前位的余数
+    }
+
+    // 去掉前导零
+    int start = 0;
+    while (start &lt; quotient.length() &amp;&amp; quotient[start] == '0') {
+        start++;
+    }
+    quotient = (start == quotient.length()) ? &quot;0&quot; : quotient.substr(start);
+
+    return {quotient, remainder};
+}
+
+int main() {
+    string num = &quot;123456789&quot;;
+    int divisor = 123;
+
+    auto result = divideStringByInt(num, divisor);
+    cout &lt;&lt; &quot;高精度除法结果: 商 = &quot; &lt;&lt; result.first &lt;&lt; &quot;, 余数 = &quot; &lt;&lt; result.second &lt;&lt; endl;
+
+    return 0;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>高精度除法结果: 商 = 1003713, 余数 = 90
+</code></pre>
+<hr />
+<h5>方法 2：使用数组表示大整数（逆序存储）</h5>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+// 高精度整数除以单精度整数
+pair&lt;vector&lt;int&gt;, int&gt; divideArrayByInt(vector&lt;int&gt;&amp; num, int divisor) {
+    vector&lt;int&gt; quotient; // 存储商
+    int remainder = 0; // 存储余数
+
+    // 从高位到低位逐位相除
+    for (int i = num.size() - 1; i &gt;= 0; i--) {
+        int current = remainder * 10 + num[i]; // 当前被除数
+        quotient.push_back(current / divisor); // 当前位的商
+        remainder = current % divisor; // 当前位的余数
+    }
+
+    // 反转商，使其与输入顺序一致
+    reverse(quotient.begin(), quotient.end());
+
+    // 去掉前导零
+    while (quotient.size() &gt; 1 &amp;&amp; quotient.back() == 0) {
+        quotient.pop_back();
+    }
+
+    return {quotient, remainder};
+}
+
+int main() {
+    vector&lt;int&gt; num = {9, 8, 7, 6, 5, 4, 3, 2, 1}; // 123456789 的逆序
+    int divisor = 123;
+
+    auto result = divideArrayByInt(num, divisor);
+
+    // 输出商
+    cout &lt;&lt; &quot;高精度除法结果: 商 = &quot;;
+    for (int i = result.first.size() - 1; i &gt;= 0; i--) {
+        cout &lt;&lt; result.first[i];
+    }
+    cout &lt;&lt; &quot;, 余数 = &quot; &lt;&lt; result.second &lt;&lt; endl;
+
+    return 0;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>高精度除法结果: 商 = 1003713, 余数 = 90
+</code></pre>
+<hr />
+<h4>4. 高精度整数除以单精度整数的注意事项</h4>
+<ol>
+<li><strong>逐位相除</strong>：
+<ul>
+<li>从高位到低位逐位相除，并处理余数。</li>
+</ul>
+</li>
+<li><strong>前导零处理</strong>：
+<ul>
+<li>去掉结果中的前导零。</li>
+</ul>
+</li>
+<li><strong>边界条件</strong>：
+<ul>
+<li>如果除数为 0，需要特殊处理（通常抛出异常或返回错误）。</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h4>5. 高精度整数除以单精度整数的应用</h4>
+<ul>
+<li><strong>大整数计算</strong>：如大整数的加减乘除、幂运算等。</li>
+<li><strong>密码学</strong>：如 RSA 算法中的大数运算。</li>
+<li><strong>科学计算</strong>：如高精度浮点数运算。</li>
+</ul>
+<hr />
+<h4>6. 总结</h4>
+<p>高精度整数除以单精度整数是处理大整数运算的基础算法。通过字符串或数组表示大整数，并模拟竖式除法，我们可以实现超出标准数据类型范围的除法运算。掌握高精度除法的实现方法，为进一步学习高精度加法、减法和乘法打下基础。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

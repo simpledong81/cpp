@@ -1,0 +1,270 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><h4>1. 什么是倍增法？</h4>
+<p>倍增法（Binary Lifting）是一种通过<strong>逐步扩大范围</strong>来解决问题的算法。它的核心思想是：</p>
+<ul>
+<li><strong>将问题分解为多个阶段</strong>，每个阶段的范围是前一个阶段的两倍。</li>
+<li><strong>利用预处理和查询分离</strong>：通过预处理存储中间结果，快速回答查询。</li>
+</ul>
+<p>倍增法常用于解决以下问题：</p>
+<ul>
+<li><strong>区间查询</strong>：如 RMQ（区间最小值查询）、LCA（最近公共祖先）。</li>
+<li><strong>动态规划优化</strong>：如快速幂计算、跳跃表。</li>
+</ul>
+<hr />
+<h4>2. 倍增法的适用场景</h4>
+<ul>
+<li><strong>区间查询问题</strong>：如 RMQ、LCA。</li>
+<li><strong>动态规划优化</strong>：如快速幂、跳跃表。</li>
+<li><strong>图论问题</strong>：如树上路径查询。</li>
+</ul>
+<hr />
+<h4>3. 倍增法的基本步骤</h4>
+<ol>
+<li><strong>预处理</strong>：
+<ul>
+<li>将问题分解为多个阶段，每个阶段的范围是前一个阶段的两倍。</li>
+<li>存储每个阶段的中间结果。</li>
+</ul>
+</li>
+<li><strong>查询</strong>：
+<ul>
+<li>利用预处理的结果，快速回答查询。</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h4>4. 倍增法的经典问题</h4>
+<h5>（1）快速幂计算</h5>
+<p><strong>问题描述</strong>：计算 (a^b \mod p)，其中 (a, b, p) 是正整数。</p>
+<p><strong>倍增法思想</strong>：</p>
+<ul>
+<li>将指数 (b) 分解为二进制形式，例如 (b = 2^{k_1} + 2^{k_2} + \dots + 2^{k_n})。</li>
+<li>利用倍增法逐步计算 (a^{2^k} \mod p)。</li>
+</ul>
+<p><strong>代码实现</strong>：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+// 快速幂计算 a^b % p
+long long fastPow(long long a, long long b, long long p) {
+    long long result = 1;
+    a = a % p; // 防止 a 大于 p
+
+    while (b &gt; 0) {
+        if (b &amp; 1) { // 如果 b 的最低位是 1
+            result = result * a % p;
+        }
+        a = a * a % p; // a 倍增
+        b = b &gt;&gt; 1; // b 右移一位
+    }
+
+    return result;
+}
+
+int main() {
+    long long a = 2, b = 10, p = 1000;
+    cout &lt;&lt; a &lt;&lt; &quot;^&quot; &lt;&lt; b &lt;&lt; &quot; % &quot; &lt;&lt; p &lt;&lt; &quot; = &quot; &lt;&lt; fastPow(a, b, p) &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>2^10 % 1000 = 24
+</code></pre>
+<hr />
+<h5>（2）RMQ（区间最小值查询）</h5>
+<p><strong>问题描述</strong>：给定一个数组，多次查询区间 ([l, r]) 的最小值。</p>
+<p><strong>倍增法思想</strong>：</p>
+<ul>
+<li>预处理一个二维数组 <code>dp[i][j]</code>，表示从位置 (i) 开始，长度为 (2^j) 的区间的最小值。</li>
+<li>查询时，将区间 ([l, r]) 分解为两个重叠的 (2^k) 长度的区间。</li>
+</ul>
+<p><strong>代码实现</strong>：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;cmath&gt;
+using namespace std;
+
+// 预处理 RMQ
+void preprocessRMQ(vector&lt;int&gt;&amp; arr, vector&lt;vector&lt;int&gt;&gt;&amp; dp) {
+    int n = arr.size();
+    int k = log2(n) + 1;
+    dp.resize(n, vector&lt;int&gt;(k));
+
+    // 初始化 dp[i][0] = arr[i]
+    for (int i = 0; i &lt; n; i++) {
+        dp[i][0] = arr[i];
+    }
+
+    // 填充 dp 表
+    for (int j = 1; (1 &lt;&lt; j) &lt;= n; j++) {
+        for (int i = 0; i + (1 &lt;&lt; j) - 1 &lt; n; i++) {
+            dp[i][j] = min(dp[i][j - 1], dp[i + (1 &lt;&lt; (j - 1))][j - 1]);
+        }
+    }
+}
+
+// 查询 RMQ
+int queryRMQ(vector&lt;vector&lt;int&gt;&gt;&amp; dp, int l, int r) {
+    int k = log2(r - l + 1);
+    return min(dp[l][k], dp[r - (1 &lt;&lt; k) + 1][k]);
+}
+
+int main() {
+    vector&lt;int&gt; arr = {1, 3, 2, 5, 4, 6, 8, 7};
+    vector&lt;vector&lt;int&gt;&gt; dp;
+
+    preprocessRMQ(arr, dp);
+
+    int l = 1, r = 5;
+    cout &lt;&lt; &quot;区间 [&quot; &lt;&lt; l &lt;&lt; &quot;, &quot; &lt;&lt; r &lt;&lt; &quot;] 的最小值是: &quot; &lt;&lt; queryRMQ(dp, l, r) &lt;&lt; endl;
+
+    return 0;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>区间 [1, 5] 的最小值是: 2
+</code></pre>
+<hr />
+<h5>（3）LCA（最近公共祖先）</h5>
+<p><strong>问题描述</strong>：给定一棵树，多次查询两个节点的最近公共祖先。</p>
+<p><strong>倍增法思想</strong>：</p>
+<ul>
+<li>预处理每个节点的 (2^k) 级祖先。</li>
+<li>查询时，将两个节点调整到同一深度，然后一起向上跳跃。</li>
+</ul>
+<p><strong>代码实现</strong>：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;cmath&gt;
+using namespace std;
+
+// 树的节点
+struct Node {
+    int id;
+    vector&lt;Node*&gt; children;
+    Node(int id) : id(id) {}
+};
+
+// 预处理 LCA
+void preprocessLCA(Node* root, vector&lt;vector&lt;int&gt;&gt;&amp; up, vector&lt;int&gt;&amp; depth, int LOG) {
+    up[root-&gt;id][0] = -1; // 根节点没有父节点
+    depth[root-&gt;id] = 0;
+
+    // DFS 遍历树
+    for (Node* child : root-&gt;children) {
+        up[child-&gt;id][0] = root-&gt;id;
+        depth[child-&gt;id] = depth[root-&gt;id] + 1;
+        preprocessLCA(child, up, depth, LOG);
+    }
+
+    // 填充 up 表
+    for (int j = 1; j &lt; LOG; j++) {
+        for (int i = 0; i &lt; up.size(); i++) {
+            if (up[i][j - 1] != -1) {
+                up[i][j] = up[up[i][j - 1]][j - 1];
+            } else {
+                up[i][j] = -1;
+            }
+        }
+    }
+}
+
+// 查询 LCA
+int queryLCA(vector&lt;vector&lt;int&gt;&gt;&amp; up, vector&lt;int&gt;&amp; depth, int u, int v, int LOG) {
+    // 将 u 和 v 调整到同一深度
+    if (depth[u] &lt; depth[v]) {
+        swap(u, v);
+    }
+    int diff = depth[u] - depth[v];
+    for (int j = LOG - 1; j &gt;= 0; j--) {
+        if ((diff &gt;&gt; j) &amp; 1) {
+            u = up[u][j];
+        }
+    }
+
+    // 如果 u 和 v 相同，直接返回
+    if (u == v) {
+        return u;
+    }
+
+    // 一起向上跳跃
+    for (int j = LOG - 1; j &gt;= 0; j--) {
+        if (up[u][j] != up[v][j]) {
+            u = up[u][j];
+            v = up[v][j];
+        }
+    }
+
+    return up[u][0];
+}
+
+int main() {
+    // 构建树
+    Node* root = new Node(0);
+    Node* node1 = new Node(1);
+    Node* node2 = new Node(2);
+    Node* node3 = new Node(3);
+    Node* node4 = new Node(4);
+    root-&gt;children = {node1, node2};
+    node1-&gt;children = {node3};
+    node2-&gt;children = {node4};
+
+    int n = 5; // 节点数
+    int LOG = log2(n) + 1;
+    vector&lt;vector&lt;int&gt;&gt; up(n, vector&lt;int&gt;(LOG, -1));
+    vector&lt;int&gt; depth(n);
+
+    preprocessLCA(root, up, depth, LOG);
+
+    int u = 3, v = 4;
+    cout &lt;&lt; &quot;节点 &quot; &lt;&lt; u &lt;&lt; &quot; 和节点 &quot; &lt;&lt; v &lt;&lt; &quot; 的最近公共祖先是: &quot; &lt;&lt; queryLCA(up, depth, u, v, LOG) &lt;&lt; endl;
+
+    return 0;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>节点 3 和节点 4 的最近公共祖先是: 0
+</code></pre>
+<hr />
+<h4>5. 倍增法的优缺点</h4>
+<ul>
+<li><strong>优点</strong>：
+<ul>
+<li>查询效率高，通常为 O(log n)。</li>
+<li>适用于需要快速回答查询的问题。</li>
+</ul>
+</li>
+<li><strong>缺点</strong>：
+<ul>
+<li>预处理时间复杂度较高，通常为 O(n log n)。</li>
+<li>需要额外的空间存储预处理结果。</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h4>6. 总结</h4>
+<p>倍增法是一种高效的算法设计方法，适用于需要快速回答查询的问题。通过预处理和查询分离，倍增法可以在 O(log n) 的时间复杂度内回答查询。掌握倍增法的核心思想和实现技巧，对解决许多问题非常有帮助。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

@@ -1,0 +1,192 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><h3>简单一维动态规划</h3>
+<h4>1. 什么是一维动态规划？</h4>
+<p>一维动态规划是指状态可以用一个一维数组表示的动态规划问题。通常，这类问题的状态转移方程只依赖于前一个或前几个状态，因此可以用一维数组来存储状态值。</p>
+<hr />
+<h4>2. 一维动态规划的基本思路</h4>
+<ol>
+<li><strong>定义状态</strong>：用一个一维数组 <code>dp</code> 表示问题的状态。</li>
+<li><strong>确定状态转移方程</strong>：找到 <code>dp[i]</code> 与 <code>dp[i-1]</code> 或其他状态之间的关系。</li>
+<li><strong>初始化</strong>：确定初始状态的值。</li>
+<li><strong>计算顺序</strong>：按照一定的顺序计算状态值，通常是从小到大。</li>
+<li><strong>返回结果</strong>：根据状态值得到原问题的解。</li>
+</ol>
+<hr />
+<h4>3. 一维动态规划的经典问题</h4>
+<h5>（1）斐波那契数列</h5>
+<p><strong>问题描述</strong>：计算第 <code>n</code> 个斐波那契数。</p>
+<p><strong>状态定义</strong>：</p>
+<ul>
+<li><code>dp[i]</code> 表示第 <code>i</code> 个斐波那契数。</li>
+</ul>
+<p><strong>状态转移方程</strong>：</p>
+<ul>
+<li><code>dp[i] = dp[i-1] + dp[i-2]</code></li>
+</ul>
+<p><strong>代码实现</strong>：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+int fibonacci(int n) {
+    if (n &lt;= 1) return n;
+
+    vector&lt;int&gt; dp(n + 1);
+    dp[0] = 0; // 初始状态
+    dp[1] = 1; // 初始状态
+
+    for (int i = 2; i &lt;= n; i++) {
+        dp[i] = dp[i - 1] + dp[i - 2]; // 状态转移方程
+    }
+
+    return dp[n];
+}
+
+int main() {
+    int n = 10;
+    cout &lt;&lt; &quot;第 &quot; &lt;&lt; n &lt;&lt; &quot; 个斐波那契数是: &quot; &lt;&lt; fibonacci(n) &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>第 10 个斐波那契数是: 55
+</code></pre>
+<hr />
+<h5>（2）爬楼梯问题</h5>
+<p><strong>问题描述</strong>：有 <code>n</code> 阶楼梯，每次可以爬 1 阶或 2 阶，问有多少种不同的方法可以爬到楼顶。</p>
+<p><strong>状态定义</strong>：</p>
+<ul>
+<li><code>dp[i]</code> 表示爬到第 <code>i</code> 阶楼梯的方法数。</li>
+</ul>
+<p><strong>状态转移方程</strong>：</p>
+<ul>
+<li><code>dp[i] = dp[i-1] + dp[i-2]</code></li>
+</ul>
+<p><strong>代码实现</strong>：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+int climbStairs(int n) {
+    if (n &lt;= 2) return n;
+
+    vector&lt;int&gt; dp(n + 1);
+    dp[0] = 1; // 初始状态
+    dp[1] = 1; // 初始状态
+
+    for (int i = 2; i &lt;= n; i++) {
+        dp[i] = dp[i - 1] + dp[i - 2]; // 状态转移方程
+    }
+
+    return dp[n];
+}
+
+int main() {
+    int n = 5;
+    cout &lt;&lt; &quot;爬到第 &quot; &lt;&lt; n &lt;&lt; &quot; 阶楼梯的方法数是: &quot; &lt;&lt; climbStairs(n) &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>爬到第 5 阶楼梯的方法数是: 8
+</code></pre>
+<hr />
+<h5>（3）最大子数组和</h5>
+<p><strong>问题描述</strong>：给定一个整数数组，找到一个具有最大和的连续子数组。</p>
+<p><strong>状态定义</strong>：</p>
+<ul>
+<li><code>dp[i]</code> 表示以第 <code>i</code> 个元素结尾的最大子数组和。</li>
+</ul>
+<p><strong>状态转移方程</strong>：</p>
+<ul>
+<li><code>dp[i] = max(dp[i-1] + nums[i], nums[i])</code></li>
+</ul>
+<p><strong>代码实现</strong>：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+int maxSubArray(vector&lt;int&gt;&amp; nums) {
+    int n = nums.size();
+    vector&lt;int&gt; dp(n);
+    dp[0] = nums[0]; // 初始状态
+    int maxSum = dp[0];
+
+    for (int i = 1; i &lt; n; i++) {
+        dp[i] = max(dp[i - 1] + nums[i], nums[i]); // 状态转移方程
+        maxSum = max(maxSum, dp[i]); // 更新最大和
+    }
+
+    return maxSum;
+}
+
+int main() {
+    vector&lt;int&gt; nums = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
+    cout &lt;&lt; &quot;最大子数组和是: &quot; &lt;&lt; maxSubArray(nums) &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>最大子数组和是: 6
+</code></pre>
+<hr />
+<h4>4. 一维动态规划的优化</h4>
+<ul>
+<li><strong>空间优化</strong>：如果状态转移只依赖于前一个或前几个状态，可以使用滚动数组或变量优化空间复杂度。</li>
+</ul>
+<p><strong>示例</strong>：斐波那契数列的空间优化</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int fibonacci(int n) {
+    if (n &lt;= 1) return n;
+
+    int prev2 = 0; // dp[0]
+    int prev1 = 1; // dp[1]
+
+    for (int i = 2; i &lt;= n; i++) {
+        int curr = prev1 + prev2; // dp[i] = dp[i-1] + dp[i-2]
+        prev2 = prev1;
+        prev1 = curr;
+    }
+
+    return prev1;
+}
+
+int main() {
+    int n = 10;
+    cout &lt;&lt; &quot;第 &quot; &lt;&lt; n &lt;&lt; &quot; 个斐波那契数是: &quot; &lt;&lt; fibonacci(n) &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>第 10 个斐波那契数是: 55
+</code></pre>
+<hr />
+<h4>5. 一维动态规划的总结</h4>
+<p>一维动态规划是动态规划中最简单的一种形式，适用于状态可以用一个一维数组表示的问题。通过定义状态、确定状态转移方程、初始化和计算顺序，可以高效地求解问题。掌握一维动态规划的基本思路和经典问题，有助于解决许多实际问题。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

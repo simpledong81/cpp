@@ -1,0 +1,180 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><p>在C++中，<strong>自顶向下、逐步求精的模块化程序设计</strong>是一种重要的编程方法。它将复杂问题分解为更小、更易管理的子问题，通过模块化的方式逐步实现。以下是这种方法的详细说明和示例：</p>
+<hr />
+<h3><strong>1. 自顶向下设计</strong></h3>
+<p>自顶向下设计是一种从整体到局部的设计方法。它的步骤如下：</p>
+<ol>
+<li><strong>定义问题</strong>：明确程序的目标和功能。</li>
+<li><strong>分解问题</strong>：将问题分解为若干个子问题。</li>
+<li><strong>设计模块</strong>：为每个子问题设计独立的模块（函数或类）。</li>
+<li><strong>逐步实现</strong>：从顶层模块开始，逐步实现每个子模块。</li>
+</ol>
+<hr />
+<h3><strong>2. 逐步求精</strong></h3>
+<p>逐步求精是指在设计过程中，逐步细化每个模块的实现细节。它的步骤如下：</p>
+<ol>
+<li><strong>抽象设计</strong>：先设计模块的接口和功能，忽略具体实现。</li>
+<li><strong>逐步细化</strong>：逐步添加细节，直到模块完全实现。</li>
+</ol>
+<hr />
+<h3><strong>3. 模块化程序设计</strong></h3>
+<p>模块化程序设计是将程序分解为多个独立的模块，每个模块完成特定的功能。模块之间通过接口进行通信。</p>
+<h4><strong>模块化的优点</strong></h4>
+<ul>
+<li><strong>可读性</strong>：代码更易于理解和维护。</li>
+<li><strong>可重用性</strong>：模块可以在不同程序中重复使用。</li>
+<li><strong>可测试性</strong>：每个模块可以单独测试，确保其正确性。</li>
+</ul>
+<hr />
+<h3><strong>4. 示例：计算学生成绩的平均分</strong></h3>
+<p>以下是一个使用自顶向下、逐步求精的模块化程序设计方法的示例。</p>
+<h4><strong>步骤 1：定义问题</strong></h4>
+<ul>
+<li>输入：一组学生的成绩。</li>
+<li>输出：计算并输出平均分。</li>
+</ul>
+<h4><strong>步骤 2：分解问题</strong></h4>
+<ol>
+<li>输入学生成绩。</li>
+<li>计算平均分。</li>
+<li>输出结果。</li>
+</ol>
+<h4><strong>步骤 3：设计模块</strong></h4>
+<ul>
+<li><code>inputScores()</code>：输入学生成绩。</li>
+<li><code>calculateAverage()</code>：计算平均分。</li>
+<li><code>outputResult()</code>：输出结果。</li>
+</ul>
+<h4><strong>步骤 4：逐步实现</strong></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+// 模块 1：输入学生成绩
+vector&lt;double&gt; inputScores() {
+    vector&lt;double&gt; scores;
+    double score;
+    cout &lt;&lt; &quot;Enter scores (enter -1 to finish): &quot;;
+    while (true) {
+        cin &gt;&gt; score;
+        if (score == -1) break;
+        scores.push_back(score);
+    }
+    return scores;
+}
+
+// 模块 2：计算平均分
+double calculateAverage(const vector&lt;double&gt;&amp; scores) {
+    double sum = 0;
+    for (double score : scores) {
+        sum += score;
+    }
+    return scores.empty() ? 0 : sum / scores.size();
+}
+
+// 模块 3：输出结果
+void outputResult(double average) {
+    cout &lt;&lt; &quot;The average score is: &quot; &lt;&lt; average &lt;&lt; endl;
+}
+
+// 主函数
+int main() {
+    // 输入学生成绩
+    vector&lt;double&gt; scores = inputScores();
+
+    // 计算平均分
+    double average = calculateAverage(scores);
+
+    // 输出结果
+    outputResult(average);
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>5. 模块化设计的注意事项</strong></h3>
+<ol>
+<li>
+<p><strong>高内聚、低耦合</strong>：</p>
+<ul>
+<li><strong>高内聚</strong>：每个模块只完成一个明确的任务。</li>
+<li><strong>低耦合</strong>：模块之间的依赖关系尽可能少。</li>
+</ul>
+</li>
+<li>
+<p><strong>清晰的接口</strong>：</p>
+<ul>
+<li>每个模块应有清晰的输入和输出，便于其他模块调用。</li>
+</ul>
+</li>
+<li>
+<p><strong>逐步测试</strong>：</p>
+<ul>
+<li>每个模块完成后应单独测试，确保其正确性。</li>
+</ul>
+</li>
+<li>
+<p><strong>文档和注释</strong>：</p>
+<ul>
+<li>为每个模块编写文档和注释，说明其功能和用法。</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h3><strong>6. 总结</strong></h3>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>定义问题</strong></td>
+<td>明确程序的目标和功能</td>
+<td>计算学生成绩的平均分</td>
+</tr>
+<tr>
+<td><strong>分解问题</strong></td>
+<td>将问题分解为若干个子问题</td>
+<td>输入成绩、计算平均分、输出结果</td>
+</tr>
+<tr>
+<td><strong>设计模块</strong></td>
+<td>为每个子问题设计独立的模块</td>
+<td><code>inputScores()</code>、<code>calculateAverage()</code></td>
+</tr>
+<tr>
+<td><strong>逐步实现</strong></td>
+<td>从顶层模块开始，逐步实现每个子模块</td>
+<td>先实现输入模块，再实现计算模块</td>
+</tr>
+</tbody>
+</table>
+<p>自顶向下、逐步求精的模块化程序设计方法可以帮助开发者更好地组织代码，提高程序的可读性、可维护性和可重用性。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

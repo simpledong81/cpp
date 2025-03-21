@@ -1,0 +1,169 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><p>在C++中，函数的参数传递方式主要有两种：<strong>传值参数</strong>和<strong>传引用参数</strong>。它们的主要区别在于是否直接操作原始数据。以下是这两种参数传递方式的详细说明和示例：</p>
+<hr />
+<h3><strong>1. 传值参数</strong></h3>
+<ul>
+<li><strong>定义</strong>：将实参的值复制给形参，函数内部对形参的修改不会影响实参。</li>
+<li><strong>特点</strong>：
+<ul>
+<li>形参是实参的副本。</li>
+<li>函数内部对形参的修改不会影响实参。</li>
+<li>适用于不需要修改实参的场景。</li>
+</ul>
+</li>
+</ul>
+<h4><strong>示例</strong></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+// 传值参数
+void increment(int x) {
+    x++;  // 修改形参
+    cout &lt;&lt; &quot;Inside function: &quot; &lt;&lt; x &lt;&lt; endl;  // 输出：11
+}
+
+int main() {
+    int a = 10;
+    increment(a);  // 调用函数，传递 a 的值
+    cout &lt;&lt; &quot;Outside function: &quot; &lt;&lt; a &lt;&lt; endl;  // 输出：10（a 未被修改）
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>2. 传引用参数</strong></h3>
+<ul>
+<li><strong>定义</strong>：将实参的引用传递给形参，函数内部对形参的修改会直接影响实参。</li>
+<li><strong>特点</strong>：
+<ul>
+<li>形参是实参的别名。</li>
+<li>函数内部对形参的修改会直接影响实参。</li>
+<li>适用于需要修改实参或避免复制的场景。</li>
+</ul>
+</li>
+</ul>
+<h4><strong>示例</strong></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+// 传引用参数
+void increment(int&amp; x) {
+    x++;  // 修改形参（即修改实参）
+    cout &lt;&lt; &quot;Inside function: &quot; &lt;&lt; x &lt;&lt; endl;  // 输出：11
+}
+
+int main() {
+    int a = 10;
+    increment(a);  // 调用函数，传递 a 的引用
+    cout &lt;&lt; &quot;Outside function: &quot; &lt;&lt; a &lt;&lt; endl;  // 输出：11（a 被修改）
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>3. 传引用参数的优势</strong></h3>
+<ul>
+<li><strong>避免复制</strong>：对于大型对象（如结构体、类对象），传引用可以避免复制的开销。</li>
+<li><strong>修改实参</strong>：可以直接修改实参的值。</li>
+</ul>
+<h4><strong>示例：避免复制</strong></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+// 传引用参数，避免复制
+void printVector(const vector&lt;int&gt;&amp; vec) {
+    for (int num : vec) {
+        cout &lt;&lt; num &lt;&lt; &quot; &quot;;
+    }
+    cout &lt;&lt; endl;
+}
+
+int main() {
+    vector&lt;int&gt; numbers = {1, 2, 3, 4, 5};
+    printVector(numbers);  // 传递 vector 的引用，避免复制
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>4. 综合示例</strong></h3>
+<p>以下是一个完整的C++程序，演示了传值参数和传引用参数的使用：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+// 传值参数
+void incrementByValue(int x) {
+    x++;
+    cout &lt;&lt; &quot;Inside incrementByValue: &quot; &lt;&lt; x &lt;&lt; endl;  // 输出：11
+}
+
+// 传引用参数
+void incrementByReference(int&amp; x) {
+    x++;
+    cout &lt;&lt; &quot;Inside incrementByReference: &quot; &lt;&lt; x &lt;&lt; endl;  // 输出：11
+}
+
+int main() {
+    int a = 10;
+
+    // 传值调用
+    incrementByValue(a);
+    cout &lt;&lt; &quot;After incrementByValue: &quot; &lt;&lt; a &lt;&lt; endl;  // 输出：10（a 未被修改）
+
+    // 传引用调用
+    incrementByReference(a);
+    cout &lt;&lt; &quot;After incrementByReference: &quot; &lt;&lt; a &lt;&lt; endl;  // 输出：11（a 被修改）
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>5. 总结</strong></h3>
+<table>
+<thead>
+<tr>
+<th>参数传递方式</th>
+<th>特点</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>传值参数</strong></td>
+<td>形参是实参的副本，修改形参不影响实参</td>
+<td><code>void increment(int x) { ... }</code></td>
+</tr>
+<tr>
+<td><strong>传引用参数</strong></td>
+<td>形参是实参的别名，修改形参会影响实参</td>
+<td><code>void increment(int&amp; x) { ... }</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>传值参数</strong>适用于不需要修改实参的场景。</li>
+<li><strong>传引用参数</strong>适用于需要修改实参或避免复制的场景。</li>
+</ul>
+<p>熟练掌握传值参数和传引用参数的使用，可以编写出高效、灵活的C++代码。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

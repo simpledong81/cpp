@@ -1,0 +1,272 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><p>在C++中，<strong>递归函数</strong>是指函数在其定义中直接或间接调用自身的函数。递归通常用于解决可以分解为相似子问题的问题，例如计算阶乘、斐波那契数列、遍历树结构等。以下是递归函数的详细说明和示例：</p>
+<hr />
+<h3><strong>1. 递归函数的基本概念</strong></h3>
+<ul>
+<li><strong>递归函数</strong>：函数在其定义中调用自身。</li>
+<li><strong>递归条件</strong>：
+<ul>
+<li><strong>基本情况（Base Case）</strong>：递归终止的条件。</li>
+<li><strong>递归情况（Recursive Case）</strong>：函数调用自身，逐步向基本情况靠近。</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3><strong>2. 递归函数的示例</strong></h3>
+<h4><strong>(1) 计算阶乘</strong></h4>
+<p>阶乘的定义为：</p>
+<ul>
+<li><code>n! = n * (n-1)!</code>（递归情况）</li>
+<li><code>0! = 1</code>（基本情况）</li>
+</ul>
+<h5><strong>代码实现</strong></h5>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+// 递归函数：计算阶乘
+int factorial(int n) {
+    if (n == 0 || n == 1) {  // 基本情况
+        return 1;
+    }
+    return n * factorial(n - 1);  // 递归情况
+}
+
+int main() {
+    int n = 5;
+    cout &lt;&lt; &quot;Factorial of &quot; &lt;&lt; n &lt;&lt; &quot; is: &quot; &lt;&lt; factorial(n) &lt;&lt; endl;  // 输出：120
+    return 0;
+}
+</code></pre>
+<h5><strong>执行过程</strong></h5>
+<pre><code>factorial(5)
+= 5 * factorial(4)
+= 5 * (4 * factorial(3))
+= 5 * (4 * (3 * factorial(2)))
+= 5 * (4 * (3 * (2 * factorial(1))))
+= 5 * (4 * (3 * (2 * 1)))
+= 120
+</code></pre>
+<hr />
+<h4><strong>(2) 计算斐波那契数列</strong></h4>
+<p>斐波那契数列的定义为：</p>
+<ul>
+<li><code>fib(n) = fib(n-1) + fib(n-2)</code>（递归情况）</li>
+<li><code>fib(0) = 0</code> 和 <code>fib(1) = 1</code>（基本情况）</li>
+</ul>
+<h5><strong>代码实现</strong></h5>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+// 递归函数：计算斐波那契数列
+int fibonacci(int n) {
+    if (n == 0) {  // 基本情况
+        return 0;
+    }
+    if (n == 1) {  // 基本情况
+        return 1;
+    }
+    return fibonacci(n - 1) + fibonacci(n - 2);  // 递归情况
+}
+
+int main() {
+    int n = 6;
+    cout &lt;&lt; &quot;Fibonacci(&quot; &lt;&lt; n &lt;&lt; &quot;) is: &quot; &lt;&lt; fibonacci(n) &lt;&lt; endl;  // 输出：8
+    return 0;
+}
+</code></pre>
+<h5><strong>执行过程</strong></h5>
+<pre><code>fibonacci(6)
+= fibonacci(5) + fibonacci(4)
+= (fibonacci(4) + fibonacci(3)) + (fibonacci(3) + fibonacci(2))
+= ...
+= 8
+</code></pre>
+<hr />
+<h4><strong>(3) 汉诺塔问题</strong></h4>
+<p>汉诺塔问题的规则：</p>
+<ol>
+<li>一次只能移动一个盘子。</li>
+<li>每次移动时，将最上面的盘子移动到目标柱。</li>
+<li>不能将较大的盘子放在较小的盘子上面。</li>
+</ol>
+<h5><strong>代码实现</strong></h5>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+// 递归函数：解决汉诺塔问题
+void hanoi(int n, char source, char auxiliary, char target) {
+    if (n == 1) {  // 基本情况
+        cout &lt;&lt; &quot;Move disk 1 from &quot; &lt;&lt; source &lt;&lt; &quot; to &quot; &lt;&lt; target &lt;&lt; endl;
+        return;
+    }
+    // 递归情况
+    hanoi(n - 1, source, target, auxiliary);  // 将 n-1 个盘子从 source 移动到 auxiliary
+    cout &lt;&lt; &quot;Move disk &quot; &lt;&lt; n &lt;&lt; &quot; from &quot; &lt;&lt; source &lt;&lt; &quot; to &quot; &lt;&lt; target &lt;&lt; endl;
+    hanoi(n - 1, auxiliary, source, target);  // 将 n-1 个盘子从 auxiliary 移动到 target
+}
+
+int main() {
+    int n = 3;  // 盘子数量
+    hanoi(n, 'A', 'B', 'C');  // A 是源柱，B 是辅助柱，C 是目标柱
+    return 0;
+}
+</code></pre>
+<h5><strong>输出</strong></h5>
+<pre><code>Move disk 1 from A to C
+Move disk 2 from A to B
+Move disk 1 from C to B
+Move disk 3 from A to C
+Move disk 1 from B to A
+Move disk 2 from B to C
+Move disk 1 from A to C
+</code></pre>
+<hr />
+<h3><strong>3. 递归的优缺点</strong></h3>
+<h4><strong>优点</strong></h4>
+<ul>
+<li><strong>代码简洁</strong>：递归可以简化问题的表达，使代码更易读。</li>
+<li><strong>适合分治问题</strong>：递归天然适合解决可以分解为子问题的问题。</li>
+</ul>
+<h4><strong>缺点</strong></h4>
+<ul>
+<li><strong>性能问题</strong>：递归可能导致重复计算，性能较低（如斐波那契数列的递归实现）。</li>
+<li><strong>栈溢出</strong>：递归深度过大时，可能导致栈溢出。</li>
+</ul>
+<hr />
+<h3><strong>4. 递归与迭代的比较</strong></h3>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>递归</th>
+<th>迭代</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>代码简洁性</strong></td>
+<td>代码简洁，易于理解</td>
+<td>代码可能较复杂</td>
+</tr>
+<tr>
+<td><strong>性能</strong></td>
+<td>可能较低（重复计算、栈溢出）</td>
+<td>通常较高</td>
+</tr>
+<tr>
+<td><strong>适用场景</strong></td>
+<td>适合分治问题（如树遍历、汉诺塔）</td>
+<td>适合线性问题（如遍历数组、简单循环）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3><strong>5. 综合示例</strong></h3>
+<p>以下是一个完整的C++程序，演示了递归函数的定义和使用：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+// 递归函数：计算阶乘
+int factorial(int n) {
+    if (n == 0 || n == 1) {
+        return 1;
+    }
+    return n * factorial(n - 1);
+}
+
+// 递归函数：计算斐波那契数列
+int fibonacci(int n) {
+    if (n == 0) {
+        return 0;
+    }
+    if (n == 1) {
+        return 1;
+    }
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+// 递归函数：解决汉诺塔问题
+void hanoi(int n, char source, char auxiliary, char target) {
+    if (n == 1) {
+        cout &lt;&lt; &quot;Move disk 1 from &quot; &lt;&lt; source &lt;&lt; &quot; to &quot; &lt;&lt; target &lt;&lt; endl;
+        return;
+    }
+    hanoi(n - 1, source, target, auxiliary);
+    cout &lt;&lt; &quot;Move disk &quot; &lt;&lt; n &lt;&lt; &quot; from &quot; &lt;&lt; source &lt;&lt; &quot; to &quot; &lt;&lt; target &lt;&lt; endl;
+    hanoi(n - 1, auxiliary, source, target);
+}
+
+int main() {
+    // 计算阶乘
+    int n = 5;
+    cout &lt;&lt; &quot;Factorial of &quot; &lt;&lt; n &lt;&lt; &quot; is: &quot; &lt;&lt; factorial(n) &lt;&lt; endl;  // 输出：120
+
+    // 计算斐波那契数列
+    n = 6;
+    cout &lt;&lt; &quot;Fibonacci(&quot; &lt;&lt; n &lt;&lt; &quot;) is: &quot; &lt;&lt; fibonacci(n) &lt;&lt; endl;  // 输出：8
+
+    // 解决汉诺塔问题
+    n = 3;
+    hanoi(n, 'A', 'B', 'C');
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>6. 总结</strong></h3>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>递归函数</strong></td>
+<td>函数调用自身</td>
+<td><code>int factorial(int n) { ... }</code></td>
+</tr>
+<tr>
+<td><strong>基本情况</strong></td>
+<td>递归终止的条件</td>
+<td><code>if (n == 0) return 1;</code></td>
+</tr>
+<tr>
+<td><strong>递归情况</strong></td>
+<td>函数调用自身，逐步向基本情况靠近</td>
+<td><code>return n * factorial(n - 1);</code></td>
+</tr>
+<tr>
+<td><strong>适用场景</strong></td>
+<td>分治问题（如阶乘、斐波那契、汉诺塔）</td>
+<td>树遍历、动态规划等</td>
+</tr>
+</tbody>
+</table>
+<p>递归是C++编程中强大的工具，适合解决可以分解为子问题的问题。熟练掌握递归的使用可以编写出简洁、高效的代码。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

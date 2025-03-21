@@ -1,0 +1,309 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><p>在计算机科学中，<strong>链表</strong>是一种线性数据结构，由一系列节点组成，每个节点包含数据和指向下一个节点的指针。链表的主要类型包括<strong>单链表</strong>、<strong>双向链表</strong>和<strong>循环链表</strong>。以下是它们的详细说明和示例：</p>
+<hr />
+<h3><strong>1. 单链表</strong></h3>
+<p>单链表是最简单的链表类型，每个节点只包含一个指向下一个节点的指针。</p>
+<h4><strong>(1) 特点</strong></h4>
+<ul>
+<li><strong>节点结构</strong>：
+<pre><code class="language-cpp">struct Node {
+    int data;       // 数据
+    Node* next;     // 指向下一个节点的指针
+};
+</code></pre>
+</li>
+<li><strong>优点</strong>：
+<ul>
+<li>插入和删除操作的时间复杂度为 ( O(1) )（已知位置）。</li>
+</ul>
+</li>
+<li><strong>缺点</strong>：
+<ul>
+<li>只能单向遍历。</li>
+<li>访问元素的时间复杂度为 ( O(n) )。</li>
+</ul>
+</li>
+</ul>
+<h4><strong>(2) 示例</strong></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+// 定义单链表节点
+struct Node {
+    int data;
+    Node* next;
+};
+
+// 在链表末尾插入节点
+void insert(Node*&amp; head, int value) {
+    Node* newNode = new Node{value, nullptr};
+    if (head == nullptr) {
+        head = newNode;
+    } else {
+        Node* temp = head;
+        while (temp-&gt;next != nullptr) {
+            temp = temp-&gt;next;
+        }
+        temp-&gt;next = newNode;
+    }
+}
+
+// 遍历链表
+void printList(Node* head) {
+    Node* temp = head;
+    while (temp != nullptr) {
+        cout &lt;&lt; temp-&gt;data &lt;&lt; &quot; &quot;;
+        temp = temp-&gt;next;
+    }
+    cout &lt;&lt; endl;
+}
+
+int main() {
+    Node* head = nullptr;  // 链表头指针
+
+    // 插入元素
+    insert(head, 10);
+    insert(head, 20);
+    insert(head, 30);
+
+    // 遍历链表
+    cout &lt;&lt; &quot;Single Linked List: &quot;;
+    printList(head);  // 输出：10 20 30
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>2. 双向链表</strong></h3>
+<p>双向链表的每个节点包含两个指针，分别指向前一个节点和后一个节点。</p>
+<h4><strong>(1) 特点</strong></h4>
+<ul>
+<li><strong>节点结构</strong>：
+<pre><code class="language-cpp">struct Node {
+    int data;       // 数据
+    Node* prev;     // 指向前一个节点的指针
+    Node* next;     // 指向下一个节点的指针
+};
+</code></pre>
+</li>
+<li><strong>优点</strong>：
+<ul>
+<li>可以双向遍历。</li>
+<li>插入和删除操作的时间复杂度为 ( O(1) )（已知位置）。</li>
+</ul>
+</li>
+<li><strong>缺点</strong>：
+<ul>
+<li>每个节点需要额外的空间存储前驱指针。</li>
+</ul>
+</li>
+</ul>
+<h4><strong>(2) 示例</strong></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+// 定义双向链表节点
+struct Node {
+    int data;
+    Node* prev;
+    Node* next;
+};
+
+// 在链表末尾插入节点
+void insert(Node*&amp; head, int value) {
+    Node* newNode = new Node{value, nullptr, nullptr};
+    if (head == nullptr) {
+        head = newNode;
+    } else {
+        Node* temp = head;
+        while (temp-&gt;next != nullptr) {
+            temp = temp-&gt;next;
+        }
+        temp-&gt;next = newNode;
+        newNode-&gt;prev = temp;
+    }
+}
+
+// 遍历链表（正向）
+void printListForward(Node* head) {
+    Node* temp = head;
+    while (temp != nullptr) {
+        cout &lt;&lt; temp-&gt;data &lt;&lt; &quot; &quot;;
+        temp = temp-&gt;next;
+    }
+    cout &lt;&lt; endl;
+}
+
+// 遍历链表（反向）
+void printListBackward(Node* tail) {
+    Node* temp = tail;
+    while (temp != nullptr) {
+        cout &lt;&lt; temp-&gt;data &lt;&lt; &quot; &quot;;
+        temp = temp-&gt;prev;
+    }
+    cout &lt;&lt; endl;
+}
+
+int main() {
+    Node* head = nullptr;  // 链表头指针
+
+    // 插入元素
+    insert(head, 10);
+    insert(head, 20);
+    insert(head, 30);
+
+    // 正向遍历链表
+    cout &lt;&lt; &quot;Doubly Linked List (Forward): &quot;;
+    printListForward(head);  // 输出：10 20 30
+
+    // 找到链表尾节点
+    Node* tail = head;
+    while (tail-&gt;next != nullptr) {
+        tail = tail-&gt;next;
+    }
+
+    // 反向遍历链表
+    cout &lt;&lt; &quot;Doubly Linked List (Backward): &quot;;
+    printListBackward(tail);  // 输出：30 20 10
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>3. 循环链表</strong></h3>
+<p>循环链表的最后一个节点指向第一个节点，形成一个环。</p>
+<h4><strong>(1) 特点</strong></h4>
+<ul>
+<li><strong>节点结构</strong>：
+<ul>
+<li>单循环链表：最后一个节点的 <code>next</code> 指向头节点。</li>
+<li>双循环链表：最后一个节点的 <code>next</code> 指向头节点，头节点的 <code>prev</code> 指向最后一个节点。</li>
+</ul>
+</li>
+<li><strong>优点</strong>：
+<ul>
+<li>可以从任意节点开始遍历整个链表。</li>
+</ul>
+</li>
+<li><strong>缺点</strong>：
+<ul>
+<li>需要特别注意循环终止条件，避免无限循环。</li>
+</ul>
+</li>
+</ul>
+<h4><strong>(2) 示例（单循环链表）</strong></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+// 定义单循环链表节点
+struct Node {
+    int data;
+    Node* next;
+};
+
+// 在链表末尾插入节点
+void insert(Node*&amp; head, int value) {
+    Node* newNode = new Node{value, nullptr};
+    if (head == nullptr) {
+        head = newNode;
+        head-&gt;next = head;  // 指向自身
+    } else {
+        Node* temp = head;
+        while (temp-&gt;next != head) {
+            temp = temp-&gt;next;
+        }
+        temp-&gt;next = newNode;
+        newNode-&gt;next = head;
+    }
+}
+
+// 遍历链表
+void printList(Node* head) {
+    if (head == nullptr) return;
+    Node* temp = head;
+    do {
+        cout &lt;&lt; temp-&gt;data &lt;&lt; &quot; &quot;;
+        temp = temp-&gt;next;
+    } while (temp != head);
+    cout &lt;&lt; endl;
+}
+
+int main() {
+    Node* head = nullptr;  // 链表头指针
+
+    // 插入元素
+    insert(head, 10);
+    insert(head, 20);
+    insert(head, 30);
+
+    // 遍历链表
+    cout &lt;&lt; &quot;Circular Linked List: &quot;;
+    printList(head);  // 输出：10 20 30
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>4. 综合比较</strong></h3>
+<table>
+<thead>
+<tr>
+<th>链表类型</th>
+<th>特点</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>单链表</strong></td>
+<td>每个节点只有一个指向下一个节点的指针</td>
+<td>插入和删除操作高效</td>
+<td>只能单向遍历</td>
+</tr>
+<tr>
+<td><strong>双向链表</strong></td>
+<td>每个节点有两个指针，分别指向前后节点</td>
+<td>可以双向遍历，插入和删除操作高效</td>
+<td>需要额外的空间存储前驱指针</td>
+</tr>
+<tr>
+<td><strong>循环链表</strong></td>
+<td>最后一个节点指向头节点，形成环</td>
+<td>可以从任意节点开始遍历</td>
+<td>需要特别注意循环终止条件</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3><strong>5. 总结</strong></h3>
+<ul>
+<li><strong>单链表</strong>：适合单向遍历和简单插入删除操作。</li>
+<li><strong>双向链表</strong>：适合需要双向遍历的场景。</li>
+<li><strong>循环链表</strong>：适合需要循环遍历的场景。</li>
+</ul>
+<p>根据具体需求选择合适的链表类型可以提高程序的效率和可维护性。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

@@ -1,0 +1,191 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><h4>1. 什么是二分法？</h4>
+<p>二分法（Binary Search）是一种在<strong>有序数组</strong>中快速查找目标值的算法。它的核心思想是：</p>
+<ul>
+<li><strong>分而治之</strong>：通过不断将搜索范围缩小一半，快速定位目标值。</li>
+<li><strong>时间复杂度</strong>：O(log n)，效率远高于线性查找（O(n)）。</li>
+</ul>
+<p>二分法适用于<strong>有序数组</strong>或可以通过某种条件划分为有序区间的问题。</p>
+<hr />
+<h4>2. 二分法的适用场景</h4>
+<ul>
+<li><strong>有序数组查找</strong>：如查找某个数是否在数组中。</li>
+<li><strong>边界查找</strong>：如查找第一个大于等于目标值的位置。</li>
+<li><strong>数学问题</strong>：如在单调函数中求解方程的根。</li>
+</ul>
+<hr />
+<h4>3. 二分法的基本步骤</h4>
+<ol>
+<li><strong>确定搜索范围</strong>：初始化左右边界（<code>left</code> 和 <code>right</code>）。</li>
+<li><strong>计算中间位置</strong>：<code>mid = left + (right - left) / 2</code>。</li>
+<li><strong>比较中间值</strong>：
+<ul>
+<li>如果 <code>arr[mid] == target</code>，找到目标值。</li>
+<li>如果 <code>arr[mid] &lt; target</code>，目标值在右半部分，更新 <code>left = mid + 1</code>。</li>
+<li>如果 <code>arr[mid] &gt; target</code>，目标值在左半部分，更新 <code>right = mid - 1</code>。</li>
+</ul>
+</li>
+<li><strong>重复步骤2-3</strong>，直到找到目标值或搜索范围为空。</li>
+</ol>
+<hr />
+<h4>4. 二分法的经典问题</h4>
+<h5>（1）查找目标值</h5>
+<p><strong>问题描述</strong>：在一个有序数组中查找目标值，如果存在返回其索引，否则返回-1。</p>
+<p><strong>代码实现</strong>：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+// 二分法查找目标值
+int binarySearch(vector&lt;int&gt;&amp; arr, int target) {
+    int left = 0;
+    int right = arr.size() - 1;
+
+    while (left &lt;= right) {
+        int mid = left + (right - left) / 2; // 防止溢出
+        if (arr[mid] == target) {
+            return mid; // 找到目标值
+        } else if (arr[mid] &lt; target) {
+            left = mid + 1; // 目标值在右半部分
+        } else {
+            right = mid - 1; // 目标值在左半部分
+        }
+    }
+
+    return -1; // 未找到目标值
+}
+
+int main() {
+    vector&lt;int&gt; arr = {1, 3, 5, 7, 9, 11, 13};
+    int target = 7;
+
+    int result = binarySearch(arr, target);
+    if (result != -1) {
+        cout &lt;&lt; &quot;目标值 &quot; &lt;&lt; target &lt;&lt; &quot; 的索引是: &quot; &lt;&lt; result &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; &quot;目标值 &quot; &lt;&lt; target &lt;&lt; &quot; 未找到&quot; &lt;&lt; endl;
+    }
+
+    return 0;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>目标值 7 的索引是: 3
+</code></pre>
+<hr />
+<h5>（2）查找第一个大于等于目标值的位置</h5>
+<p><strong>问题描述</strong>：在一个有序数组中查找第一个大于等于目标值的位置。</p>
+<p><strong>代码实现</strong>：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+// 二分法查找第一个大于等于目标值的位置
+int lowerBound(vector&lt;int&gt;&amp; arr, int target) {
+    int left = 0;
+    int right = arr.size();
+
+    while (left &lt; right) {
+        int mid = left + (right - left) / 2;
+        if (arr[mid] &gt;= target) {
+            right = mid; // 目标值在左半部分
+        } else {
+            left = mid + 1; // 目标值在右半部分
+        }
+    }
+
+    return left; // 返回第一个大于等于目标值的位置
+}
+
+int main() {
+    vector&lt;int&gt; arr = {1, 3, 5, 7, 9, 11, 13};
+    int target = 6;
+
+    int result = lowerBound(arr, target);
+    cout &lt;&lt; &quot;第一个大于等于 &quot; &lt;&lt; target &lt;&lt; &quot; 的位置是: &quot; &lt;&lt; result &lt;&lt; endl;
+
+    return 0;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>第一个大于等于 6 的位置是: 3
+</code></pre>
+<hr />
+<h5>（3）查找最后一个小于等于目标值的位置</h5>
+<p><strong>问题描述</strong>：在一个有序数组中查找最后一个小于等于目标值的位置。</p>
+<p><strong>代码实现</strong>：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+// 二分法查找最后一个小于等于目标值的位置
+int upperBound(vector&lt;int&gt;&amp; arr, int target) {
+    int left = 0;
+    int right = arr.size();
+
+    while (left &lt; right) {
+        int mid = left + (right - left) / 2;
+        if (arr[mid] &lt;= target) {
+            left = mid + 1; // 目标值在右半部分
+        } else {
+            right = mid; // 目标值在左半部分
+        }
+    }
+
+    return left - 1; // 返回最后一个小于等于目标值的位置
+}
+
+int main() {
+    vector&lt;int&gt; arr = {1, 3, 5, 7, 9, 11, 13};
+    int target = 8;
+
+    int result = upperBound(arr, target);
+    cout &lt;&lt; &quot;最后一个小于等于 &quot; &lt;&lt; target &lt;&lt; &quot; 的位置是: &quot; &lt;&lt; result &lt;&lt; endl;
+
+    return 0;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>最后一个小于等于 8 的位置是: 3
+</code></pre>
+<hr />
+<h4>5. 二分法的注意事项</h4>
+<ol>
+<li><strong>数组必须有序</strong>：二分法只能在有序数组中使用。</li>
+<li><strong>边界条件</strong>：注意 <code>left</code> 和 <code>right</code> 的更新，避免死循环。</li>
+<li><strong>防止溢出</strong>：计算 <code>mid</code> 时使用 <code>left + (right - left) / 2</code>，避免 <code>left + right</code> 溢出。</li>
+</ol>
+<hr />
+<h4>6. 二分法的应用</h4>
+<ul>
+<li><strong>查找问题</strong>：如查找目标值、查找边界值。</li>
+<li><strong>数学问题</strong>：如在单调函数中求解方程的根。</li>
+<li><strong>优化问题</strong>：如在某些条件下寻找最优解。</li>
+</ul>
+<hr />
+<h4>7. 总结</h4>
+<p>二分法是一种高效的查找算法，适用于有序数组或可以通过某种条件划分为有序区间的问题。通过不断缩小搜索范围，二分法可以在 O(log n) 的时间复杂度内找到目标值。掌握二分法的核心思想和实现技巧，对解决许多问题非常有帮助。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

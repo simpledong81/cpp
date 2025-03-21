@@ -1,0 +1,256 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><p>离散与组合数学是计算机科学和算法设计中的重要基础，主要研究离散对象的组合、排列和计数问题。以下是离散与组合数学中一些基本概念和原理的详细说明：</p>
+<hr />
+<h3><strong>1. 集合</strong></h3>
+<ul>
+<li><strong>定义</strong>：集合是一些确定且互不相同的对象的整体，这些对象称为集合的元素。</li>
+<li><strong>表示方法</strong>：
+<ul>
+<li>列举法：( S = {1, 2, 3} )</li>
+<li>描述法：( S = {x \mid x \text{ 是正整数且 } x \leq 3} )</li>
+</ul>
+</li>
+<li><strong>运算</strong>：
+<ul>
+<li>并集：( A \cup B )</li>
+<li>交集：( A \cap B )</li>
+<li>差集：( A - B )</li>
+<li>补集：( \overline{A} )</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3><strong>2. 加法原理</strong></h3>
+<ul>
+<li><strong>定义</strong>：如果一个任务可以通过 ( n ) 种互不相交的方式完成，第 ( i ) 种方式有 ( a_i ) 种方法，则完成该任务的总方法数为 ( a_1 + a_2 + \dots + a_n )。</li>
+<li><strong>示例</strong>：
+<ul>
+<li>从北京到上海可以坐飞机（3 个航班）或火车（2 个车次），则总共有 ( 3 + 2 = 5 ) 种方式。</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3><strong>3. 乘法原理</strong></h3>
+<ul>
+<li><strong>定义</strong>：如果一个任务需要分 ( n ) 步完成，第 ( i ) 步有 ( a_i ) 种方法，则完成该任务的总方法数为 ( a_1 \times a_2 \times \dots \times a_n )。</li>
+<li><strong>示例</strong>：
+<ul>
+<li>从北京到上海再到广州，北京到上海有 3 种方式，上海到广州有 4 种方式，则总共有 ( 3 \times 4 = 12 ) 种方式。</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3><strong>4. 排列</strong></h3>
+<ul>
+<li><strong>定义</strong>：从 ( n ) 个不同元素中取出 ( k ) 个元素，按照一定顺序排列，称为排列。</li>
+<li><strong>公式</strong>：
+<ul>
+<li>排列数：( P(n, k) = \frac{n!}{(n - k)!} )</li>
+</ul>
+</li>
+<li><strong>示例</strong>：
+<ul>
+<li>从 5 个元素中取出 3 个排列，排列数为 ( P(5, 3) = \frac{5!}{2!} = 60 )。</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3><strong>5. 组合</strong></h3>
+<ul>
+<li><strong>定义</strong>：从 ( n ) 个不同元素中取出 ( k ) 个元素，不考虑顺序，称为组合。</li>
+<li><strong>公式</strong>：
+<ul>
+<li>组合数：( C(n, k) = \binom{n}{k} = \frac{n!}{k!(n - k)!} )</li>
+</ul>
+</li>
+<li><strong>示例</strong>：
+<ul>
+<li>从 5 个元素中取出 3 个组合，组合数为 ( C(5, 3) = \frac{5!}{3!2!} = 10 )。</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3><strong>6. 杨辉三角</strong></h3>
+<ul>
+<li><strong>定义</strong>：杨辉三角（帕斯卡三角）是一个无限的数字三角形，每一行的数字是组合数 ( C(n, k) )。</li>
+<li><strong>性质</strong>：
+<ul>
+<li>第 ( n ) 行第 ( k ) 个数为 ( C(n, k) )。</li>
+<li>每个数等于它上方两个数之和。</li>
+</ul>
+</li>
+<li><strong>示例</strong>：
+<pre><code>1
+1 1
+1 2 1
+1 3 3 1
+1 4 6 4 1
+</code></pre>
+</li>
+</ul>
+<h4><strong>代码实现：生成杨辉三角</strong></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+vector&lt;vector&lt;int&gt;&gt; generatePascalTriangle(int n) {
+    vector&lt;vector&lt;int&gt;&gt; triangle(n);
+    for (int i = 0; i &lt; n; i++) {
+        triangle[i].resize(i + 1);
+        triangle[i][0] = triangle[i][i] = 1;
+        for (int j = 1; j &lt; i; j++) {
+            triangle[i][j] = triangle[i - 1][j - 1] + triangle[i - 1][j];
+        }
+    }
+    return triangle;
+}
+
+int main() {
+    int n = 5;
+    vector&lt;vector&lt;int&gt;&gt; triangle = generatePascalTriangle(n);
+    for (const auto&amp; row : triangle) {
+        for (int num : row) {
+            cout &lt;&lt; num &lt;&lt; &quot; &quot;;
+        }
+        cout &lt;&lt; endl;
+    }
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>7. 综合示例</strong></h3>
+<p>以下是一个完整的C++程序，演示了加法原理、乘法原理、排列、组合和杨辉三角的使用：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+// 计算排列数
+int permutation(int n, int k) {
+    int result = 1;
+    for (int i = 0; i &lt; k; i++) {
+        result *= (n - i);
+    }
+    return result;
+}
+
+// 计算组合数
+int combination(int n, int k) {
+    if (k &gt; n - k) k = n - k;  // 优化计算
+    int result = 1;
+    for (int i = 0; i &lt; k; i++) {
+        result = result * (n - i) / (i + 1);
+    }
+    return result;
+}
+
+// 生成杨辉三角
+vector&lt;vector&lt;int&gt;&gt; generatePascalTriangle(int n) {
+    vector&lt;vector&lt;int&gt;&gt; triangle(n);
+    for (int i = 0; i &lt; n; i++) {
+        triangle[i].resize(i + 1);
+        triangle[i][0] = triangle[i][i] = 1;
+        for (int j = 1; j &lt; i; j++) {
+            triangle[i][j] = triangle[i - 1][j - 1] + triangle[i - 1][j];
+        }
+    }
+    return triangle;
+}
+
+int main() {
+    // 加法原理
+    int ways1 = 3, ways2 = 2;
+    cout &lt;&lt; &quot;Total ways (Addition Principle): &quot; &lt;&lt; ways1 + ways2 &lt;&lt; endl;  // 输出：5
+
+    // 乘法原理
+    int steps1 = 3, steps2 = 4;
+    cout &lt;&lt; &quot;Total ways (Multiplication Principle): &quot; &lt;&lt; steps1 * steps2 &lt;&lt; endl;  // 输出：12
+
+    // 排列
+    int n = 5, k = 3;
+    cout &lt;&lt; &quot;Permutation P(5, 3): &quot; &lt;&lt; permutation(n, k) &lt;&lt; endl;  // 输出：60
+
+    // 组合
+    cout &lt;&lt; &quot;Combination C(5, 3): &quot; &lt;&lt; combination(n, k) &lt;&lt; endl;  // 输出：10
+
+    // 杨辉三角
+    int rows = 5;
+    vector&lt;vector&lt;int&gt;&gt; triangle = generatePascalTriangle(rows);
+    cout &lt;&lt; &quot;Pascal's Triangle:&quot; &lt;&lt; endl;
+    for (const auto&amp; row : triangle) {
+        for (int num : row) {
+            cout &lt;&lt; num &lt;&lt; &quot; &quot;;
+        }
+        cout &lt;&lt; endl;
+    }
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>8. 总结</strong></h3>
+<table>
+<thead>
+<tr>
+<th>概念/原理</th>
+<th>说明</th>
+<th>示例/公式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>集合</strong></td>
+<td>确定且互不相同的对象的整体</td>
+<td>( S = {1, 2, 3} )</td>
+</tr>
+<tr>
+<td><strong>加法原理</strong></td>
+<td>任务通过多种互不相交的方式完成</td>
+<td>( 3 + 2 = 5 )</td>
+</tr>
+<tr>
+<td><strong>乘法原理</strong></td>
+<td>任务分多步完成，每步有若干方法</td>
+<td>( 3 \times 4 = 12 )</td>
+</tr>
+<tr>
+<td><strong>排列</strong></td>
+<td>从 ( n ) 个元素中取出 ( k ) 个排列</td>
+<td>( P(n, k) = \frac{n!}{(n - k)!} )</td>
+</tr>
+<tr>
+<td><strong>组合</strong></td>
+<td>从 ( n ) 个元素中取出 ( k ) 个组合</td>
+<td>( C(n, k) = \frac{n!}{k!(n - k)!} )</td>
+</tr>
+<tr>
+<td><strong>杨辉三角</strong></td>
+<td>组合数的三角形表示</td>
+<td>第 ( n ) 行第 ( k ) 个数为 ( C(n, k) )</td>
+</tr>
+</tbody>
+</table>
+<p>离散与组合数学是算法设计和问题解决的重要工具，熟练掌握这些概念和原理可以高效地解决许多计数和排列组合问题。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

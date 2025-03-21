@@ -1,0 +1,165 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><h4>1. 什么是高精度加法？</h4>
+<p>高精度加法是指对超过标准数据类型（如 <code>int</code>、<code>long long</code>）表示范围的大整数进行加法运算。由于计算机的整数类型有固定的位数限制（如 <code>int</code> 通常是 32 位），无法直接处理非常大的整数。因此，我们需要通过<strong>字符串</strong>或<strong>数组</strong>来表示大整数，并手动实现加法运算。</p>
+<hr />
+<h4>2. 高精度加法的实现思路</h4>
+<ol>
+<li>
+<p><strong>表示大整数</strong>：</p>
+<ul>
+<li>使用字符串或数组存储大整数，每一位对应一个数字。</li>
+<li>例如，数字 <code>123456789</code> 可以表示为字符串 <code>&quot;123456789&quot;</code> 或数组 <code>[9, 8, 7, 6, 5, 4, 3, 2, 1]</code>（逆序存储方便计算）。</li>
+</ul>
+</li>
+<li>
+<p><strong>模拟竖式加法</strong>：</p>
+<ul>
+<li>从低位到高位逐位相加，并处理进位。</li>
+<li>最终结果可能需要处理最高位的进位。</li>
+</ul>
+</li>
+<li>
+<p><strong>输出结果</strong>：</p>
+<ul>
+<li>将计算结果转换为字符串或数组形式。</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h4>3. 高精度加法的代码实现</h4>
+<h5>方法 1：使用字符串表示大整数</h5>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+// 高精度加法
+string addStrings(string num1, string num2) {
+    string result; // 存储结果
+    int carry = 0; // 进位
+    int i = num1.length() - 1; // 从最低位开始
+    int j = num2.length() - 1;
+
+    // 逐位相加
+    while (i &gt;= 0 || j &gt;= 0 || carry &gt; 0) {
+        int digit1 = (i &gt;= 0) ? num1[i--] - '0' : 0; // 获取 num1 的当前位
+        int digit2 = (j &gt;= 0) ? num2[j--] - '0' : 0; // 获取 num2 的当前位
+        int sum = digit1 + digit2 + carry; // 当前位的和
+        carry = sum / 10; // 计算进位
+        result.push_back((sum % 10) + '0'); // 将当前位的结果存入字符串
+    }
+
+    // 反转字符串得到正确的结果
+    reverse(result.begin(), result.end());
+    return result;
+}
+
+int main() {
+    string num1 = &quot;12345678901234567890&quot;;
+    string num2 = &quot;98765432109876543210&quot;;
+
+    string sum = addStrings(num1, num2);
+    cout &lt;&lt; &quot;高精度加法结果: &quot; &lt;&lt; sum &lt;&lt; endl;
+
+    return 0;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>高精度加法结果: 111111111011111111100
+</code></pre>
+<hr />
+<h5>方法 2：使用数组表示大整数（逆序存储）</h5>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+// 高精度加法
+vector&lt;int&gt; addArrays(vector&lt;int&gt;&amp; num1, vector&lt;int&gt;&amp; num2) {
+    vector&lt;int&gt; result; // 存储结果
+    int carry = 0; // 进位
+    int i = 0, j = 0;
+
+    // 逐位相加
+    while (i &lt; num1.size() || j &lt; num2.size() || carry &gt; 0) {
+        int digit1 = (i &lt; num1.size()) ? num1[i++] : 0; // 获取 num1 的当前位
+        int digit2 = (j &lt; num2.size()) ? num2[j++] : 0; // 获取 num2 的当前位
+        int sum = digit1 + digit2 + carry; // 当前位的和
+        carry = sum / 10; // 计算进位
+        result.push_back(sum % 10); // 将当前位的结果存入数组
+    }
+
+    return result;
+}
+
+int main() {
+    vector&lt;int&gt; num1 = {0, 9, 8, 7, 6, 5, 4, 3, 2, 1}; // 1234567890 的逆序
+    vector&lt;int&gt; num2 = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}; // 9876543210 的逆序
+
+    vector&lt;int&gt; sum = addArrays(num1, num2);
+
+    // 输出结果（逆序）
+    cout &lt;&lt; &quot;高精度加法结果: &quot;;
+    for (int i = sum.size() - 1; i &gt;= 0; i--) {
+        cout &lt;&lt; sum[i];
+    }
+    cout &lt;&lt; endl;
+
+    return 0;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>高精度加法结果: 11111111100
+</code></pre>
+<hr />
+<h4>4. 高精度加法的注意事项</h4>
+<ol>
+<li><strong>进位处理</strong>：
+<ul>
+<li>每一位相加后，需要计算进位，并在下一位相加时加上进位。</li>
+</ul>
+</li>
+<li><strong>结果长度</strong>：
+<ul>
+<li>结果的位数可能比输入数的位数多 1（最高位有进位）。</li>
+</ul>
+</li>
+<li><strong>逆序存储</strong>：
+<ul>
+<li>使用数组存储时，逆序存储可以方便地从低位到高位计算。</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h4>5. 高精度加法的应用</h4>
+<ul>
+<li><strong>大整数计算</strong>：如大整数的加减乘除、幂运算等。</li>
+<li><strong>密码学</strong>：如 RSA 算法中的大数运算。</li>
+<li><strong>科学计算</strong>：如高精度浮点数运算。</li>
+</ul>
+<hr />
+<h4>6. 总结</h4>
+<p>高精度加法是处理大整数运算的基础算法。通过字符串或数组表示大整数，并模拟竖式加法，我们可以实现超出标准数据类型范围的加法运算。掌握高精度加法的实现方法，为进一步学习高精度减法、乘法和除法打下基础。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

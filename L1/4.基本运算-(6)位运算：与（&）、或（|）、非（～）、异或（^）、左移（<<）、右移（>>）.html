@@ -1,0 +1,242 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><p>在C++中，<strong>位运算</strong>直接对整数的二进制位进行操作。位运算常用于底层编程、性能优化和某些特定算法中。以下是C++中常见的位运算符及其用法：</p>
+<hr />
+<h3><strong>1. 位与运算符 (<code>&amp;</code>)</strong></h3>
+<ul>
+<li><strong>作用</strong>：对两个操作数的每一位进行逻辑与操作。
+<ul>
+<li>如果两个对应位都为 1，则结果为 1；否则为 0。</li>
+</ul>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">int a = 5;    // 二进制：0101
+int b = 3;    // 二进制：0011
+int result = a &amp; b;  // 结果：0001 (1)
+cout &lt;&lt; result &lt;&lt; endl;  // 输出：1
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>2. 位或运算符 (<code>|</code>)</strong></h3>
+<ul>
+<li><strong>作用</strong>：对两个操作数的每一位进行逻辑或操作。
+<ul>
+<li>如果两个对应位中至少有一个为 1，则结果为 1；否则为 0。</li>
+</ul>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">int a = 5;    // 二进制：0101
+int b = 3;    // 二进制：0011
+int result = a | b;  // 结果：0111 (7)
+cout &lt;&lt; result &lt;&lt; endl;  // 输出：7
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>3. 位非运算符 (<code>~</code>)</strong></h3>
+<ul>
+<li><strong>作用</strong>：对操作数的每一位进行逻辑非操作（按位取反）。
+<ul>
+<li>将 0 变为 1，将 1 变为 0。</li>
+</ul>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">int a = 5;    // 二进制：0101
+int result = ~a;  // 结果：1010 (补码表示，实际值为 -6)
+cout &lt;&lt; result &lt;&lt; endl;  // 输出：-6
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>4. 位异或运算符 (<code>^</code>)</strong></h3>
+<ul>
+<li><strong>作用</strong>：对两个操作数的每一位进行逻辑异或操作。
+<ul>
+<li>如果两个对应位不同，则结果为 1；否则为 0。</li>
+</ul>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">int a = 5;    // 二进制：0101
+int b = 3;    // 二进制：0011
+int result = a ^ b;  // 结果：0110 (6)
+cout &lt;&lt; result &lt;&lt; endl;  // 输出：6
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>5. 左移运算符 (<code>&lt;&lt;</code>)</strong></h3>
+<ul>
+<li><strong>作用</strong>：将操作数的二进制位向左移动指定的位数，右侧补 0。
+<ul>
+<li>左移一位相当于乘以 2。</li>
+</ul>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">int a = 5;    // 二进制：0101
+int result = a &lt;&lt; 1;  // 结果：1010 (10)
+cout &lt;&lt; result &lt;&lt; endl;  // 输出：10
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>6. 右移运算符 (<code>&gt;&gt;</code>)</strong></h3>
+<ul>
+<li><strong>作用</strong>：将操作数的二进制位向右移动指定的位数，左侧补 0（对于无符号数）或符号位（对于有符号数）。
+<ul>
+<li>右移一位相当于除以 2。</li>
+</ul>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">int a = 5;    // 二进制：0101
+int result = a &gt;&gt; 1;  // 结果：0010 (2)
+cout &lt;&lt; result &lt;&lt; endl;  // 输出：2
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>7. 综合示例</strong></h3>
+<p>以下是一个完整的C++程序，演示了各种位运算符的用法：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int a = 5;  // 二进制：0101
+    int b = 3;  // 二进制：0011
+
+    // 位与
+    cout &lt;&lt; &quot;a &amp; b: &quot; &lt;&lt; (a &amp; b) &lt;&lt; endl;  // 输出：1
+
+    // 位或
+    cout &lt;&lt; &quot;a | b: &quot; &lt;&lt; (a | b) &lt;&lt; endl;  // 输出：7
+
+    // 位非
+    cout &lt;&lt; &quot;~a: &quot; &lt;&lt; (~a) &lt;&lt; endl;  // 输出：-6
+
+    // 位异或
+    cout &lt;&lt; &quot;a ^ b: &quot; &lt;&lt; (a ^ b) &lt;&lt; endl;  // 输出：6
+
+    // 左移
+    cout &lt;&lt; &quot;a &lt;&lt; 1: &quot; &lt;&lt; (a &lt;&lt; 1) &lt;&lt; endl;  // 输出：10
+
+    // 右移
+    cout &lt;&lt; &quot;a &gt;&gt; 1: &quot; &lt;&lt; (a &gt;&gt; 1) &lt;&lt; endl;  // 输出：2
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>8. 注意事项</strong></h3>
+<ol>
+<li>
+<p><strong>操作数类型</strong>：</p>
+<ul>
+<li>位运算符只能用于整数类型（如 <code>int</code>、<code>char</code>、<code>long</code> 等）。</li>
+<li>不能用于浮点数类型。</li>
+</ul>
+</li>
+<li>
+<p><strong>符号位</strong>：</p>
+<ul>
+<li>对于有符号数，右移运算符 (<code>&gt;&gt;</code>) 会保留符号位（算术右移）。</li>
+<li>对于无符号数，右移运算符 (<code>&gt;&gt;</code>) 会在左侧补 0（逻辑右移）。</li>
+</ul>
+</li>
+<li>
+<p><strong>位移范围</strong>：</p>
+<ul>
+<li>左移或右移的位数不能超过操作数的位数，否则行为未定义。</li>
+<li>示例：
+<pre><code class="language-cpp">int a = 1;
+int result = a &lt;&lt; 33;  // 未定义行为（假设 int 是 32 位）
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>位运算的用途</strong>：</p>
+<ul>
+<li>位运算常用于以下场景：
+<ul>
+<li>性能优化（如快速计算 2 的幂）。</li>
+<li>位掩码操作（如设置或清除特定位）。</li>
+<li>加密算法或哈希函数。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h3><strong>9. 总结</strong></h3>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>作用</th>
+<th>示例</th>
+<th>结果（示例）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&amp;</code></td>
+<td>位与</td>
+<td><code>5 &amp; 3</code></td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><code>|</code></td>
+<td>位或</td>
+<td><code>5 | 3</code></td>
+<td><code>7</code></td>
+</tr>
+<tr>
+<td><code>~</code></td>
+<td>位非</td>
+<td><code>~5</code></td>
+<td><code>-6</code></td>
+</tr>
+<tr>
+<td><code>^</code></td>
+<td>位异或</td>
+<td><code>5 ^ 3</code></td>
+<td><code>6</code></td>
+</tr>
+<tr>
+<td><code>&lt;&lt;</code></td>
+<td>左移</td>
+<td><code>5 &lt;&lt; 1</code></td>
+<td><code>10</code></td>
+</tr>
+<tr>
+<td><code>&gt;&gt;</code></td>
+<td>右移</td>
+<td><code>5 &gt;&gt; 1</code></td>
+<td><code>2</code></td>
+</tr>
+</tbody>
+</table>
+<p>位运算是C++中处理二进制数据的强大工具，熟练掌握它们可以在底层编程中发挥重要作用。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

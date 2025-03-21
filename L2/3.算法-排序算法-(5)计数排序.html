@@ -1,0 +1,153 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><h3>计数排序（Counting Sort）</h3>
+<h4>1. 什么是计数排序？</h4>
+<p>计数排序是一种非比较排序算法，适用于排序整数且范围较小的数据。它的核心思想是通过统计每个元素的出现次数，然后根据统计结果将元素放回数组，从而实现排序。</p>
+<hr />
+<h4>2. 计数排序的基本思想</h4>
+<ol>
+<li><strong>统计频率</strong>：遍历数组，统计每个元素出现的次数。</li>
+<li><strong>计算前缀和</strong>：将频率数组转换为前缀和数组，表示每个元素在排序后数组中的最后一个位置。</li>
+<li><strong>放置元素</strong>：根据前缀和数组，将元素放置到正确的位置。</li>
+<li><strong>输出结果</strong>：将排序后的结果复制回原数组。</li>
+</ol>
+<hr />
+<h4>3. 计数排序的步骤</h4>
+<ol>
+<li>找到数组中的最大值 <code>max</code>，确定计数数组的大小为 <code>max + 1</code>。</li>
+<li>遍历数组，统计每个元素的出现次数，存入计数数组。</li>
+<li>将计数数组转换为前缀和数组，表示每个元素在排序后数组中的最后一个位置。</li>
+<li>从后向前遍历原数组，根据前缀和数组将元素放置到正确的位置。</li>
+<li>将排序后的结果复制回原数组。</li>
+</ol>
+<hr />
+<h4>4. 计数排序的代码实现</h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+// 计数排序
+void countingSort(vector&lt;int&gt;&amp; arr) {
+    if (arr.empty()) return;
+
+    // 找到数组中的最大值
+    int maxVal = *max_element(arr.begin(), arr.end());
+
+    // 创建计数数组，并初始化为 0
+    vector&lt;int&gt; count(maxVal + 1, 0);
+
+    // 统计每个元素的出现次数
+    for (int num : arr) {
+        count[num]++;
+    }
+
+    // 将计数数组转换为前缀和数组
+    for (int i = 1; i &lt;= maxVal; i++) {
+        count[i] += count[i - 1];
+    }
+
+    // 创建临时数组存储排序结果
+    vector&lt;int&gt; output(arr.size());
+
+    // 从后向前遍历原数组，将元素放置到正确的位置
+    for (int i = arr.size() - 1; i &gt;= 0; i--) {
+        output[count[arr[i]] - 1] = arr[i];
+        count[arr[i]]--;
+    }
+
+    // 将排序结果复制回原数组
+    for (int i = 0; i &lt; arr.size(); i++) {
+        arr[i] = output[i];
+    }
+}
+
+int main() {
+    vector&lt;int&gt; arr = {4, 2, 2, 8, 3, 3, 1};
+
+    cout &lt;&lt; &quot;排序前: &quot;;
+    for (int num : arr) {
+        cout &lt;&lt; num &lt;&lt; &quot; &quot;;
+    }
+    cout &lt;&lt; endl;
+
+    countingSort(arr);
+
+    cout &lt;&lt; &quot;排序后: &quot;;
+    for (int num : arr) {
+        cout &lt;&lt; num &lt;&lt; &quot; &quot;;
+    }
+    cout &lt;&lt; endl;
+
+    return 0;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>排序前: 4 2 2 8 3 3 1 
+排序后: 1 2 2 3 3 4 8
+</code></pre>
+<hr />
+<h4>5. 计数排序的时间复杂度</h4>
+<ul>
+<li><strong>时间复杂度</strong>：O(n + k)，其中 <code>n</code> 是数组的长度，<code>k</code> 是数据的范围（最大值 - 最小值 + 1）。</li>
+<li><strong>适用场景</strong>：当 <code>k</code> 较小且 <code>n</code> 较大时，计数排序的效率较高。</li>
+</ul>
+<hr />
+<h4>6. 计数排序的空间复杂度</h4>
+<ul>
+<li><strong>空间复杂度</strong>：O(n + k)，需要额外的计数数组和输出数组。</li>
+</ul>
+<hr />
+<h4>7. 计数排序的稳定性</h4>
+<ul>
+<li><strong>稳定性</strong>：稳定。计数排序不会改变相等元素的相对顺序。</li>
+</ul>
+<hr />
+<h4>8. 计数排序的优缺点</h4>
+<ul>
+<li><strong>优点</strong>：
+<ul>
+<li>时间复杂度低，适合范围较小的整数排序。</li>
+<li>稳定排序，不会改变相等元素的相对顺序。</li>
+</ul>
+</li>
+<li><strong>缺点</strong>：
+<ul>
+<li>仅适用于整数排序。</li>
+<li>当数据范围 <code>k</code> 较大时，空间复杂度较高。</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h4>9. 计数排序的应用</h4>
+<ul>
+<li><strong>小范围整数排序</strong>：如年龄、分数等。</li>
+<li><strong>基数排序的子过程</strong>：基数排序的每一位排序可以使用计数排序。</li>
+<li><strong>统计频率</strong>：如统计数组中每个元素的出现次数。</li>
+</ul>
+<hr />
+<h4>10. 总结</h4>
+<p>计数排序是一种高效的整数排序算法，适用于数据范围较小的场景。通过统计元素的出现次数并利用前缀和数组，计数排序可以在 O(n + k) 的时间复杂度内完成排序。掌握计数排序的思想和实现方法，有助于解决一些特定的排序问题。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

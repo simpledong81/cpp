@@ -1,0 +1,231 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><p>在C++中，<strong>逻辑运算</strong>用于对布尔值（<code>true</code> 或 <code>false</code>）进行操作，常用于组合多个条件。逻辑运算符包括 <strong>与（<code>&amp;&amp;</code>）</strong>、<strong>或（<code>||</code>）</strong> 和 <strong>非（<code>!</code>）</strong>。以下是它们的详细说明和示例：</p>
+<hr />
+<h3><strong>1. 逻辑与运算符 (<code>&amp;&amp;</code>)</strong></h3>
+<ul>
+<li>
+<p><strong>作用</strong>：当且仅当两个操作数都为 <code>true</code> 时，结果为 <code>true</code>；否则为 <code>false</code>。</p>
+</li>
+<li>
+<p><strong>真值表</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>A &amp;&amp; B</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>true</td>
+<td>true</td>
+<td>true</td>
+</tr>
+<tr>
+<td>true</td>
+<td>false</td>
+<td>false</td>
+</tr>
+<tr>
+<td>false</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr>
+<td>false</td>
+<td>false</td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-cpp">bool a = true, b = false;
+bool result = a &amp;&amp; b;  // result = false
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>2. 逻辑或运算符 (<code>||</code>)</strong></h3>
+<ul>
+<li>
+<p><strong>作用</strong>：当至少有一个操作数为 <code>true</code> 时，结果为 <code>true</code>；否则为 <code>false</code>。</p>
+</li>
+<li>
+<p><strong>真值表</strong>：<br />
+| A     | B     | A || B |<br />
+|-------|-------|--------|<br />
+| true  | true  | true   |<br />
+| true  | false | true   |<br />
+| false | true  | true   |<br />
+| false | false | false  |</p>
+</li>
+<li>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-cpp">bool a = true, b = false;
+bool result = a || b;  // result = true
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>3. 逻辑非运算符 (<code>!</code>)</strong></h3>
+<ul>
+<li>
+<p><strong>作用</strong>：对操作数取反。如果操作数为 <code>true</code>，结果为 <code>false</code>；反之亦然。</p>
+</li>
+<li>
+<p><strong>真值表</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>!A</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr>
+<td>false</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-cpp">bool a = true;
+bool result = !a;  // result = false
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>4. 综合示例</strong></h3>
+<p>以下是一个完整的C++程序，演示了逻辑运算符的用法：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    bool a = true, b = false;
+
+    // 逻辑与
+    cout &lt;&lt; &quot;a &amp;&amp; b: &quot; &lt;&lt; (a &amp;&amp; b) &lt;&lt; endl;  // 输出：0 (false)
+
+    // 逻辑或
+    cout &lt;&lt; &quot;a || b: &quot; &lt;&lt; (a || b) &lt;&lt; endl;  // 输出：1 (true)
+
+    // 逻辑非
+    cout &lt;&lt; &quot;!a: &quot; &lt;&lt; !a &lt;&lt; endl;  // 输出：0 (false)
+    cout &lt;&lt; &quot;!b: &quot; &lt;&lt; !b &lt;&lt; endl;  // 输出：1 (true)
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>5. 短路求值</strong></h3>
+<p>C++中的逻辑运算符支持 <strong>短路求值</strong>（Short-circuit Evaluation）：</p>
+<ul>
+<li>对于 <code>&amp;&amp;</code>，如果左操作数为 <code>false</code>，则不会计算右操作数。</li>
+<li>对于 <code>||</code>，如果左操作数为 <code>true</code>，则不会计算右操作数。</li>
+</ul>
+<h4><strong>示例</strong></h4>
+<pre><code class="language-cpp">int x = 10, y = 20;
+
+// 短路求值：x &gt; 20 为 false，不会计算 y &lt; 30
+if (x &gt; 20 &amp;&amp; y &lt; 30) {
+    cout &lt;&lt; &quot;This won't be executed.&quot; &lt;&lt; endl;
+}
+
+// 短路求值：x &lt; 20 为 true，不会计算 y &gt; 30
+if (x &lt; 20 || y &gt; 30) {
+    cout &lt;&lt; &quot;This will be executed.&quot; &lt;&lt; endl;
+}
+</code></pre>
+<hr />
+<h3><strong>6. 注意事项</strong></h3>
+<ol>
+<li>
+<p><strong>布尔值输出</strong>：</p>
+<ul>
+<li>在C++中，<code>true</code> 被输出为 <code>1</code>，<code>false</code> 被输出为 <code>0</code>。</li>
+<li>可以使用 <code>boolalpha</code> 来输出 <code>true</code> 或 <code>false</code>：
+<pre><code class="language-cpp">cout &lt;&lt; boolalpha &lt;&lt; (a &amp;&amp; b) &lt;&lt; endl;  // 输出：false
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>非布尔值的逻辑运算</strong>：</p>
+<ul>
+<li>在C++中，非零值被视为 <code>true</code>，零值被视为 <code>false</code>。</li>
+<li>示例：
+<pre><code class="language-cpp">int x = 10, y = 0;
+if (x &amp;&amp; !y) {
+    cout &lt;&lt; &quot;x is true and y is false&quot; &lt;&lt; endl;
+}
+</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h3><strong>总结</strong></h3>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>作用</th>
+<th>示例</th>
+<th>结果（示例）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&amp;&amp;</code></td>
+<td>逻辑与</td>
+<td><code>true &amp;&amp; false</code></td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td>`</td>
+<td></td>
+<td>`</td>
+<td>逻辑或</td>
+</tr>
+<tr>
+<td><code>!</code></td>
+<td>逻辑非</td>
+<td><code>!true</code></td>
+<td><code>false</code></td>
+</tr>
+</tbody>
+</table>
+<p>逻辑运算符是C++编程中实现复杂条件判断的重要工具，熟练掌握它们可以编写出高效的程序逻辑。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

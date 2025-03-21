@@ -1,0 +1,173 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><h3>C++ 学习：基础算法（1）贪心法</h3>
+<h4>1. 什么是贪心法？</h4>
+<p>贪心法（Greedy Algorithm）是一种在每一步选择中都采取当前状态下最优的选择，从而希望导致全局最优解的算法。贪心法的核心思想是<strong>局部最优解能够导致全局最优解</strong>。</p>
+<p>贪心法并不保证一定能得到全局最优解，但在某些问题中，贪心法可以高效地得到一个近似最优解。</p>
+<hr />
+<h4>2. 贪心法的适用场景</h4>
+<p>贪心法通常适用于以下类型的问题：</p>
+<ul>
+<li><strong>最优化问题</strong>：如最短路径、最小生成树、背包问题等。</li>
+<li><strong>问题具有贪心选择性质</strong>：即局部最优解能够导致全局最优解。</li>
+<li><strong>问题可以分解为子问题</strong>：每个子问题的最优解可以组合成全局最优解。</li>
+</ul>
+<hr />
+<h4>3. 贪心法的基本步骤</h4>
+<ol>
+<li><strong>确定问题的最优子结构</strong>：将问题分解为若干子问题。</li>
+<li><strong>设计贪心策略</strong>：确定每一步的最优选择。</li>
+<li><strong>证明贪心选择的正确性</strong>：确保局部最优解能够导致全局最优解。</li>
+<li><strong>实现算法</strong>：用代码实现贪心策略。</li>
+</ol>
+<hr />
+<h4>4. 贪心法的经典问题</h4>
+<h5>（1）找零钱问题</h5>
+<p><strong>问题描述</strong>：假设有若干面值的硬币（如 1元、5元、10元、20元、50元、100元），现在需要用最少数量的硬币凑出某个金额。</p>
+<p><strong>贪心策略</strong>：每次选择面值最大的硬币，直到凑出目标金额。</p>
+<p><strong>代码实现</strong>：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+// 贪心法解决找零钱问题
+int coinChange(vector&lt;int&gt;&amp; coins, int amount) {
+    sort(coins.rbegin(), coins.rend()); // 将硬币按面值从大到小排序
+    int count = 0;
+
+    for (int coin : coins) {
+        while (amount &gt;= coin) {
+            amount -= coin;
+            count++;
+        }
+    }
+
+    if (amount != 0) {
+        return -1; // 无法凑出目标金额
+    }
+    return count;
+}
+
+int main() {
+    vector&lt;int&gt; coins = {1, 5, 10, 20, 50, 100}; // 硬币面值
+    int amount = 63; // 目标金额
+
+    int result = coinChange(coins, amount);
+    if (result != -1) {
+        cout &lt;&lt; &quot;最少需要 &quot; &lt;&lt; result &lt;&lt; &quot; 枚硬币&quot; &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; &quot;无法凑出目标金额&quot; &lt;&lt; endl;
+    }
+
+    return 0;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>最少需要 3 枚硬币
+</code></pre>
+<hr />
+<h5>（2）活动选择问题</h5>
+<p><strong>问题描述</strong>：假设有一组活动，每个活动有一个开始时间和结束时间。如何选择最多的互不冲突的活动？</p>
+<p><strong>贪心策略</strong>：每次选择结束时间最早的活动，为后续活动留出更多时间。</p>
+<p><strong>代码实现</strong>：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+
+using namespace std;
+
+// 活动结构体
+struct Activity {
+    int start;
+    int end;
+};
+
+// 比较函数，按结束时间排序
+bool compareActivities(Activity a, Activity b) {
+    return a.end &lt; b.end;
+}
+
+// 贪心法解决活动选择问题
+vector&lt;Activity&gt; selectActivities(vector&lt;Activity&gt;&amp; activities) {
+    sort(activities.begin(), activities.end(), compareActivities); // 按结束时间排序
+    vector&lt;Activity&gt; selectedActivities;
+    int lastEndTime = 0;
+
+    for (Activity activity : activities) {
+        if (activity.start &gt;= lastEndTime) {
+            selectedActivities.push_back(activity);
+            lastEndTime = activity.end;
+        }
+    }
+
+    return selectedActivities;
+}
+
+int main() {
+    vector&lt;Activity&gt; activities = {
+        {1, 4}, {3, 5}, {0, 6}, {5, 7}, {8, 9}, {5, 9}
+    };
+
+    vector&lt;Activity&gt; result = selectActivities(activities);
+    cout &lt;&lt; &quot;最多可以安排 &quot; &lt;&lt; result.size() &lt;&lt; &quot; 个活动：&quot; &lt;&lt; endl;
+    for (Activity activity : result) {
+        cout &lt;&lt; &quot;[&quot; &lt;&lt; activity.start &lt;&lt; &quot;, &quot; &lt;&lt; activity.end &lt;&lt; &quot;] &quot;;
+    }
+
+    return 0;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>最多可以安排 4 个活动：
+[1, 4] [5, 7] [8, 9]
+</code></pre>
+<hr />
+<h4>5. 贪心法的优缺点</h4>
+<ul>
+<li><strong>优点</strong>：
+<ul>
+<li>简单高效，易于实现。</li>
+<li>时间复杂度通常较低。</li>
+</ul>
+</li>
+<li><strong>缺点</strong>：
+<ul>
+<li>不一定能得到全局最优解。</li>
+<li>需要证明贪心策略的正确性。</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h4>6. 贪心法的应用</h4>
+<ul>
+<li><strong>哈夫曼编码</strong>：用于数据压缩。</li>
+<li><strong>Dijkstra算法</strong>：用于单源最短路径问题。</li>
+<li><strong>最小生成树</strong>：如Prim算法和Kruskal算法。</li>
+</ul>
+<hr />
+<h4>7. 总结</h4>
+<p>贪心法是一种简单而高效的算法设计方法，适用于某些特定类型的问题。通过选择局部最优解，贪心法可以快速得到一个近似最优解。然而，贪心法并不适用于所有问题，需要仔细分析问题的性质。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

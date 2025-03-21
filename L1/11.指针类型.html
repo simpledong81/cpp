@@ -1,0 +1,241 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><p>在C++中，<strong>指针</strong>是一种特殊的变量，用于存储内存地址。指针可以指向任何数据类型（如基本类型、数组、结构体等），并通过指针访问或操作数据。以下是关于指针、基于指针的数组访问、字符指针和指向结构体的指针的详细说明和示例：</p>
+<hr />
+<h3><strong>1. 指针的基本概念</strong></h3>
+<ul>
+<li><strong>指针</strong>：存储变量内存地址的变量。</li>
+<li><strong>声明指针</strong>：
+<pre><code class="language-cpp">数据类型* 指针变量名;
+</code></pre>
+</li>
+<li><strong>取地址运算符</strong>：<code>&amp;</code>，用于获取变量的地址。</li>
+<li><strong>解引用运算符</strong>：<code>*</code>，用于访问指针指向的值。</li>
+</ul>
+<h4><strong>示例</strong></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int a = 10;
+    int* p = &amp;a;  // p 指向 a 的地址
+
+    cout &lt;&lt; &quot;Value of a: &quot; &lt;&lt; a &lt;&lt; endl;        // 输出：10
+    cout &lt;&lt; &quot;Address of a: &quot; &lt;&lt; &amp;a &lt;&lt; endl;     // 输出：a 的地址
+    cout &lt;&lt; &quot;Value of p: &quot; &lt;&lt; p &lt;&lt; endl;        // 输出：a 的地址
+    cout &lt;&lt; &quot;Value pointed by p: &quot; &lt;&lt; *p &lt;&lt; endl;  // 输出：10
+
+    *p = 20;  // 通过指针修改 a 的值
+    cout &lt;&lt; &quot;New value of a: &quot; &lt;&lt; a &lt;&lt; endl;    // 输出：20
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>2. 基于指针的数组访问</strong></h3>
+<p>数组名本质上是一个指向数组首元素的指针。可以通过指针访问数组元素。</p>
+<h4><strong>示例</strong></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int arr[5] = {1, 2, 3, 4, 5};
+    int* p = arr;  // p 指向数组的首元素
+
+    for (int i = 0; i &lt; 5; i++) {
+        cout &lt;&lt; &quot;Element &quot; &lt;&lt; i &lt;&lt; &quot;: &quot; &lt;&lt; *(p + i) &lt;&lt; endl;  // 通过指针访问数组元素
+    }
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>3. 字符指针</strong></h3>
+<p>字符指针通常用于操作字符串。C风格的字符串是以 <code>\0</code> 结尾的字符数组。</p>
+<h4><strong>示例</strong></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    const char* str = &quot;Hello, World!&quot;;  // 字符指针指向字符串常量
+
+    cout &lt;&lt; &quot;String: &quot; &lt;&lt; str &lt;&lt; endl;  // 输出：Hello, World!
+    cout &lt;&lt; &quot;First character: &quot; &lt;&lt; *str &lt;&lt; endl;  // 输出：H
+
+    // 遍历字符串
+    while (*str != '\0') {
+        cout &lt;&lt; *str;
+        str++;
+    }
+    cout &lt;&lt; endl;
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>4. 指向结构体的指针</strong></h3>
+<p>指针可以指向结构体，并通过指针访问结构体的成员。</p>
+<h4><strong>示例</strong></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+// 定义结构体
+struct Student {
+    int id;
+    string name;
+    double grade;
+};
+
+int main() {
+    Student s1 = {1, &quot;Alice&quot;, 95.5};
+    Student* p = &amp;s1;  // 指向结构体的指针
+
+    // 通过指针访问结构体成员
+    cout &lt;&lt; &quot;Student ID: &quot; &lt;&lt; p-&gt;id &lt;&lt; endl;
+    cout &lt;&lt; &quot;Student Name: &quot; &lt;&lt; p-&gt;name &lt;&lt; endl;
+    cout &lt;&lt; &quot;Student Grade: &quot; &lt;&lt; p-&gt;grade &lt;&lt; endl;
+
+    // 修改结构体成员
+    p-&gt;grade = 98.0;
+    cout &lt;&lt; &quot;Updated Grade: &quot; &lt;&lt; s1.grade &lt;&lt; endl;  // 输出：98.0
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>5. 指针与动态内存分配</strong></h3>
+<p>指针常用于动态内存分配（如 <code>new</code> 和 <code>delete</code>）。</p>
+<h4><strong>示例</strong></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int* p = new int;  // 动态分配一个整数
+    *p = 10;
+    cout &lt;&lt; &quot;Value: &quot; &lt;&lt; *p &lt;&lt; endl;  // 输出：10
+
+    delete p;  // 释放内存
+
+    // 动态分配数组
+    int* arr = new int[5];
+    for (int i = 0; i &lt; 5; i++) {
+        arr[i] = i + 1;
+    }
+    for (int i = 0; i &lt; 5; i++) {
+        cout &lt;&lt; arr[i] &lt;&lt; &quot; &quot;;
+    }
+    cout &lt;&lt; endl;
+
+    delete[] arr;  // 释放数组内存
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>6. 综合示例</strong></h3>
+<p>以下是一个完整的C++程序，演示了指针、基于指针的数组访问、字符指针和指向结构体的指针的使用：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+// 定义结构体
+struct Student {
+    int id;
+    string name;
+    double grade;
+};
+
+int main() {
+    // 指针的基本使用
+    int a = 10;
+    int* p = &amp;a;
+    cout &lt;&lt; &quot;Value of a: &quot; &lt;&lt; *p &lt;&lt; endl;  // 输出：10
+
+    // 基于指针的数组访问
+    int arr[5] = {1, 2, 3, 4, 5};
+    int* pArr = arr;
+    for (int i = 0; i &lt; 5; i++) {
+        cout &lt;&lt; &quot;Element &quot; &lt;&lt; i &lt;&lt; &quot;: &quot; &lt;&lt; *(pArr + i) &lt;&lt; endl;
+    }
+
+    // 字符指针
+    const char* str = &quot;Hello, World!&quot;;
+    cout &lt;&lt; &quot;String: &quot; &lt;&lt; str &lt;&lt; endl;  // 输出：Hello, World!
+
+    // 指向结构体的指针
+    Student s1 = {1, &quot;Alice&quot;, 95.5};
+    Student* pStudent = &amp;s1;
+    cout &lt;&lt; &quot;Student Name: &quot; &lt;&lt; pStudent-&gt;name &lt;&lt; endl;  // 输出：Alice
+
+    // 动态内存分配
+    int* pDynamic = new int;
+    *pDynamic = 20;
+    cout &lt;&lt; &quot;Dynamic Value: &quot; &lt;&lt; *pDynamic &lt;&lt; endl;  // 输出：20
+    delete pDynamic;
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>7. 总结</strong></h3>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>指针</strong></td>
+<td>存储变量内存地址的变量</td>
+<td><code>int* p = &amp;a;</code></td>
+</tr>
+<tr>
+<td><strong>基于指针的数组访问</strong></td>
+<td>通过指针访问数组元素</td>
+<td><code>*(p + i)</code></td>
+</tr>
+<tr>
+<td><strong>字符指针</strong></td>
+<td>用于操作字符串</td>
+<td><code>const char* str = &quot;Hello&quot;;</code></td>
+</tr>
+<tr>
+<td><strong>指向结构体的指针</strong></td>
+<td>通过指针访问结构体成员</td>
+<td><code>pStudent-&gt;name</code></td>
+</tr>
+<tr>
+<td><strong>动态内存分配</strong></td>
+<td>使用 <code>new</code> 和 <code>delete</code> 管理动态内存</td>
+<td><code>int* p = new int; delete p;</code></td>
+</tr>
+</tbody>
+</table>
+<p>指针是C++中强大的工具，熟练掌握指针的使用可以高效地操作内存和数据。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

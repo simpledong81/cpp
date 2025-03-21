@@ -1,0 +1,265 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><p>在C++中，**结构体（struct）<strong>和</strong>联合体（union）**是两种用户定义的复合数据类型，用于将不同类型的数据组合在一起。以下是它们的详细说明和示例：</p>
+<hr />
+<h3><strong>1. 结构体（struct）</strong></h3>
+<p>结构体是一种将多个不同类型的数据成员组合在一起的数据类型。每个成员在内存中占用独立的空间。</p>
+<h4><strong>(1) 定义结构体</strong></h4>
+<ul>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">struct 结构体名 {
+    数据类型 成员名1;
+    数据类型 成员名2;
+    ...
+};
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">struct Student {
+    int id;
+    string name;
+    double grade;
+};
+</code></pre>
+</li>
+</ul>
+<h4><strong>(2) 创建结构体变量</strong></h4>
+<ul>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">结构体名 变量名;
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">Student s1;  // 创建一个 Student 类型的变量
+</code></pre>
+</li>
+</ul>
+<h4><strong>(3) 访问结构体成员</strong></h4>
+<ul>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">变量名.成员名
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">s1.id = 1;
+s1.name = &quot;Alice&quot;;
+s1.grade = 95.5;
+</code></pre>
+</li>
+</ul>
+<h4><strong>(4) 初始化结构体</strong></h4>
+<ul>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">结构体名 变量名 = {值1, 值2, ...};
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">Student s2 = {2, &quot;Bob&quot;, 88.0};
+</code></pre>
+</li>
+</ul>
+<h4><strong>(5) 结构体数组</strong></h4>
+<ul>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">Student students[3] = {
+    {1, &quot;Alice&quot;, 95.5},
+    {2, &quot;Bob&quot;, 88.0},
+    {3, &quot;Charlie&quot;, 92.0}
+};
+</code></pre>
+</li>
+</ul>
+<h4><strong>(6) 结构体指针</strong></h4>
+<ul>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">Student* ptr = &amp;s1;
+cout &lt;&lt; ptr-&gt;name &lt;&lt; endl;  // 输出：Alice
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>2. 联合体（union）</strong></h3>
+<p>联合体是一种特殊的数据类型，所有成员共享同一块内存空间。联合体的大小等于其最大成员的大小。</p>
+<h4><strong>(1) 定义联合体</strong></h4>
+<ul>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">union 联合体名 {
+    数据类型 成员名1;
+    数据类型 成员名2;
+    ...
+};
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">union Data {
+    int i;
+    double d;
+    char c;
+};
+</code></pre>
+</li>
+</ul>
+<h4><strong>(2) 创建联合体变量</strong></h4>
+<ul>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">联合体名 变量名;
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">Data data;
+</code></pre>
+</li>
+</ul>
+<h4><strong>(3) 访问联合体成员</strong></h4>
+<ul>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">变量名.成员名
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">data.i = 10;
+cout &lt;&lt; data.i &lt;&lt; endl;  // 输出：10
+
+data.d = 3.14;
+cout &lt;&lt; data.d &lt;&lt; endl;  // 输出：3.14
+</code></pre>
+</li>
+</ul>
+<h4><strong>(4) 联合体的特点</strong></h4>
+<ul>
+<li>所有成员共享同一块内存空间。</li>
+<li>修改一个成员会影响其他成员的值。</li>
+<li>联合体的大小等于其最大成员的大小。</li>
+</ul>
+<h4><strong>(5) 联合体的应用场景</strong></h4>
+<ul>
+<li>节省内存空间。</li>
+<li>处理不同类型的数据（如网络协议中的数据包）。</li>
+</ul>
+<hr />
+<h3><strong>3. 结构体与联合体的区别</strong></h3>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>结构体（struct）</th>
+<th>联合体（union）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>内存分配</strong></td>
+<td>每个成员占用独立的内存空间</td>
+<td>所有成员共享同一块内存空间</td>
+</tr>
+<tr>
+<td><strong>大小</strong></td>
+<td>大小等于所有成员大小之和（考虑对齐）</td>
+<td>大小等于最大成员的大小</td>
+</tr>
+<tr>
+<td><strong>用途</strong></td>
+<td>组合不同类型的数据</td>
+<td>节省内存空间，处理不同类型的数据</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3><strong>4. 综合示例</strong></h3>
+<p>以下是一个完整的C++程序，演示了结构体和联合体的定义和使用：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+// 定义结构体
+struct Student {
+    int id;
+    string name;
+    double grade;
+};
+
+// 定义联合体
+union Data {
+    int i;
+    double d;
+    char c;
+};
+
+int main() {
+    // 使用结构体
+    Student s1 = {1, &quot;Alice&quot;, 95.5};
+    cout &lt;&lt; &quot;Student ID: &quot; &lt;&lt; s1.id &lt;&lt; endl;
+    cout &lt;&lt; &quot;Student Name: &quot; &lt;&lt; s1.name &lt;&lt; endl;
+    cout &lt;&lt; &quot;Student Grade: &quot; &lt;&lt; s1.grade &lt;&lt; endl;
+
+    // 使用联合体
+    Data data;
+    data.i = 10;
+    cout &lt;&lt; &quot;Data as int: &quot; &lt;&lt; data.i &lt;&lt; endl;
+
+    data.d = 3.14;
+    cout &lt;&lt; &quot;Data as double: &quot; &lt;&lt; data.d &lt;&lt; endl;
+
+    data.c = 'A';
+    cout &lt;&lt; &quot;Data as char: &quot; &lt;&lt; data.c &lt;&lt; endl;
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>5. 总结</strong></h3>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>结构体</strong></td>
+<td>组合不同类型的数据，成员独立存储</td>
+<td><code>struct Student { int id; string name; };</code></td>
+</tr>
+<tr>
+<td><strong>联合体</strong></td>
+<td>所有成员共享同一块内存空间</td>
+<td><code>union Data { int i; double d; };</code></td>
+</tr>
+<tr>
+<td><strong>访问成员</strong></td>
+<td>使用 <code>.</code> 或 <code>-&gt;</code> 运算符</td>
+<td><code>s1.name</code> 或 <code>ptr-&gt;name</code></td>
+</tr>
+<tr>
+<td><strong>应用场景</strong></td>
+<td>结构体用于组合数据，联合体用于节省内存</td>
+<td>结构体：学生信息；联合体：网络协议数据</td>
+</tr>
+</tbody>
+</table>
+<p>结构体和联合体是C++中重要的复合数据类型，熟练掌握它们的用法可以更好地组织和管理数据。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

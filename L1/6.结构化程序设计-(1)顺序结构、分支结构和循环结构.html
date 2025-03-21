@@ -1,0 +1,266 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><p>在C++中，<strong>结构化程序设计</strong>是一种编程范式，强调使用清晰、模块化的结构来组织代码。结构化程序设计的核心包括以下三种基本控制结构：</p>
+<ol>
+<li><strong>顺序结构</strong>：代码按顺序逐行执行。</li>
+<li><strong>分支结构</strong>：根据条件选择执行不同的代码块。</li>
+<li><strong>循环结构</strong>：重复执行某段代码，直到满足特定条件。</li>
+</ol>
+<p>以下是这三种结构的详细说明和示例：</p>
+<hr />
+<h3><strong>1. 顺序结构</strong></h3>
+<p>顺序结构是程序的基本执行方式，代码从上到下逐行执行。</p>
+<h4><strong>示例</strong></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int a = 10;
+    int b = 20;
+    int sum = a + b;
+
+    cout &lt;&lt; &quot;Sum: &quot; &lt;&lt; sum &lt;&lt; endl;  // 输出：Sum: 30
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>2. 分支结构</strong></h3>
+<p>分支结构根据条件选择执行不同的代码块。C++中常用的分支结构包括 <code>if</code>、<code>if-else</code> 和 <code>switch</code>。</p>
+<h4><strong>(1) <code>if</code> 语句</strong></h4>
+<ul>
+<li><strong>作用</strong>：如果条件为真，则执行代码块。</li>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">if (条件) {
+    // 条件为真时执行的代码
+}
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">int age = 18;
+if (age &gt;= 18) {
+    cout &lt;&lt; &quot;You are an adult.&quot; &lt;&lt; endl;
+}
+</code></pre>
+</li>
+</ul>
+<h4><strong>(2) <code>if-else</code> 语句</strong></h4>
+<ul>
+<li><strong>作用</strong>：如果条件为真，执行第一个代码块；否则执行第二个代码块。</li>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">if (条件) {
+    // 条件为真时执行的代码
+} else {
+    // 条件为假时执行的代码
+}
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">int age = 16;
+if (age &gt;= 18) {
+    cout &lt;&lt; &quot;You are an adult.&quot; &lt;&lt; endl;
+} else {
+    cout &lt;&lt; &quot;You are a minor.&quot; &lt;&lt; endl;
+}
+</code></pre>
+</li>
+</ul>
+<h4><strong>(3) <code>if-else if-else</code> 语句</strong></h4>
+<ul>
+<li><strong>作用</strong>：处理多个条件。</li>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">if (条件1) {
+    // 条件1为真时执行的代码
+} else if (条件2) {
+    // 条件2为真时执行的代码
+} else {
+    // 所有条件都为假时执行的代码
+}
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">int score = 85;
+if (score &gt;= 90) {
+    cout &lt;&lt; &quot;Grade: A&quot; &lt;&lt; endl;
+} else if (score &gt;= 80) {
+    cout &lt;&lt; &quot;Grade: B&quot; &lt;&lt; endl;
+} else if (score &gt;= 70) {
+    cout &lt;&lt; &quot;Grade: C&quot; &lt;&lt; endl;
+} else {
+    cout &lt;&lt; &quot;Grade: F&quot; &lt;&lt; endl;
+}
+</code></pre>
+</li>
+</ul>
+<h4><strong>(4) <code>switch</code> 语句</strong></h4>
+<ul>
+<li><strong>作用</strong>：根据变量的值选择执行不同的代码块。</li>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">switch (变量) {
+    case 值1:
+        // 变量等于值1时执行的代码
+        break;
+    case 值2:
+        // 变量等于值2时执行的代码
+        break;
+    default:
+        // 变量不等于任何 case 值时执行的代码
+}
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">int day = 3;
+switch (day) {
+    case 1:
+        cout &lt;&lt; &quot;Monday&quot; &lt;&lt; endl;
+        break;
+    case 2:
+        cout &lt;&lt; &quot;Tuesday&quot; &lt;&lt; endl;
+        break;
+    case 3:
+        cout &lt;&lt; &quot;Wednesday&quot; &lt;&lt; endl;
+        break;
+    default:
+        cout &lt;&lt; &quot;Invalid day&quot; &lt;&lt; endl;
+}
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>3. 循环结构</strong></h3>
+<p>循环结构用于重复执行某段代码，直到满足特定条件。C++中常用的循环结构包括 <code>for</code>、<code>while</code> 和 <code>do-while</code>。</p>
+<h4><strong>(1) <code>for</code> 循环</strong></h4>
+<ul>
+<li><strong>作用</strong>：在已知循环次数的情况下重复执行代码。</li>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">for (初始化; 条件; 更新) {
+    // 循环体
+}
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">for (int i = 0; i &lt; 5; i++) {
+    cout &lt;&lt; &quot;i = &quot; &lt;&lt; i &lt;&lt; endl;
+}
+</code></pre>
+</li>
+</ul>
+<h4><strong>(2) <code>while</code> 循环</strong></h4>
+<ul>
+<li><strong>作用</strong>：在条件为真时重复执行代码。</li>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">while (条件) {
+    // 循环体
+}
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">int i = 0;
+while (i &lt; 5) {
+    cout &lt;&lt; &quot;i = &quot; &lt;&lt; i &lt;&lt; endl;
+    i++;
+}
+</code></pre>
+</li>
+</ul>
+<h4><strong>(3) <code>do-while</code> 循环</strong></h4>
+<ul>
+<li><strong>作用</strong>：先执行一次代码，然后在条件为真时重复执行。</li>
+<li><strong>语法</strong>：
+<pre><code class="language-cpp">do {
+    // 循环体
+} while (条件);
+</code></pre>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">int i = 0;
+do {
+    cout &lt;&lt; &quot;i = &quot; &lt;&lt; i &lt;&lt; endl;
+    i++;
+} while (i &lt; 5);
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>4. 综合示例</strong></h3>
+<p>以下是一个完整的C++程序，演示了顺序结构、分支结构和循环结构的结合使用：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    // 顺序结构
+    int a = 10, b = 20;
+    int sum = a + b;
+    cout &lt;&lt; &quot;Sum: &quot; &lt;&lt; sum &lt;&lt; endl;
+
+    // 分支结构
+    int age = 16;
+    if (age &gt;= 18) {
+        cout &lt;&lt; &quot;You are an adult.&quot; &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; &quot;You are a minor.&quot; &lt;&lt; endl;
+    }
+
+    // 循环结构
+    for (int i = 0; i &lt; 5; i++) {
+        cout &lt;&lt; &quot;i = &quot; &lt;&lt; i &lt;&lt; endl;
+    }
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>5. 总结</strong></h3>
+<table>
+<thead>
+<tr>
+<th>结构类型</th>
+<th>特点</th>
+<th>适用场景</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>顺序结构</strong></td>
+<td>代码按顺序逐行执行</td>
+<td>基本程序逻辑</td>
+<td><code>int sum = a + b;</code></td>
+</tr>
+<tr>
+<td><strong>分支结构</strong></td>
+<td>根据条件选择执行不同的代码块</td>
+<td>条件判断</td>
+<td><code>if (age &gt;= 18) { ... } else { ... }</code></td>
+</tr>
+<tr>
+<td><strong>循环结构</strong></td>
+<td>重复执行某段代码，直到满足特定条件</td>
+<td>遍历数组、重复操作</td>
+<td><code>for (int i = 0; i &lt; 5; i++) { ... }</code></td>
+</tr>
+</tbody>
+</table>
+<p>结构化程序设计是C++编程的基础，掌握这些控制结构可以编写出清晰、高效的代码。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

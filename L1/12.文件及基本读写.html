@@ -1,0 +1,274 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><p>在C++中，文件操作是通过标准库中的 <code>&lt;fstream&gt;</code> 头文件实现的。文件操作主要包括文件的打开、读写和关闭。文件可以分为<strong>文本文件</strong>和<strong>二进制文件</strong>，它们的读写方式有所不同。以下是文件操作的基本概念和示例：</p>
+<hr />
+<h3><strong>1. 文件的基本概念</strong></h3>
+<ul>
+<li><strong>文件</strong>：存储在外部设备（如硬盘）上的数据集合。</li>
+<li><strong>文件类型</strong>：
+<ul>
+<li><strong>文本文件</strong>：以字符形式存储数据，人类可读。</li>
+<li><strong>二进制文件</strong>：以二进制形式存储数据，适合存储复杂数据结构。</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3><strong>2. 文件操作的基本步骤</strong></h3>
+<ol>
+<li><strong>打开文件</strong>：使用 <code>ifstream</code>（读）、<code>ofstream</code>（写）或 <code>fstream</code>（读写）类。</li>
+<li><strong>读写文件</strong>：使用 <code>&gt;&gt;</code>、<code>&lt;&lt;</code> 或 <code>read()</code>、<code>write()</code> 函数。</li>
+<li><strong>关闭文件</strong>：使用 <code>close()</code> 函数。</li>
+</ol>
+<hr />
+<h3><strong>3. 文本文件的基本操作</strong></h3>
+<h4><strong>(1) 写文本文件</strong></h4>
+<ul>
+<li>使用 <code>ofstream</code> 类。</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+using namespace std;
+
+int main() {
+    ofstream outFile(&quot;example.txt&quot;);  // 打开文件
+    if (outFile.is_open()) {
+        outFile &lt;&lt; &quot;Hello, World!&quot; &lt;&lt; endl;  // 写入数据
+        outFile &lt;&lt; &quot;This is a text file.&quot; &lt;&lt; endl;
+        outFile.close();  // 关闭文件
+    } else {
+        cout &lt;&lt; &quot;Failed to open file.&quot; &lt;&lt; endl;
+    }
+    return 0;
+}
+</code></pre>
+</li>
+</ul>
+<h4><strong>(2) 读文本文件</strong></h4>
+<ul>
+<li>使用 <code>ifstream</code> 类。</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+    ifstream inFile(&quot;example.txt&quot;);  // 打开文件
+    if (inFile.is_open()) {
+        string line;
+        while (getline(inFile, line)) {  // 逐行读取
+            cout &lt;&lt; line &lt;&lt; endl;
+        }
+        inFile.close();  // 关闭文件
+    } else {
+        cout &lt;&lt; &quot;Failed to open file.&quot; &lt;&lt; endl;
+    }
+    return 0;
+}
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>4. 二进制文件的基本操作</strong></h3>
+<h4><strong>(1) 写二进制文件</strong></h4>
+<ul>
+<li>使用 <code>ofstream</code> 类和 <code>write()</code> 函数。</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+using namespace std;
+
+int main() {
+    ofstream outFile(&quot;example.bin&quot;, ios::binary);  // 打开二进制文件
+    if (outFile.is_open()) {
+        int data = 12345;
+        outFile.write((char*)&amp;data, sizeof(data));  // 写入二进制数据
+        outFile.close();
+    } else {
+        cout &lt;&lt; &quot;Failed to open file.&quot; &lt;&lt; endl;
+    }
+    return 0;
+}
+</code></pre>
+</li>
+</ul>
+<h4><strong>(2) 读二进制文件</strong></h4>
+<ul>
+<li>使用 <code>ifstream</code> 类和 <code>read()</code> 函数。</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+using namespace std;
+
+int main() {
+    ifstream inFile(&quot;example.bin&quot;, ios::binary);  // 打开二进制文件
+    if (inFile.is_open()) {
+        int data;
+        inFile.read((char*)&amp;data, sizeof(data));  // 读取二进制数据
+        cout &lt;&lt; &quot;Data: &quot; &lt;&lt; data &lt;&lt; endl;  // 输出：12345
+        inFile.close();
+    } else {
+        cout &lt;&lt; &quot;Failed to open file.&quot; &lt;&lt; endl;
+    }
+    return 0;
+}
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>5. 文件重定向</strong></h3>
+<p>文件重定向是指将标准输入（<code>cin</code>）或标准输出（<code>cout</code>）重定向到文件。</p>
+<h4><strong>(1) 重定向标准输出到文件</strong></h4>
+<ul>
+<li>使用 <code>freopen()</code> 函数。</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;cstdio&gt;
+using namespace std;
+
+int main() {
+    freopen(&quot;output.txt&quot;, &quot;w&quot;, stdout);  // 重定向标准输出到文件
+    cout &lt;&lt; &quot;This is written to a file.&quot; &lt;&lt; endl;
+    fclose(stdout);  // 恢复标准输出
+    return 0;
+}
+</code></pre>
+</li>
+</ul>
+<h4><strong>(2) 重定向标准输入从文件</strong></h4>
+<ul>
+<li>使用 <code>freopen()</code> 函数。</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;cstdio&gt;
+using namespace std;
+
+int main() {
+    freopen(&quot;input.txt&quot;, &quot;r&quot;, stdin);  // 重定向标准输入从文件
+    string line;
+    while (getline(cin, line)) {
+        cout &lt;&lt; line &lt;&lt; endl;
+    }
+    fclose(stdin);  // 恢复标准输入
+    return 0;
+}
+</code></pre>
+</li>
+</ul>
+<hr />
+<h3><strong>6. 文件读写操作的综合示例</strong></h3>
+<p>以下是一个完整的C++程序，演示了文本文件和二进制文件的读写操作：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+    // 写文本文件
+    ofstream outTextFile(&quot;textfile.txt&quot;);
+    if (outTextFile.is_open()) {
+        outTextFile &lt;&lt; &quot;This is a text file.&quot; &lt;&lt; endl;
+        outTextFile &lt;&lt; &quot;It contains multiple lines.&quot; &lt;&lt; endl;
+        outTextFile.close();
+    } else {
+        cout &lt;&lt; &quot;Failed to open text file for writing.&quot; &lt;&lt; endl;
+    }
+
+    // 读文本文件
+    ifstream inTextFile(&quot;textfile.txt&quot;);
+    if (inTextFile.is_open()) {
+        string line;
+        while (getline(inTextFile, line)) {
+            cout &lt;&lt; line &lt;&lt; endl;
+        }
+        inTextFile.close();
+    } else {
+        cout &lt;&lt; &quot;Failed to open text file for reading.&quot; &lt;&lt; endl;
+    }
+
+    // 写二进制文件
+    ofstream outBinaryFile(&quot;binaryfile.bin&quot;, ios::binary);
+    if (outBinaryFile.is_open()) {
+        int data = 12345;
+        outBinaryFile.write((char*)&amp;data, sizeof(data));
+        outBinaryFile.close();
+    } else {
+        cout &lt;&lt; &quot;Failed to open binary file for writing.&quot; &lt;&lt; endl;
+    }
+
+    // 读二进制文件
+    ifstream inBinaryFile(&quot;binaryfile.bin&quot;, ios::binary);
+    if (inBinaryFile.is_open()) {
+        int data;
+        inBinaryFile.read((char*)&amp;data, sizeof(data));
+        cout &lt;&lt; &quot;Data from binary file: &quot; &lt;&lt; data &lt;&lt; endl;
+        inBinaryFile.close();
+    } else {
+        cout &lt;&lt; &quot;Failed to open binary file for reading.&quot; &lt;&lt; endl;
+    }
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>7. 总结</strong></h3>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>写文本文件</strong></td>
+<td>使用 <code>ofstream</code> 和 <code>&lt;&lt;</code> 运算符</td>
+<td><code>outFile &lt;&lt; &quot;Hello, World!&quot; &lt;&lt; endl;</code></td>
+</tr>
+<tr>
+<td><strong>读文本文件</strong></td>
+<td>使用 <code>ifstream</code> 和 <code>getline()</code> 函数</td>
+<td><code>while (getline(inFile, line)) { ... }</code></td>
+</tr>
+<tr>
+<td><strong>写二进制文件</strong></td>
+<td>使用 <code>ofstream</code> 和 <code>write()</code> 函数</td>
+<td><code>outFile.write((char*)&amp;data, sizeof(data));</code></td>
+</tr>
+<tr>
+<td><strong>读二进制文件</strong></td>
+<td>使用 <code>ifstream</code> 和 <code>read()</code> 函数</td>
+<td><code>inFile.read((char*)&amp;data, sizeof(data));</code></td>
+</tr>
+<tr>
+<td><strong>文件重定向</strong></td>
+<td>使用 <code>freopen()</code> 函数</td>
+<td><code>freopen(&quot;output.txt&quot;, &quot;w&quot;, stdout);</code></td>
+</tr>
+</tbody>
+</table>
+<p>文件操作是C++编程中重要的部分，熟练掌握文件的读写操作可以高效地处理数据存储和读取。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

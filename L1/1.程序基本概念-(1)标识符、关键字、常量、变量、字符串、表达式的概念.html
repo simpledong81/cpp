@@ -1,0 +1,104 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><p>在C++编程语言中，以下是一些基本概念的解释：</p>
+<h3>1. <strong>标识符（Identifier）</strong></h3>
+<ul>
+<li><strong>定义</strong>：标识符是程序员定义的名称，用于标识变量、函数、类、结构体、枚举等程序实体。</li>
+<li><strong>规则</strong>：
+<ul>
+<li>只能由字母（a-z, A-Z）、数字（0-9）和下划线（_）组成。</li>
+<li>不能以数字开头。</li>
+<li>不能使用C++关键字作为标识符。</li>
+<li>区分大小写。</li>
+</ul>
+</li>
+<li><strong>示例</strong>：<code>int myVar;</code> 中的 <code>myVar</code> 就是一个标识符。</li>
+</ul>
+<h3>2. <strong>关键字（Keyword）</strong></h3>
+<ul>
+<li><strong>定义</strong>：关键字是C++语言中预定义的保留字，具有特殊含义，不能用作标识符。</li>
+<li><strong>示例</strong>：<code>int</code>, <code>return</code>, <code>class</code>, <code>if</code>, <code>else</code>, <code>while</code>, <code>for</code> 等。</li>
+</ul>
+<h3>3. <strong>常量（Constant）</strong></h3>
+<ul>
+<li><strong>定义</strong>：常量是指在程序运行期间其值不能被修改的量。</li>
+<li><strong>类型</strong>：
+<ul>
+<li><strong>字面常量</strong>：直接写在代码中的值，如 <code>42</code>, <code>3.14</code>, <code>'A'</code>。</li>
+<li><strong>符号常量</strong>：使用 <code>const</code> 或 <code>#define</code> 定义的常量。</li>
+</ul>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">const int MAX_SIZE = 100;
+#define PI 3.14159
+</code></pre>
+</li>
+</ul>
+<h3>4. <strong>变量（Variable）</strong></h3>
+<ul>
+<li><strong>定义</strong>：变量是程序中用于存储数据的命名内存位置，其值可以在程序运行期间改变。</li>
+<li><strong>声明与初始化</strong>：
+<pre><code class="language-cpp">int age = 25;  // 声明并初始化一个整型变量
+double price;  // 声明一个双精度浮点型变量
+price = 99.99; // 给变量赋值
+</code></pre>
+</li>
+<li><strong>作用域</strong>：变量的作用域决定了它在程序中的可见性和生命周期。</li>
+</ul>
+<h3>5. <strong>字符串（String）</strong></h3>
+<ul>
+<li><strong>定义</strong>：字符串是由一系列字符组成的序列，通常用于表示文本。</li>
+<li><strong>C风格字符串</strong>：以空字符 <code>\0</code> 结尾的字符数组。
+<pre><code class="language-cpp">char str[] = &quot;Hello, World!&quot;;
+</code></pre>
+</li>
+<li><strong>C++字符串类</strong>：使用 <code>std::string</code> 类。
+<pre><code class="language-cpp">#include &lt;string&gt;
+std::string str = &quot;Hello, World!&quot;;
+</code></pre>
+</li>
+</ul>
+<h3>6. <strong>表达式（Expression）</strong></h3>
+<ul>
+<li><strong>定义</strong>：表达式是由操作数和操作符组成的组合，用于计算一个值。</li>
+<li><strong>类型</strong>：
+<ul>
+<li><strong>算术表达式</strong>：如 <code>a + b</code>, <code>x * y</code>。</li>
+<li><strong>关系表达式</strong>：如 <code>a &gt; b</code>, <code>x == y</code>。</li>
+<li><strong>逻辑表达式</strong>：如 <code>a &amp;&amp; b</code>, <code>!x</code>。</li>
+<li><strong>赋值表达式</strong>：如 <code>a = b + c</code>。</li>
+</ul>
+</li>
+<li><strong>示例</strong>：
+<pre><code class="language-cpp">int result = (a + b) * c;  // 算术表达式
+bool isEqual = (x == y);   // 关系表达式
+if (a &gt; 0 &amp;&amp; b &lt; 0) {      // 逻辑表达式
+    // do something
+}
+</code></pre>
+</li>
+</ul>
+<p>这些概念是C++编程的基础，理解它们对于编写和理解C++代码至关重要。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

@@ -1,0 +1,268 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><p>在树结构中，<strong>完全二叉树</strong>、<strong>哈夫曼树</strong> 和 <strong>二叉搜索树</strong> 是三种特殊的二叉树，它们具有独特的性质和应用场景。以下是它们的详细说明和示例：</p>
+<hr />
+<h3><strong>1. 完全二叉树的定义与基本性质</strong></h3>
+<h4><strong>(1) 定义</strong></h4>
+<ul>
+<li><strong>完全二叉树</strong>：一棵深度为 ( k ) 的二叉树，除第 ( k ) 层外，其他层的节点数都达到最大值，且第 ( k ) 层的节点都集中在最左边。</li>
+</ul>
+<h4><strong>(2) 基本性质</strong></h4>
+<ul>
+<li><strong>性质 1</strong>：具有 ( n ) 个节点的完全二叉树的深度为 ( \lfloor \log_2 n \rfloor + 1 )。</li>
+<li><strong>性质 2</strong>：对于第 ( i ) 个节点（从 1 开始编号）：
+<ul>
+<li>父节点索引为 ( \lfloor i / 2 \rfloor )。</li>
+<li>左子节点索引为 ( 2i )。</li>
+<li>右子节点索引为 ( 2i + 1 )。</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3><strong>2. 完全二叉树的数组表示法</strong></h3>
+<p>完全二叉树可以使用数组高效地存储，利用其性质可以快速定位父节点和子节点。</p>
+<h4><strong>示例</strong></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+// 完全二叉树的数组表示
+vector&lt;int&gt; tree = {0, 1, 2, 3, 4, 5, 6};  // 索引从 1 开始
+
+// 获取父节点
+int getParent(int index) {
+    return index / 2;
+}
+
+// 获取左子节点
+int getLeftChild(int index) {
+    return 2 * index;
+}
+
+// 获取右子节点
+int getRightChild(int index) {
+    return 2 * index + 1;
+}
+
+int main() {
+    int index = 2;
+    cout &lt;&lt; &quot;Parent of node &quot; &lt;&lt; index &lt;&lt; &quot;: &quot; &lt;&lt; tree[getParent(index)] &lt;&lt; endl;  // 输出：1
+    cout &lt;&lt; &quot;Left child of node &quot; &lt;&lt; index &lt;&lt; &quot;: &quot; &lt;&lt; tree[getLeftChild(index)] &lt;&lt; endl;  // 输出：4
+    cout &lt;&lt; &quot;Right child of node &quot; &lt;&lt; index &lt;&lt; &quot;: &quot; &lt;&lt; tree[getRightChild(index)] &lt;&lt; endl;  // 输出：5
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>3. 哈夫曼树的定义和构造、哈夫曼编码</strong></h3>
+<h4><strong>(1) 哈夫曼树</strong></h4>
+<ul>
+<li><strong>定义</strong>：带权路径长度最短的二叉树，用于数据压缩。</li>
+<li><strong>构造方法</strong>：
+<ol>
+<li>将所有节点按权值从小到大排序。</li>
+<li>取出权值最小的两个节点，构造一个新节点作为它们的父节点，父节点的权值为两个子节点权值之和。</li>
+<li>将新节点加入集合，重复上述步骤，直到只剩一个节点。</li>
+</ol>
+</li>
+</ul>
+<h4><strong>(2) 哈夫曼编码</strong></h4>
+<ul>
+<li><strong>定义</strong>：根据哈夫曼树生成的二进制编码，用于数据压缩。</li>
+<li><strong>特点</strong>：
+<ul>
+<li>权值较大的节点编码较短，权值较小的节点编码较长。</li>
+<li>无歧义性，任何编码都不是其他编码的前缀。</li>
+</ul>
+</li>
+</ul>
+<h4><strong>示例</strong></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;queue&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+using namespace std;
+
+// 定义哈夫曼树节点
+struct HuffmanNode {
+    int weight;
+    HuffmanNode* left;
+    HuffmanNode* right;
+    HuffmanNode(int w) : weight(w), left(nullptr), right(nullptr) {}
+};
+
+// 比较函数，用于优先队列
+struct Compare {
+    bool operator()(HuffmanNode* a, HuffmanNode* b) {
+        return a-&gt;weight &gt; b-&gt;weight;
+    }
+};
+
+// 构造哈夫曼树
+HuffmanNode* buildHuffmanTree(vector&lt;int&gt;&amp; weights) {
+    priority_queue&lt;HuffmanNode*, vector&lt;HuffmanNode*&gt;, Compare&gt; pq;
+    for (int w : weights) {
+        pq.push(new HuffmanNode(w));
+    }
+    while (pq.size() &gt; 1) {
+        HuffmanNode* left = pq.top(); pq.pop();
+        HuffmanNode* right = pq.top(); pq.pop();
+        HuffmanNode* parent = new HuffmanNode(left-&gt;weight + right-&gt;weight);
+        parent-&gt;left = left;
+        parent-&gt;right = right;
+        pq.push(parent);
+    }
+    return pq.top();
+}
+
+// 生成哈夫曼编码
+void generateHuffmanCodes(HuffmanNode* root, string code, vector&lt;string&gt;&amp; codes) {
+    if (root == nullptr) return;
+    if (root-&gt;left == nullptr &amp;&amp; root-&gt;right == nullptr) {
+        codes[root-&gt;weight] = code;
+        return;
+    }
+    generateHuffmanCodes(root-&gt;left, code + &quot;0&quot;, codes);
+    generateHuffmanCodes(root-&gt;right, code + &quot;1&quot;, codes);
+}
+
+int main() {
+    vector&lt;int&gt; weights = {5, 9, 12, 13, 16, 45};
+    HuffmanNode* root = buildHuffmanTree(weights);
+
+    vector&lt;string&gt; codes(100);  // 假设权值不超过 100
+    generateHuffmanCodes(root, &quot;&quot;, codes);
+
+    cout &lt;&lt; &quot;Huffman Codes:&quot; &lt;&lt; endl;
+    for (int w : weights) {
+        cout &lt;&lt; &quot;Weight &quot; &lt;&lt; w &lt;&lt; &quot;: &quot; &lt;&lt; codes[w] &lt;&lt; endl;
+    }
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>4. 二叉搜索树的定义和构造</strong></h3>
+<h4><strong>(1) 定义</strong></h4>
+<ul>
+<li><strong>二叉搜索树（BST）</strong>：一棵二叉树，满足以下性质：
+<ul>
+<li>左子树的所有节点值小于根节点值。</li>
+<li>右子树的所有节点值大于根节点值。</li>
+<li>左右子树也是二叉搜索树。</li>
+</ul>
+</li>
+</ul>
+<h4><strong>(2) 构造方法</strong></h4>
+<ul>
+<li>从空树开始，依次插入节点。</li>
+<li>插入规则：
+<ul>
+<li>若当前节点为空，则插入新节点。</li>
+<li>若插入值小于当前节点值，则递归插入左子树。</li>
+<li>若插入值大于当前节点值，则递归插入右子树。</li>
+</ul>
+</li>
+</ul>
+<h4><strong>示例</strong></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+// 定义二叉搜索树节点
+struct BSTNode {
+    int data;
+    BSTNode* left;
+    BSTNode* right;
+    BSTNode(int val) : data(val), left(nullptr), right(nullptr) {}
+};
+
+// 插入节点
+BSTNode* insert(BSTNode* root, int value) {
+    if (root == nullptr) {
+        return new BSTNode(value);
+    }
+    if (value &lt; root-&gt;data) {
+        root-&gt;left = insert(root-&gt;left, value);
+    } else {
+        root-&gt;right = insert(root-&gt;right, value);
+    }
+    return root;
+}
+
+// 中序遍历（用于验证二叉搜索树）
+void inorder(BSTNode* root) {
+    if (root == nullptr) return;
+    inorder(root-&gt;left);
+    cout &lt;&lt; root-&gt;data &lt;&lt; &quot; &quot;;
+    inorder(root-&gt;right);
+}
+
+int main() {
+    BSTNode* root = nullptr;
+    root = insert(root, 50);
+    insert(root, 30);
+    insert(root, 20);
+    insert(root, 40);
+    insert(root, 70);
+    insert(root, 60);
+    insert(root, 80);
+
+    cout &lt;&lt; &quot;Inorder Traversal of BST: &quot;;
+    inorder(root);  // 输出：20 30 40 50 60 70 80
+    cout &lt;&lt; endl;
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>5. 总结</strong></h3>
+<table>
+<thead>
+<tr>
+<th>树类型</th>
+<th>特点</th>
+<th>应用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>完全二叉树</strong></td>
+<td>节点集中在最左边，适合数组存储</td>
+<td>堆、优先队列</td>
+</tr>
+<tr>
+<td><strong>哈夫曼树</strong></td>
+<td>带权路径长度最短，用于数据压缩</td>
+<td>哈夫曼编码</td>
+</tr>
+<tr>
+<td><strong>二叉搜索树</strong></td>
+<td>左小右大，支持高效查找、插入和删除</td>
+<td>动态集合、字典</td>
+</tr>
+</tbody>
+</table>
+<p>完全二叉树、哈夫曼树和二叉搜索树是树结构中的重要类型，熟练掌握它们的定义、构造和应用可以解决许多实际问题。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

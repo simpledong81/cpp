@@ -1,0 +1,286 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><p>在计算机科学和信息技术中，<strong>ASCII 码</strong> 和 <strong>格雷码</strong> 是两个重要的编码系统，分别用于字符表示和数字编码。以下是它们的详细说明和示例：</p>
+<hr />
+<h3><strong>1. ASCII 码</strong></h3>
+<p>ASCII（American Standard Code for Information Interchange，美国信息交换标准代码）是一种字符编码标准，用于表示英文字符、数字、标点符号和控制字符。</p>
+<h4><strong>(1) ASCII 码的特点</strong></h4>
+<ul>
+<li><strong>范围</strong>：0 到 127（7 位二进制）。</li>
+<li><strong>常见字符</strong>：
+<ul>
+<li>0-31：控制字符（如换行符、回车符）。</li>
+<li>32-126：可打印字符（如字母、数字、标点符号）。</li>
+<li>127：删除字符（DEL）。</li>
+</ul>
+</li>
+</ul>
+<h4><strong>(2) 常见 ASCII 码值</strong></h4>
+<table>
+<thead>
+<tr>
+<th>字符</th>
+<th>ASCII 值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>'0'</td>
+<td>48</td>
+</tr>
+<tr>
+<td>'A'</td>
+<td>65</td>
+</tr>
+<tr>
+<td>'a'</td>
+<td>97</td>
+</tr>
+<tr>
+<td>空格</td>
+<td>32</td>
+</tr>
+<tr>
+<td>换行符（\n）</td>
+<td>10</td>
+</tr>
+</tbody>
+</table>
+<h4><strong>(3) 示例：获取字符的 ASCII 值</strong></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    char ch = 'A';
+    cout &lt;&lt; &quot;ASCII value of &quot; &lt;&lt; ch &lt;&lt; &quot; is: &quot; &lt;&lt; (int)ch &lt;&lt; endl;  // 输出：65
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>2. 格雷码</strong></h3>
+<p>格雷码（Gray Code）是一种二进制编码系统，相邻的两个数只有一个二进制位不同。格雷码常用于减少数字信号传输中的错误。</p>
+<h4><strong>(1) 格雷码的特点</strong></h4>
+<ul>
+<li><strong>相邻数只有一个位不同</strong>：减少了信号切换时的错误。</li>
+<li><strong>反射性质</strong>：可以通过前一个格雷码反射生成下一个格雷码。</li>
+</ul>
+<h4><strong>(2) 二进制与格雷码的转换</strong></h4>
+<ul>
+<li><strong>二进制转格雷码</strong>：
+<ul>
+<li>最高位不变。</li>
+<li>其他位等于当前位与上一位的异或（XOR）。</li>
+<li>公式：( G_i = B_i \oplus B_{i-1} )（( G_0 = B_0 )）。</li>
+</ul>
+</li>
+<li><strong>格雷码转二进制</strong>：
+<ul>
+<li>最高位不变。</li>
+<li>其他位等于当前格雷码位与上一位二进制位的异或。</li>
+<li>公式：( B_i = G_i \oplus B_{i-1} )（( B_0 = G_0 )）。</li>
+</ul>
+</li>
+</ul>
+<h4><strong>(3) 示例：生成格雷码</strong></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+// 生成 n 位格雷码
+vector&lt;string&gt; generateGrayCode(int n) {
+    if (n == 1) {
+        return {&quot;0&quot;, &quot;1&quot;};
+    }
+    vector&lt;string&gt; prevGray = generateGrayCode(n - 1);
+    vector&lt;string&gt; grayCode;
+    for (string code : prevGray) {
+        grayCode.push_back(&quot;0&quot; + code);
+    }
+    for (int i = prevGray.size() - 1; i &gt;= 0; i--) {
+        grayCode.push_back(&quot;1&quot; + prevGray[i]);
+    }
+    return grayCode;
+}
+
+int main() {
+    int n = 3;
+    vector&lt;string&gt; grayCode = generateGrayCode(n);
+    cout &lt;&lt; &quot;Gray Code for &quot; &lt;&lt; n &lt;&lt; &quot; bits:&quot; &lt;&lt; endl;
+    for (string code : grayCode) {
+        cout &lt;&lt; code &lt;&lt; endl;
+    }
+    return 0;
+}
+</code></pre>
+<h5><strong>输出</strong></h5>
+<pre><code>Gray Code for 3 bits:
+000
+001
+011
+010
+110
+111
+101
+100
+</code></pre>
+<h4><strong>(4) 示例：二进制转格雷码</strong></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;bitset&gt;
+using namespace std;
+
+// 二进制转格雷码
+string binaryToGray(string binary) {
+    string gray;
+    gray += binary[0];  // 最高位不变
+    for (int i = 1; i &lt; binary.length(); i++) {
+        gray += (binary[i] == binary[i - 1]) ? '0' : '1';
+    }
+    return gray;
+}
+
+int main() {
+    string binary = &quot;1101&quot;;
+    string gray = binaryToGray(binary);
+    cout &lt;&lt; &quot;Binary: &quot; &lt;&lt; binary &lt;&lt; &quot; -&gt; Gray: &quot; &lt;&lt; gray &lt;&lt; endl;  // 输出：Binary: 1101 -&gt; Gray: 1011
+    return 0;
+}
+</code></pre>
+<h4><strong>(5) 示例：格雷码转二进制</strong></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;bitset&gt;
+using namespace std;
+
+// 格雷码转二进制
+string grayToBinary(string gray) {
+    string binary;
+    binary += gray[0];  // 最高位不变
+    for (int i = 1; i &lt; gray.length(); i++) {
+        binary += (gray[i] == binary[i - 1]) ? '0' : '1';
+    }
+    return binary;
+}
+
+int main() {
+    string gray = &quot;1011&quot;;
+    string binary = grayToBinary(gray);
+    cout &lt;&lt; &quot;Gray: &quot; &lt;&lt; gray &lt;&lt; &quot; -&gt; Binary: &quot; &lt;&lt; binary &lt;&lt; endl;  // 输出：Gray: 1011 -&gt; Binary: 1101
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>3. 综合示例</strong></h3>
+<p>以下是一个完整的C++程序，演示了ASCII码和格雷码的使用：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;bitset&gt;
+using namespace std;
+
+// 生成 n 位格雷码
+vector&lt;string&gt; generateGrayCode(int n) {
+    if (n == 1) {
+        return {&quot;0&quot;, &quot;1&quot;};
+    }
+    vector&lt;string&gt; prevGray = generateGrayCode(n - 1);
+    vector&lt;string&gt; grayCode;
+    for (string code : prevGray) {
+        grayCode.push_back(&quot;0&quot; + code);
+    }
+    for (int i = prevGray.size() - 1; i &gt;= 0; i--) {
+        grayCode.push_back(&quot;1&quot; + prevGray[i]);
+    }
+    return grayCode;
+}
+
+// 二进制转格雷码
+string binaryToGray(string binary) {
+    string gray;
+    gray += binary[0];  // 最高位不变
+    for (int i = 1; i &lt; binary.length(); i++) {
+        gray += (binary[i] == binary[i - 1]) ? '0' : '1';
+    }
+    return gray;
+}
+
+// 格雷码转二进制
+string grayToBinary(string gray) {
+    string binary;
+    binary += gray[0];  // 最高位不变
+    for (int i = 1; i &lt; gray.length(); i++) {
+        binary += (gray[i] == binary[i - 1]) ? '0' : '1';
+    }
+    return binary;
+}
+
+int main() {
+    // ASCII 码示例
+    char ch = 'A';
+    cout &lt;&lt; &quot;ASCII value of &quot; &lt;&lt; ch &lt;&lt; &quot; is: &quot; &lt;&lt; (int)ch &lt;&lt; endl;  // 输出：65
+
+    // 生成格雷码
+    int n = 3;
+    vector&lt;string&gt; grayCode = generateGrayCode(n);
+    cout &lt;&lt; &quot;Gray Code for &quot; &lt;&lt; n &lt;&lt; &quot; bits:&quot; &lt;&lt; endl;
+    for (string code : grayCode) {
+        cout &lt;&lt; code &lt;&lt; endl;
+    }
+
+    // 二进制转格雷码
+    string binary = &quot;1101&quot;;
+    string gray = binaryToGray(binary);
+    cout &lt;&lt; &quot;Binary: &quot; &lt;&lt; binary &lt;&lt; &quot; -&gt; Gray: &quot; &lt;&lt; gray &lt;&lt; endl;  // 输出：Binary: 1101 -&gt; Gray: 1011
+
+    // 格雷码转二进制
+    string gray2 = &quot;1011&quot;;
+    string binary2 = grayToBinary(gray2);
+    cout &lt;&lt; &quot;Gray: &quot; &lt;&lt; gray2 &lt;&lt; &quot; -&gt; Binary: &quot; &lt;&lt; binary2 &lt;&lt; endl;  // 输出：Gray: 1011 -&gt; Binary: 1101
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3><strong>4. 总结</strong></h3>
+<table>
+<thead>
+<tr>
+<th>概念/编码</th>
+<th>说明</th>
+<th>示例/应用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ASCII 码</strong></td>
+<td>字符编码标准，用于表示英文字符和控制字符</td>
+<td>'A' 的 ASCII 值为 65</td>
+</tr>
+<tr>
+<td><strong>格雷码</strong></td>
+<td>二进制编码系统，相邻数只有一个位不同</td>
+<td>3 位格雷码：000, 001, 011, 010, 110, 111, 101, 100</td>
+</tr>
+</tbody>
+</table>
+<p>ASCII 码和格雷码是计算机科学中重要的编码系统，熟练掌握它们的原理和应用可以更好地理解字符表示和数字编码。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

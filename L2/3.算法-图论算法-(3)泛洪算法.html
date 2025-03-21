@@ -1,0 +1,224 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><h3>泛洪算法（Flood Fill）</h3>
+<h4>1. 什么是泛洪算法？</h4>
+<p>泛洪算法是一种用于填充连通区域的算法。它从一个起始点开始，向四周扩散，将所有符合条件的区域填充为指定的颜色或值。泛洪算法常用于图像处理、绘图软件中的填充工具，以及迷宫求解等问题。</p>
+<hr />
+<h4>2. 泛洪算法的基本思想</h4>
+<ol>
+<li><strong>选择起始点</strong>：从图像或矩阵中的一个点开始。</li>
+<li><strong>定义填充条件</strong>：确定哪些点需要被填充（例如，与起始点颜色相同的点）。</li>
+<li><strong>扩散填充</strong>：从起始点开始，向四周（上下左右或八个方向）扩散，填充符合条件的点。</li>
+<li><strong>终止条件</strong>：当所有符合条件的点都被填充后，算法结束。</li>
+</ol>
+<hr />
+<h4>3. 泛洪算法的实现方式</h4>
+<p>泛洪算法可以通过以下两种方式实现：</p>
+<ol>
+<li><strong>深度优先搜索（DFS）</strong>：递归或栈实现。</li>
+<li><strong>广度优先搜索（BFS）</strong>：队列实现。</li>
+</ol>
+<hr />
+<h4>4. 泛洪算法的代码实现</h4>
+<h5>（1）DFS 实现</h5>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+// 定义方向数组（上下左右）
+const int dx[] = {-1, 1, 0, 0};
+const int dy[] = {0, 0, -1, 1};
+
+// 泛洪算法（DFS 实现）
+void floodFillDFS(vector&lt;vector&lt;int&gt;&gt;&amp; image, int x, int y, int oldColor, int newColor) {
+    int rows = image.size();
+    int cols = image[0].size();
+
+    // 边界条件：超出图像范围或颜色不匹配
+    if (x &lt; 0 || x &gt;= rows || y &lt; 0 || y &gt;= cols || image[x][y] != oldColor) {
+        return;
+    }
+
+    // 填充当前点
+    image[x][y] = newColor;
+
+    // 向四个方向扩散
+    for (int i = 0; i &lt; 4; i++) {
+        floodFillDFS(image, x + dx[i], y + dy[i], oldColor, newColor);
+    }
+}
+
+int main() {
+    vector&lt;vector&lt;int&gt;&gt; image = {
+        {1, 1, 1, 1, 1},
+        {1, 1, 0, 0, 1},
+        {1, 0, 1, 0, 1},
+        {1, 0, 0, 1, 1},
+        {1, 1, 1, 1, 1}
+    };
+
+    int startX = 2, startY = 2; // 起始点
+    int oldColor = image[startX][startY]; // 原始颜色
+    int newColor = 2; // 新颜色
+
+    floodFillDFS(image, startX, startY, oldColor, newColor);
+
+    // 输出填充后的图像
+    cout &lt;&lt; &quot;填充后的图像:&quot; &lt;&lt; endl;
+    for (const auto&amp; row : image) {
+        for (int pixel : row) {
+            cout &lt;&lt; pixel &lt;&lt; &quot; &quot;;
+        }
+        cout &lt;&lt; endl;
+    }
+
+    return 0;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>填充后的图像:
+1 1 1 1 1 
+1 1 2 2 1 
+1 2 1 2 1 
+1 2 2 1 1 
+1 1 1 1 1
+</code></pre>
+<hr />
+<h5>（2）BFS 实现</h5>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;queue&gt;
+using namespace std;
+
+// 定义方向数组（上下左右）
+const int dx[] = {-1, 1, 0, 0};
+const int dy[] = {0, 0, -1, 1};
+
+// 泛洪算法（BFS 实现）
+void floodFillBFS(vector&lt;vector&lt;int&gt;&gt;&amp; image, int startX, int startY, int oldColor, int newColor) {
+    int rows = image.size();
+    int cols = image[0].size();
+
+    // 边界条件：起始点颜色不匹配
+    if (image[startX][startY] != oldColor) {
+        return;
+    }
+
+    queue&lt;pair&lt;int, int&gt;&gt; queue;
+    queue.push({startX, startY}); // 将起始点加入队列
+    image[startX][startY] = newColor; // 填充起始点
+
+    while (!queue.empty()) {
+        auto [x, y] = queue.front();
+        queue.pop();
+
+        // 向四个方向扩散
+        for (int i = 0; i &lt; 4; i++) {
+            int nx = x + dx[i];
+            int ny = y + dy[i];
+
+            // 边界条件：超出图像范围或颜色不匹配
+            if (nx &gt;= 0 &amp;&amp; nx &lt; rows &amp;&amp; ny &gt;= 0 &amp;&amp; ny &lt; cols &amp;&amp; image[nx][ny] == oldColor) {
+                image[nx][ny] = newColor; // 填充当前点
+                queue.push({nx, ny}); // 将当前点加入队列
+            }
+        }
+    }
+}
+
+int main() {
+    vector&lt;vector&lt;int&gt;&gt; image = {
+        {1, 1, 1, 1, 1},
+        {1, 1, 0, 0, 1},
+        {1, 0, 1, 0, 1},
+        {1, 0, 0, 1, 1},
+        {1, 1, 1, 1, 1}
+    };
+
+    int startX = 2, startY = 2; // 起始点
+    int oldColor = image[startX][startY]; // 原始颜色
+    int newColor = 2; // 新颜色
+
+    floodFillBFS(image, startX, startY, oldColor, newColor);
+
+    // 输出填充后的图像
+    cout &lt;&lt; &quot;填充后的图像:&quot; &lt;&lt; endl;
+    for (const auto&amp; row : image) {
+        for (int pixel : row) {
+            cout &lt;&lt; pixel &lt;&lt; &quot; &quot;;
+        }
+        cout &lt;&lt; endl;
+    }
+
+    return 0;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>填充后的图像:
+1 1 1 1 1 
+1 1 2 2 1 
+1 2 1 2 1 
+1 2 2 1 1 
+1 1 1 1 1
+</code></pre>
+<hr />
+<h4>5. 泛洪算法的时间复杂度</h4>
+<ul>
+<li><strong>时间复杂度</strong>：O(n × m)，其中 <code>n</code> 是图像的行数，<code>m</code> 是图像的列数。</li>
+<li><strong>空间复杂度</strong>：
+<ul>
+<li>DFS 实现：O(n × m)，递归栈的深度可能达到 <code>n × m</code>。</li>
+<li>BFS 实现：O(n × m)，队列的大小可能达到 <code>n × m</code>。</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h4>6. 泛洪算法的应用</h4>
+<ul>
+<li><strong>图像处理</strong>：如填充工具、区域分割。</li>
+<li><strong>绘图软件</strong>：如画图工具中的填充功能。</li>
+<li><strong>迷宫求解</strong>：寻找从起点到终点的路径。</li>
+<li><strong>游戏开发</strong>：如扫雷游戏中的区域展开。</li>
+</ul>
+<hr />
+<h4>7. 泛洪算法的优缺点</h4>
+<ul>
+<li><strong>优点</strong>：
+<ul>
+<li>实现简单，适合处理连通区域。</li>
+<li>可以处理复杂的边界条件。</li>
+</ul>
+</li>
+<li><strong>缺点</strong>：
+<ul>
+<li>对于大规模图像，递归实现可能导致栈溢出。</li>
+<li>需要额外的空间存储访问标记或队列。</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h4>8. 总结</h4>
+<p>泛洪算法是一种常用的区域填充算法，适用于图像处理、绘图软件和迷宫求解等问题。通过 DFS 或 BFS 实现，泛洪算法可以高效地填充连通区域。掌握泛洪算法的思想和实现方法，有助于解决许多与区域填充相关的问题。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

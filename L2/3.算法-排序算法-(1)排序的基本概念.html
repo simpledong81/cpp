@@ -1,0 +1,135 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><h3>排序的基本概念</h3>
+<h4>1. 什么是排序？</h4>
+<p>排序是将一组数据按照某种规则重新排列的过程。排序的目的是使数据有序，便于查找、统计和分析。排序规则可以是升序（从小到大）或降序（从大到小）。</p>
+<hr />
+<h4>2. 排序的分类</h4>
+<p>排序算法可以根据不同的标准进行分类：</p>
+<h5>（1）按时间复杂度分类</h5>
+<ul>
+<li><strong>O(n²) 算法</strong>：如冒泡排序、选择排序、插入排序。</li>
+<li><strong>O(n log n) 算法</strong>：如快速排序、归并排序、堆排序。</li>
+<li><strong>O(n) 算法</strong>：如计数排序、桶排序、基数排序（适用于特定情况）。</li>
+</ul>
+<h5>（2）按稳定性分类</h5>
+<ul>
+<li><strong>稳定排序</strong>：相等元素的相对顺序在排序前后保持不变。如冒泡排序、插入排序、归并排序。</li>
+<li><strong>不稳定排序</strong>：相等元素的相对顺序在排序前后可能改变。如选择排序、快速排序、堆排序。</li>
+</ul>
+<h5>（3）按空间复杂度分类</h5>
+<ul>
+<li><strong>原地排序</strong>：排序过程中只使用常数级别的额外空间。如冒泡排序、选择排序、插入排序、快速排序。</li>
+<li><strong>非原地排序</strong>：排序过程中需要额外的存储空间。如归并排序、计数排序、桶排序。</li>
+</ul>
+<hr />
+<h4>3. 排序算法的基本操作</h4>
+<p>排序算法通常涉及以下基本操作：</p>
+<ol>
+<li><strong>比较</strong>：比较两个元素的大小。</li>
+<li><strong>交换</strong>：交换两个元素的位置。</li>
+<li><strong>移动</strong>：将元素移动到正确的位置。</li>
+</ol>
+<hr />
+<h4>4. 常见排序算法简介</h4>
+<h5>（1）冒泡排序（Bubble Sort）</h5>
+<ul>
+<li><strong>思想</strong>：通过不断交换相邻元素，将最大（或最小）的元素“冒泡”到数组的末尾。</li>
+<li><strong>时间复杂度</strong>：O(n²)。</li>
+<li><strong>稳定性</strong>：稳定。</li>
+</ul>
+<h5>（2）选择排序（Selection Sort）</h5>
+<ul>
+<li><strong>思想</strong>：每次从未排序部分选择最小（或最大）的元素，放到已排序部分的末尾。</li>
+<li><strong>时间复杂度</strong>：O(n²)。</li>
+<li><strong>稳定性</strong>：不稳定。</li>
+</ul>
+<h5>（3）插入排序（Insertion Sort）</h5>
+<ul>
+<li><strong>思想</strong>：将未排序部分的元素逐个插入到已排序部分的正确位置。</li>
+<li><strong>时间复杂度</strong>：O(n²)。</li>
+<li><strong>稳定性</strong>：稳定。</li>
+</ul>
+<h5>（4）快速排序（Quick Sort）</h5>
+<ul>
+<li><strong>思想</strong>：通过选择一个基准元素，将数组分为两部分，左边部分小于基准，右边部分大于基准，然后递归排序。</li>
+<li><strong>时间复杂度</strong>：平均 O(n log n)，最坏 O(n²)。</li>
+<li><strong>稳定性</strong>：不稳定。</li>
+</ul>
+<h5>（5）归并排序（Merge Sort）</h5>
+<ul>
+<li><strong>思想</strong>：将数组分成两部分，分别排序后合并。</li>
+<li><strong>时间复杂度</strong>：O(n log n)。</li>
+<li><strong>稳定性</strong>：稳定。</li>
+</ul>
+<h5>（6）堆排序（Heap Sort）</h5>
+<ul>
+<li><strong>思想</strong>：将数组构建成一个堆，然后逐个取出堆顶元素（最大或最小），放到已排序部分。</li>
+<li><strong>时间复杂度</strong>：O(n log n)。</li>
+<li><strong>稳定性</strong>：不稳定。</li>
+</ul>
+<h5>（7）计数排序（Counting Sort）</h5>
+<ul>
+<li><strong>思想</strong>：统计每个元素的出现次数，然后根据统计结果将元素放回数组。</li>
+<li><strong>时间复杂度</strong>：O(n + k)，其中 k 是数据的范围。</li>
+<li><strong>稳定性</strong>：稳定。</li>
+</ul>
+<h5>（8）桶排序（Bucket Sort）</h5>
+<ul>
+<li><strong>思想</strong>：将数据分到多个桶中，对每个桶分别排序，然后合并。</li>
+<li><strong>时间复杂度</strong>：O(n + k)，其中 k 是桶的数量。</li>
+<li><strong>稳定性</strong>：稳定。</li>
+</ul>
+<h5>（9）基数排序（Radix Sort）</h5>
+<ul>
+<li><strong>思想</strong>：按照数据的每一位（从低位到高位）进行排序。</li>
+<li><strong>时间复杂度</strong>：O(n × k)，其中 k 是数据的位数。</li>
+<li><strong>稳定性</strong>：稳定。</li>
+</ul>
+<hr />
+<h4>5. 排序算法的选择</h4>
+<p>选择排序算法时，需要考虑以下因素：</p>
+<ol>
+<li><strong>数据规模</strong>：小规模数据可以使用简单排序算法（如冒泡排序、插入排序），大规模数据应使用高效排序算法（如快速排序、归并排序）。</li>
+<li><strong>数据特性</strong>：
+<ul>
+<li>如果数据基本有序，插入排序的效率较高。</li>
+<li>如果数据范围较小，计数排序或桶排序可能更高效。</li>
+</ul>
+</li>
+<li><strong>稳定性要求</strong>：如果需要保持相等元素的相对顺序，应选择稳定排序算法。</li>
+<li><strong>空间限制</strong>：如果内存有限，应选择原地排序算法。</li>
+</ol>
+<hr />
+<h4>6. 排序算法的应用</h4>
+<ul>
+<li><strong>数据处理</strong>：如数据库查询、统计分析。</li>
+<li><strong>算法优化</strong>：如二分查找、动态规划。</li>
+<li><strong>计算机图形学</strong>：如深度排序、碰撞检测。</li>
+</ul>
+<hr />
+<h4>7. 总结</h4>
+<p>排序是计算机科学中的基础问题，掌握各种排序算法的思想和实现方法对解决实际问题非常重要。不同的排序算法适用于不同的场景，选择合适的排序算法可以显著提高程序的效率。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

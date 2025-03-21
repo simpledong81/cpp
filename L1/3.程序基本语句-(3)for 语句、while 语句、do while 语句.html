@@ -1,0 +1,177 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><p>在C++中，<strong>循环语句</strong>用于重复执行某段代码，直到满足特定条件。常见的循环语句包括 <code>for</code> 语句、<code>while</code> 语句和 <code>do-while</code> 语句。以下是它们的详细说明和示例：</p>
+<hr />
+<h3><strong>1. <code>for</code> 语句</strong></h3>
+<p><code>for</code> 语句用于在已知循环次数的情况下重复执行代码。</p>
+<h4><strong>语法</strong></h4>
+<pre><code class="language-cpp">for (初始化; 条件; 更新) {
+    // 循环体
+}
+</code></pre>
+<ul>
+<li><strong>初始化</strong>：在循环开始前执行一次，通常用于初始化循环变量。</li>
+<li><strong>条件</strong>：每次循环开始前检查，如果为真则执行循环体。</li>
+<li><strong>更新</strong>：每次循环结束后执行，通常用于更新循环变量。</li>
+</ul>
+<h4><strong>示例</strong></h4>
+<pre><code class="language-cpp">for (int i = 0; i &lt; 5; i++) {
+    cout &lt;&lt; &quot;i = &quot; &lt;&lt; i &lt;&lt; endl;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>i = 0
+i = 1
+i = 2
+i = 3
+i = 4
+</code></pre>
+<hr />
+<h3><strong>2. <code>while</code> 语句</strong></h3>
+<p><code>while</code> 语句用于在条件为真时重复执行代码。</p>
+<h4><strong>语法</strong></h4>
+<pre><code class="language-cpp">while (条件) {
+    // 循环体
+}
+</code></pre>
+<ul>
+<li><strong>条件</strong>：每次循环开始前检查，如果为真则执行循环体。</li>
+</ul>
+<h4><strong>示例</strong></h4>
+<pre><code class="language-cpp">int i = 0;
+while (i &lt; 5) {
+    cout &lt;&lt; &quot;i = &quot; &lt;&lt; i &lt;&lt; endl;
+    i++;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>i = 0
+i = 1
+i = 2
+i = 3
+i = 4
+</code></pre>
+<hr />
+<h3><strong>3. <code>do-while</code> 语句</strong></h3>
+<p><code>do-while</code> 语句与 <code>while</code> 语句类似，但它的循环体至少会执行一次，然后再检查条件。</p>
+<h4><strong>语法</strong></h4>
+<pre><code class="language-cpp">do {
+    // 循环体
+} while (条件);
+</code></pre>
+<ul>
+<li><strong>条件</strong>：每次循环结束后检查，如果为真则继续循环。</li>
+</ul>
+<h4><strong>示例</strong></h4>
+<pre><code class="language-cpp">int i = 0;
+do {
+    cout &lt;&lt; &quot;i = &quot; &lt;&lt; i &lt;&lt; endl;
+    i++;
+} while (i &lt; 5);
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>i = 0
+i = 1
+i = 2
+i = 3
+i = 4
+</code></pre>
+<hr />
+<h3><strong>4. 循环控制语句</strong></h3>
+<p>在循环中，可以使用以下控制语句改变循环的执行流程：</p>
+<ul>
+<li><strong><code>break</code></strong>：立即终止循环。</li>
+<li><strong><code>continue</code></strong>：跳过当前迭代，直接进入下一次循环。</li>
+</ul>
+<h4><strong>示例</strong></h4>
+<pre><code class="language-cpp">for (int i = 0; i &lt; 10; i++) {
+    if (i == 5) {
+        break;  // 当 i 等于 5 时终止循环
+    }
+    if (i % 2 == 0) {
+        continue;  // 跳过偶数
+    }
+    cout &lt;&lt; &quot;i = &quot; &lt;&lt; i &lt;&lt; endl;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>i = 1
+i = 3
+</code></pre>
+<hr />
+<h3><strong>5. 嵌套循环</strong></h3>
+<p>循环语句可以嵌套使用，以处理更复杂的逻辑。</p>
+<h4><strong>示例</strong></h4>
+<pre><code class="language-cpp">for (int i = 1; i &lt;= 3; i++) {
+    for (int j = 1; j &lt;= 3; j++) {
+        cout &lt;&lt; &quot;i = &quot; &lt;&lt; i &lt;&lt; &quot;, j = &quot; &lt;&lt; j &lt;&lt; endl;
+    }
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>i = 1, j = 1
+i = 1, j = 2
+i = 1, j = 3
+i = 2, j = 1
+i = 2, j = 2
+i = 2, j = 3
+i = 3, j = 1
+i = 3, j = 2
+i = 3, j = 3
+</code></pre>
+<hr />
+<h3><strong>总结</strong></h3>
+<table>
+<thead>
+<tr>
+<th>循环类型</th>
+<th>特点</th>
+<th>适用场景</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>for</code></td>
+<td>已知循环次数</td>
+<td>遍历数组、固定次数循环</td>
+<td><code>for (int i = 0; i &lt; 5; i++) { ... }</code></td>
+</tr>
+<tr>
+<td><code>while</code></td>
+<td>条件为真时重复执行</td>
+<td>不确定循环次数</td>
+<td><code>while (i &lt; 5) { ... }</code></td>
+</tr>
+<tr>
+<td><code>do-while</code></td>
+<td>至少执行一次，条件为真时重复执行</td>
+<td>需要至少执行一次</td>
+<td><code>do { ... } while (i &lt; 5);</code></td>
+</tr>
+</tbody>
+</table>
+<p>这些循环语句是C++编程中实现重复操作的核心工具，熟练掌握它们可以编写出高效的程序。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

@@ -1,0 +1,172 @@
+<html><head><link rel="stylesheet" type="text/css" href="https://unpkg.com/vditor@3.10.8/dist/index.css"/>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/i18n/zh_CN.js"></script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/method.min.js"></script></head>
+<body><div class="vditor-reset" id="preview"><h4>1. 什么是递推法？</h4>
+<p>递推法（Recursion）是一种通过将问题分解为更小的子问题来解决问题的方法。递推法的核心思想是：</p>
+<ul>
+<li><strong>递归定义</strong>：将问题定义为一个或多个子问题的组合。</li>
+<li><strong>递归终止条件</strong>：当问题规模足够小时，直接求解。</li>
+</ul>
+<p>递推法通常用于解决具有递归结构的问题，如树、图、分治算法等。</p>
+<hr />
+<h4>2. 递推法的适用场景</h4>
+<ul>
+<li><strong>数学问题</strong>：如斐波那契数列、阶乘计算等。</li>
+<li><strong>数据结构</strong>：如树的遍历、图的搜索等。</li>
+<li><strong>分治算法</strong>：如归并排序、快速排序等。</li>
+</ul>
+<hr />
+<h4>3. 递推法的基本步骤</h4>
+<ol>
+<li><strong>定义递归函数</strong>：明确函数的输入、输出和功能。</li>
+<li><strong>确定递归终止条件</strong>：当问题规模足够小时，直接返回结果。</li>
+<li><strong>分解问题</strong>：将问题分解为更小的子问题。</li>
+<li><strong>递归调用</strong>：调用函数自身解决子问题。</li>
+<li><strong>合并结果</strong>：将子问题的结果合并为最终结果。</li>
+</ol>
+<hr />
+<h4>4. 递推法的经典问题</h4>
+<h5>（1）斐波那契数列</h5>
+<p><strong>问题描述</strong>：斐波那契数列的定义如下：</p>
+<ul>
+<li>F(0) = 0</li>
+<li>F(1) = 1</li>
+<li>F(n) = F(n-1) + F(n-2) （n ≥ 2）</li>
+</ul>
+<p><strong>递推实现</strong>：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+// 递推法计算斐波那契数列
+int fibonacci(int n) {
+    if (n == 0) return 0; // 终止条件
+    if (n == 1) return 1; // 终止条件
+    return fibonacci(n - 1) + fibonacci(n - 2); // 递归调用
+}
+
+int main() {
+    int n = 10; // 计算第10项
+    cout &lt;&lt; &quot;斐波那契数列第 &quot; &lt;&lt; n &lt;&lt; &quot; 项是: &quot; &lt;&lt; fibonacci(n) &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>斐波那契数列第 10 项是: 55
+</code></pre>
+<hr />
+<h5>（2）阶乘计算</h5>
+<p><strong>问题描述</strong>：阶乘的定义如下：</p>
+<ul>
+<li>n! = n × (n-1) × (n-2) × ... × 1</li>
+<li>0! = 1</li>
+</ul>
+<p><strong>递推实现</strong>：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+// 递推法计算阶乘
+int factorial(int n) {
+    if (n == 0) return 1; // 终止条件
+    return n * factorial(n - 1); // 递归调用
+}
+
+int main() {
+    int n = 5; // 计算5的阶乘
+    cout &lt;&lt; n &lt;&lt; &quot;! = &quot; &lt;&lt; factorial(n) &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>5! = 120
+</code></pre>
+<hr />
+<h5>（3）汉诺塔问题</h5>
+<p><strong>问题描述</strong>：汉诺塔问题是一个经典的递归问题。规则如下：</p>
+<ul>
+<li>有3根柱子，编号为A、B、C。</li>
+<li>初始时，所有盘子按大小顺序叠放在柱子A上，最小的盘子在最上面。</li>
+<li>目标是将所有盘子从柱子A移动到柱子C。</li>
+<li>移动规则：
+<ol>
+<li>每次只能移动一个盘子。</li>
+<li>盘子只能放在空柱子或比它大的盘子上。</li>
+</ol>
+</li>
+</ul>
+<p><strong>递推实现</strong>：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+// 递推法解决汉诺塔问题
+void hanoi(int n, char from, char to, char aux) {
+    if (n == 1) { // 终止条件
+        cout &lt;&lt; &quot;将盘子 1 从 &quot; &lt;&lt; from &lt;&lt; &quot; 移动到 &quot; &lt;&lt; to &lt;&lt; endl;
+        return;
+    }
+    hanoi(n - 1, from, aux, to); // 将n-1个盘子从from移动到aux
+    cout &lt;&lt; &quot;将盘子 &quot; &lt;&lt; n &lt;&lt; &quot; 从 &quot; &lt;&lt; from &lt;&lt; &quot; 移动到 &quot; &lt;&lt; to &lt;&lt; endl;
+    hanoi(n - 1, aux, to, from); // 将n-1个盘子从aux移动到to
+}
+
+int main() {
+    int n = 3; // 3个盘子
+    hanoi(n, 'A', 'C', 'B'); // 从A移动到C，借助B
+    return 0;
+}
+</code></pre>
+<p><strong>输出</strong>：</p>
+<pre><code>将盘子 1 从 A 移动到 C
+将盘子 2 从 A 移动到 B
+将盘子 1 从 C 移动到 B
+将盘子 3 从 A 移动到 C
+将盘子 1 从 B 移动到 A
+将盘子 2 从 B 移动到 C
+将盘子 1 从 A 移动到 C
+</code></pre>
+<hr />
+<h4>5. 递推法的优缺点</h4>
+<ul>
+<li><strong>优点</strong>：
+<ul>
+<li>代码简洁，易于理解。</li>
+<li>适用于解决具有递归结构的问题。</li>
+</ul>
+</li>
+<li><strong>缺点</strong>：
+<ul>
+<li>递归调用会消耗栈空间，可能导致栈溢出。</li>
+<li>对于某些问题，递归的效率较低（如斐波那契数列的朴素递归实现）。</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h4>6. 递推法的优化</h4>
+<ul>
+<li><strong>记忆化搜索</strong>：通过缓存中间结果，避免重复计算（如斐波那契数列的动态规划优化）。</li>
+<li><strong>尾递归优化</strong>：某些编译器可以优化尾递归，减少栈空间的使用。</li>
+</ul>
+<hr />
+<h4>7. 总结</h4>
+<p>递推法是一种强大的算法设计方法，适用于解决具有递归结构的问题。通过将问题分解为更小的子问题，递推法可以简洁地描述问题的解决过程。然而，递推法需要注意栈溢出和效率问题，可以通过记忆化搜索或动态规划进行优化。</p>
+</div>
+<script>
+    const previewElement = document.getElementById('preview')
+    Vditor.setContentTheme('light', 'https://unpkg.com/vditor@3.10.8/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"defaultLang":"","style":"github"}, previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mathRender(previewElement, {
+        cdn: 'https://unpkg.com/vditor@3.10.8',
+        math: {"engine":"KaTeX","inlineDigit":false,"macros":{}},
+    });
+    Vditor.mermaidRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.SMILESRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.markmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.flowchartRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.graphvizRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.chartRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.mindmapRender(previewElement, 'https://unpkg.com/vditor@3.10.8', 'classic');
+    Vditor.abcRender(previewElement, 'https://unpkg.com/vditor@3.10.8');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://unpkg.com/vditor@3.10.8/dist/js/icons/ant.js"></script></body></html>

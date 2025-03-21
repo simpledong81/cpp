@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>C++编程学习指南</title>
+    <meta charset="UTF-8">
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --hover-color: #45a049;
+            --bg-color: #f0f2f5;
+            --card-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        body {
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--bg-color);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.5em;
+            margin: 0;
+            padding: 20px 0;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+
+        .chapter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .chapter-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .chapter-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary-color);
+        }
+
+        .chapter-number {
+            color: var(--primary-color);
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .chapter-title {
+            color: #333;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .topic-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .topic-list li {
+            margin: 8px 0;
+            padding: 8px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .topic-list li:hover {
+            background: #f5f5f5;
+        }
+
+        .topic-list a {
+            color: #444;
+            text-decoration: none;
+            display: block;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .topic-list a::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            opacity: 0;
+            transition: all 0.2s ease;
+        }
+
+        .topic-list a:hover {
+            color: var(--primary-color);
+        }
+
+        .topic-list a:hover::before {
+            opacity: 1;
+        }
+
+        .fun-fact {
+            background: #e8f5e9;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            font-size: 0.9em;
+            color: #2e7d32;
+        }
+
+        .progress-banner {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+        }
+
+        .emoji {
+            font-size: 1.2em;
+            margin-right: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .chapter-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>C++编程学习指南</h1>
+            <p class="subtitle">🚀 开启你的编程之旅！从这里起航 ✨</p>
+        </div>
+
+        <div class="progress-banner">
+            <h2>📚 Level 1 - 基础入门</h2>
+            <p>这里有最适合你的C++学习内容，让我们一起开始吧！</p>
+        </div>
+
+        <div class="chapter-grid">
+            <div class="chapter-card">
+                <div class="chapter-number">01</div>
+                <div class="chapter-title">程序基本概念</div>
+                <ul class="topic-list">
+                    <li><a href="L1/1.程序基本概念-(1)标识符、关键字、常量、变量、字符串、表达式的概念.html">认识基本概念</a></li>
+                    <li><a href="L1/1.程序基本概念-(2)常量与变量的命名、定义及作用.html">常量与变量</a></li>
+                    <li><a href="L1/1.程序基本概念-(3)头文件与名字空间的概念.html">头文件与名字空间</a></li>
+                    <li><a href="L1/1.程序基本概念-(4)编辑、编译、解释、调试的概念.html">程序运行原理</a></li>
+                </ul>
+                <div class="fun-fact">💡 小贴士：编程就像搭积木，先要认识每个积木块！</div>
+            </div>
+
+            <div class="chapter-card">
+                <div class="chapter-number">02</div>
+                <div class="chapter-title">数据类型</div>
+                <ul class="topic-list">
+                    <li><a href="L1/2.基本数据类型.html">基本数据类型详解</a></li>
+                </ul>
+                <div class="fun-fact">💡 小贴士：不同的数据类型就像不同的容器，用对了事半功倍！</div>
+            </div>
+
+            <div class="chapter-card">
+                <div class="chapter-number">03</div>
+                <div class="chapter-title">程序基本语句</div>
+                <ul class="topic-list">
+                    <li><a href="L1/3.程序基本语句-(1)cin 语句、scanf 语句、cout 语句、printf 语句、赋值语句、复合语句.html">输入输出语句</a></li>
+                    <li><a href="L1/3.程序基本语句-(2)if 语句、switch 语句、多层条件语句.html">条件语句</a></li>
+                    <li><a href="L1/3.程序基本语句-(3)for 语句、while 语句、do while 语句.html">循环语句</a></li>
+                    <li><a href="L1/3.程序基本语句-(4)多层循环语句.html">多层循环</a></li>
+                </ul>
+                <div class="fun-fact">💡 小贴士：这些是程序的基本积木，组合它们就能创造神奇！</div>
+            </div>
+
+            <div class="chapter-card">
+                <div class="chapter-number">04</div>
+                <div class="chapter-title">基本运算</div>
+                <ul class="topic-list">
+                    <li><a href="L1/4.基本运算-(1)算术运算：加、减、乘、除、整除、求余.html">算术运算</a></li>
+                    <li><a href="L1/4.基本运算-(2)关系运算：大于、大于等于、小于、小于等于、等于、不等于.html">关系运算</a></li>
+                    <li><a href="L1/4.基本运算-(3)逻辑运算：与（&&）、或（||）、非（!）.html">逻辑运算</a></li>
+                    <li><a href="L1/4.基本运算-(4)变量自增与自减运算.html">自增与自减</a></li>
+                    <li><a href="L1/4.基本运算-(5)三目运算.html">三目运算</a></li>
+                    <li><a href="L1/4.基本运算-(6)位运算：与（&）、或（|）、非（～）、异或（^）、左移（<<）、右移（>>）.html">位运算</a></li>
+                </ul>
+                <div class="fun-fact">💡 小贴士：运算就像数学魔法，让程序变得更强大！</div>
+            </div>
+
+            <div class="chapter-card">
+                <div class="chapter-number">05</div>
+                <div class="chapter-title">数学库函数</div>
+                <ul class="topic-list">
+                    <li><a href="L1/5.数学库常用函数-绝对值函数、四舍五入函数、下取整函数、上取整函数、平方根函数、常用三角函数、对数函数、指数函数.html">常用数学函数</a></li>
+                </ul>
+                <div class="fun-fact">💡 小贴士：这些数学工具让复杂计算变得简单！</div>
+            </div>
+
+            <div class="chapter-card">
+                <div class="chapter-number">06</div>
+                <div class="chapter-title">结构化程序设计</div>
+                <ul class="topic-list">
+                    <li><a href="L1/6.结构化程序设计-(1)顺序结构、分支结构和循环结构.html">程序结构</a></li>
+                    <li><a href="L1/6.结构化程序设计-(2)自顶向下、逐步求精的模块化程序设计.html">模块化设计</a></li>
+                    <li><a href="L1/6.结构化程序设计-(3)流程图的概念及流程图描述.html">流程图</a></li>
+                </ul>
+                <div class="fun-fact">💡 小贴士：好的程序结构就像精心设计的乐高作品！</div>
+            </div>
+
+            <div class="chapter-card">
+                <div class="chapter-number">07</div>
+                <div class="chapter-title">数组</div>
+                <ul class="topic-list">
+                    <li><a href="L1/7.数组-(1)数组与数组下标.html">数组基础</a></li>
+                    <li><a href="L1/7.数组-(2)数组的读入与输出.html">数组操作</a></li>
+                    <li><a href="L1/7.数组-(3)二维数组与多维数组.html">多维数组</a></li>
+                </ul>
+                <div class="fun-fact">💡 小贴士：数组就像有序的储物柜，帮你管理大量数据！</div>
+            </div>
+
+            <div class="chapter-card">
+                <div class="chapter-number">08</div>
+                <div class="chapter-title">字符串处理</div>
+                <ul class="topic-list">
+                    <li><a href="L1/8.字符串的处理-(1)字符数组与相关函数.html">字符数组</a></li>
+                    <li><a href="L1/8.字符串的处理-(2)string 类与相关函数.html">string类</a></li>
+                </ul>
+                <div class="fun-fact">💡 小贴士：字符串让程序能处理文字，实现人机交互！</div>
+            </div>
+
+            <div class="chapter-card">
+                <div class="chapter-number">09</div>
+                <div class="chapter-title">函数与递归</div>
+                <ul class="topic-list">
+                    <li><a href="L1/9.函数与递归-(1)函数定义与调用、形参与实参.html">函数基础</a></li>
+                    <li><a href="L1/9.函数与递归-(2)传值参数与传引用参数.html">参数传递</a></li>
+                    <li><a href="L1/9.函数与递归-(3)常量与变量的作用范围.html">作用域</a></li>
+                    <li><a href="L1/9.函数与递归-(4)递归函数.html">递归</a></li>
+                </ul>
+                <div class="fun-fact">💡 小贴士：函数就像积木模块，可以重复使用！</div>
+            </div>
+
+            <div class="chapter-card">
+                <div class="chapter-number">10</div>
+                <div class="chapter-title">高级主题</div>
+                <ul class="topic-list">
+                    <li><a href="L1/10.结构体与联合体.html">结构体与联合体</a></li>
+                    <li><a href="L1/11.指针类型.html">指针类型</a></li>
+                    <li><a href="L1/12.文件及基本读写.html">文件操作</a></li>
+                    <li><a href="L1/13.STL 模板.html">STL模板</a></li>
+                    <li><a href="L1/14.线性数据结构-栈和队列.html">栈和队列</a></li>
+                    <li><a href="L1/15.初等数论.html">初等数论</a></li>
+                    <li><a href="L1/16.离散与组合数学.html">离散与组合数学</a></li>
+                    <li><a href="L1/17.其他-ASCII码和格雷码.html">ASCII码和格雷码</a></li>
+                </ul>
+                <div class="fun-fact">💡 小贴士：掌握这些高级知识，你就是编程高手了！</div>
+            </div>
+        </div>
+
+        <div class="progress-banner" style="background: linear-gradient(45deg, #2196F3, #1976D2);">
+            <h2>🚀 Level 2 - 进阶提升</h2>
+            <p>准备好接受更大的挑战了吗？这里有更多精彩内容！</p>
+        </div>
+
+        <div class="chapter-grid">
+            <div class="chapter-card">
+                <div class="chapter-number">01</div>
+                <div class="chapter-title">STL模板进阶</div>
+                <ul class="topic-list">
+                    <li><a href="L2/1.STL 模板-链表(list)、向量（vector）容器.html">链表与向量容器</a></li>
+                </ul>
+                <div class="fun-fact">💡 小贴士：STL就像是程序界的瑞士军刀，功能强大又实用！</div>
+            </div>
+
+            <div class="chapter-card">
+                <div class="chapter-number">02</div>
+                <div class="chapter-title">数据结构基础</div>
+                <ul class="topic-list">
+                    <li><a href="L2/2.数据结构-(1)线性结构表.html">线性结构表</a></li>
+                    <li><a href="L2/2.数据结构-(2)简单树.html">简单树</a></li>
+                    <li><a href="L2/2.数据结构-(3)特殊树.html">特殊树</a></li>
+                    <li><a href="L2/2.数据结构-(4)简单图.html">简单图</a></li>
+                </ul>
+                <div class="fun-fact">💡 小贴士：数据结构就像乐高积木，不同的组合方式创造不同的可能！</div>
+            </div>
+
+            <div class="chapter-card">
+                <div class="chapter-number">03</div>
+                <div class="chapter-title">入门算法</div>
+                <ul class="topic-list">
+                    <li><a href="L2/3.算法-入门算法-(1)枚举法.html">枚举法</a></li>
+                    <li><a href="L2/3.算法-入门算法-(2)模拟法.html">模拟法</a></li>
+                </ul>
+                <div class="fun-fact">💡 小贴士：算法入门，从最简单的开始，一步一个脚印！</div>
+            </div>
+
+            <div class="chapter-card">
+                <div class="chapter-number">04</div>
+                <div class="chapter-title">基础算法</div>
+                <ul class="topic-list">
+                    <li><a href="L2/3.算法-基础算法-(1)贪心法.html">贪心法</a></li>
+                    <li><a href="L2/3.算法-基础算法-(2)递推法.html">递推法</a></li>
+                    <li><a href="L2/3.算法-基础算法-(3)递归法.html">递归法</a></li>
+                    <li><a href="L2/3.算法-基础算法-(4)二分法.html">二分法</a></li>
+                    <li><a href="L2/3.算法-基础算法-(5)倍增法.html">倍增法</a></li>
+                </ul>
+                <div class="fun-fact">💡 小贴士：掌握这些基础算法，就像获得了解题的万能钥匙！</div>
+            </div>
+
+            <div class="chapter-card">
+                <div class="chapter-number">05</div>
+                <div class="chapter-title">数值处理算法</div>
+                <ul class="topic-list">
+                    <li><a href="L2/3.算法-数值处理算法-(1)高精度的加法.html">高精度加法</a></li>
+                    <li><a href="L2/3.算法-数值处理算法-(2)高精度的减法.html">高精度减法</a></li>
+                    <li><a href="L2/3.算法-数值处理算法-(3)高精度的乘法.html">高精度乘法</a></li>
+                    <li><a href="L2/3.算法-数值处理算法-(4)高精度整数除以单精度整数的商和余数.html">高精度除法</a></li>
+                </ul>
+                <div class="fun-fact">💡 小贴士：高精度运算，让你处理超大数据得心应手！</div>
+            </div>
+
+            <div class="chapter-card">
+                <div class="chapter-number">06</div>
+                <div class="chapter-title">排序算法</div>
+                <ul class="topic-list">
+                    <li><a href="L2/3.算法-排序算法-(1)排序的基本概念.html">排序基础</a></li>
+                    <li><a href="L2/3.算法-排序算法-(2)冒泡排序.html">冒泡排序</a></li>
+                    <li><a href="L2/3.算法-排序算法-(3)选择排序.html">选择排序</a></li>
+                    <li><a href="L2/3.算法-排序算法-(4)插入排序.html">插入排序</a></li>
+                    <li><a href="L2/3.算法-排序算法-(5)计数排序.html">计数排序</a></li>
+                </ul>
+                <div class="fun-fact">💡 小贴士：排序算法就像整理扑克牌，每种方法都有其独特之处！</div>
+            </div>
+
+            <div class="chapter-card">
+                <div class="chapter-number">07</div>
+                <div class="chapter-title">搜索与图论</div>
+                <ul class="topic-list">
+                    <li><a href="L2/3.算法-搜索算法-(1)深度优先搜索.html">深度优先搜索</a></li>
+                    <li><a href="L2/3.算法-搜索算法-(2)广度优先搜索.html">广度优先搜索</a></li>
+                    <li><a href="L2/3.算法-图论算法-(1)深度优先遍历.html">图的深度遍历</a></li>
+                    <li><a href="L2/3.算法-图论算法-(2)广度优先遍历.html">图的广度遍历</a></li>
+                    <li><a href="L2/3.算法-图论算法-(3)泛洪算法.html">泛洪算法</a></li>
+                </ul>
+                <div class="fun-fact">💡 小贴士：搜索算法就像在迷宫中找路，总有一条通向终点！</div>
+            </div>
+
+            <div class="chapter-card">
+                <div class="chapter-number">08</div>
+                <div class="chapter-title">动态规划</div>
+                <ul class="topic-list">
+                    <li><a href="L2/3.算法-动态规划-(1)动态规划的基本思路.html">动态规划入门</a></li>
+                    <li><a href="L2/3.算法-动态规划-(2)简单一维动态.html">一维动态规划</a></li>
+                    <li><a href="L2/3.算法-动态规划-(3)简单背包类型.html">背包问题</a></li>
+                    <li><a href="L2/3.算法-动态规划-(4)简单区间类型.html">区间动态规划</a></li>
+                </ul>
+                <div class="fun-fact">💡 小贴士：动态规划是解决复杂问题的智慧，把大问题分解成小问题！</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
