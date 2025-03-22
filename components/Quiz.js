@@ -178,33 +178,127 @@ class Quiz extends HTMLElement {
                     margin: 15px 0;
                 }
                 .question-content pre {
-                    background-color: #2d2d2d;
-                    border-radius: 5px;
-                    padding: 15px;
-                    margin: 10px 0;
+                    background-color: #282c34;
+                    border-radius: 6px;
+                    padding: 1em;
+                    margin: 0.5em 0;
                     overflow-x: auto;
                 }
                 .question-content code {
-                    font-family: 'Fira Code', 'Consolas', monospace;
+                    font-family: 'Fira Code', Consolas, Monaco, 'Andale Mono', monospace;
                     font-size: 14px;
+                    color: #abb2bf;
+                    background: #282c34;
+                    padding: 0.2em 0.4em;
+                    border-radius: 3px;
+                    white-space: pre;
                 }
                 .option pre {
-                    background-color: #2d2d2d;
+                    background-color: #282c34;
                     border-radius: 4px;
-                    padding: 10px;
-                    margin: 5px 0;
+                    padding: 0.8em;
+                    margin: 0.3em 0;
+                }
+                .option code {
+                    font-family: 'Fira Code', Consolas, Monaco, 'Andale Mono', monospace;
+                    font-size: 14px;
+                    color: #abb2bf;
+                    background: #282c34;
+                    padding: 0.2em 0.4em;
+                    border-radius: 3px;
+                    white-space: pre;
                 }
                 .option.selected pre {
-                    background-color: #3a3a3a;
+                    background-color: #2c313a;
                 }
                 .explanation-content {
                     margin-top: 10px;
                 }
                 .explanation-content pre {
-                    background-color: #2d2d2d;
+                    background-color: #282c34;
                     border-radius: 4px;
-                    padding: 10px;
-                    margin: 10px 0;
+                    padding: 0.8em;
+                    margin: 0.5em 0;
+                }
+                .explanation-content code {
+                    font-family: 'Fira Code', Consolas, Monaco, 'Andale Mono', monospace;
+                    font-size: 14px;
+                    color: #abb2bf;
+                    background: #282c34;
+                    padding: 0.2em 0.4em;
+                    border-radius: 3px;
+                    white-space: pre;
+                }
+                /* Prism.js 自定义样式 */
+                .token.comment { color: #608b4e; font-style: italic; }
+                .token.keyword { color: #569cd6; font-weight: bold; }
+                .token.string { color: #ce9178; }
+                .token.number { color: #b5cea8; }
+                .token.operator { color: #d4d4d4; }
+                .token.punctuation { color: #d4d4d4; }
+                .token.function { color: #dcdcaa; }
+                .token.class-name { color: #4ec9b0; }
+                .token.variable { color: #9cdcfe; }
+                .token.parameter { color: #9cdcfe; }
+                .token.property { color: #9cdcfe; }
+                .token.constant { color: #4fc1ff; }
+                .token.namespace { color: #4ec9b0; }
+                .token.preprocessor { color: #c586c0; }
+                .token.type { color: #569cd6; }
+                .token.control { color: #c586c0; }
+                .token.regex { color: #d16969; }
+                .token.boolean { color: #569cd6; }
+                .token.null { color: #569cd6; }
+                .token.important { color: #569cd6; font-weight: bold; }
+                .token.inserted { color: #b5cea8; }
+                .token.deleted { color: #ce9178; }
+
+                .question-content pre,
+                .option pre,
+                .explanation-content pre {
+                    background-color: #1e1e1e;
+                    border: 1px solid #333;
+                    border-radius: 4px;
+                    padding: 12px;
+                    margin: 8px 0;
+                    overflow-x: auto;
+                }
+
+                .question-content code,
+                .option code,
+                .explanation-content code {
+                    font-family: 'Fira Code', Consolas, Monaco, 'Andale Mono', monospace;
+                    font-size: 14px;
+                    line-height: 1.5;
+                    color: #d4d4d4;
+                    text-shadow: none;
+                }
+
+                .question-description {
+                    font-size: 16px;
+                    margin-bottom: 15px;
+                    color: #333;
+                    font-weight: 500;
+                }
+
+                .question-code {
+                    margin: 15px 0;
+                    padding: 0;
+                }
+
+                .question-code pre {
+                    margin: 0;
+                    background-color: #1e1e1e;
+                    border: 1px solid #333;
+                    border-radius: 4px;
+                    padding: 12px;
+                }
+
+                .question-code code {
+                    font-family: 'Fira Code', Consolas, Monaco, 'Andale Mono', monospace;
+                    font-size: 14px;
+                    line-height: 1.5;
+                    color: #d4d4d4;
                 }
             </style>
         `;
@@ -229,27 +323,33 @@ class Quiz extends HTMLElement {
         this.querySelector('#quizProgress').style.width = `${progress}%`;
 
         let questionText = question.question;
-        // 检查问题是否包含代码
-        if (questionText.includes('```cpp') || this.containsCode(questionText)) {
-            questionText = this.formatCodeInQuestion(questionText);
+        let codeBlock = '';
+        
+        // 如果问题包含代码，将其分离出来
+        if (this.looksLikeCode(questionText)) {
+            // 提取实际的代码部分
+            const codeLines = questionText.split('\n');
+            // 第一行通常是问题描述
+            questionText = codeLines[0].trim();
+            // 剩余的行是代码
+            const actualCode = codeLines.slice(1).filter(line => line.trim() !== '').join('\n');
+            if (actualCode) {
+                codeBlock = `<pre><code class="cpp">${actualCode}</code></pre>`;
+            }
         }
 
         let html = `
             <div class="question">
                 <h3>问题 ${this.currentQuestionIndex + 1}:</h3>
-                <div class="question-content">${questionText}</div>
+                <div class="question-description">${questionText}</div>
+                ${codeBlock ? `<div class="question-code">${codeBlock}</div>` : ''}
                 <ul class="options">
         `;
 
         question.options.forEach((option, index) => {
-            // 检查选项是否包含代码
-            let optionText = option;
-            if (optionText.includes('```cpp') || this.containsCode(optionText)) {
-                optionText = this.formatCodeInQuestion(optionText);
-            }
             html += `
                 <li class="option" data-index="${index}">
-                    ${String.fromCharCode(65 + index)}. ${optionText}
+                    ${String.fromCharCode(65 + index)}. ${option}
                 </li>
             `;
         });
@@ -257,10 +357,10 @@ class Quiz extends HTMLElement {
         html += `</ul></div>`;
         this.querySelector('#quizContainer').innerHTML = html;
 
-        // 触发代码高亮
-        if (window.Prism) {
-            Prism.highlightAll();
-        }
+        // 使用highlight.js高亮代码
+        this.querySelectorAll('pre code').forEach(block => {
+            hljs.highlightElement(block);
+        });
 
         // 添加选项点击事件
         this.querySelectorAll('.option').forEach(option => {
@@ -271,27 +371,30 @@ class Quiz extends HTMLElement {
         });
     }
 
-    // 检查文本是否包含代码
-    containsCode(text) {
-        return text.includes('int') || text.includes('void') || text.includes('cout') || 
-               text.includes('cin') || text.includes('for') || text.includes('while') ||
-               text.includes('#include') || text.includes('return') || text.includes('char') ||
-               text.includes('float') || text.includes('double') || text.includes('class') ||
-               text.includes('struct') || text.includes('printf') || text.includes('scanf');
-    }
+    // 检查是否看起来像代码
+    looksLikeCode(text) {
+        if (!text || typeof text !== 'string') return false;
 
-    // 格式化问题中的代码
-    formatCodeInQuestion(text) {
-        if (text.includes('```cpp')) {
-            // 已经包含Markdown代码块标记
-            return text.replace(/```cpp([\s\S]*?)```/g, 
-                '<pre><code class="language-cpp">$1</code></pre>');
-        } else {
-            // 自动检测并包装代码
-            const codeRegex = /((?:int|void|cout|cin|for|while|#include|return|char|float|double|class|struct|printf|scanf)[\s\S]*?;)/g;
-            return text.replace(codeRegex, 
-                '<pre><code class="language-cpp">$1</code></pre>');
-        }
+        // 检查是否包含明确的C++代码特征
+        const codePatterns = [
+            /^#include/, // 预处理指令
+            /^using\s+namespace/, // using声明
+            /\w+\s*\([^)]*\)\s*;/, // 函数调用
+            /^(if|while|for|switch|do)\s*\(/, // 控制结构
+            /^(int|char|float|double|void|bool)\s+\w+/, // 变量声明
+            /\w+\s*=\s*\w+/, // 赋值语句
+            /\w+\s*[+\-*/%]=/, // 复合赋值
+            /\w+\s*\[\d*\]/, // 数组访问
+            /cout\s*<</, // 输出语句
+            /cin\s*>>/, // 输入语句
+            /\w+\s*\+\+/, // 自增
+            /\w+\s*\-\-/, // 自减
+            /pow\s*\([^)]+\)/, // pow函数调用
+            /sqrt\s*\([^)]+\)/, // sqrt函数调用
+            /abs\s*\([^)]+\)/, // abs函数调用
+        ];
+
+        return codePatterns.some(pattern => pattern.test(text));
     }
 
     submitAnswer() {
@@ -316,9 +419,6 @@ class Quiz extends HTMLElement {
 
         // 显示答案解释
         let explanation = this.questions[this.currentQuestionIndex].explanation;
-        if (explanation.includes('```cpp') || this.containsCode(explanation)) {
-            explanation = this.formatCodeInQuestion(explanation);
-        }
         
         this.querySelector('#quizContainer').innerHTML += `
             <div class="explanation">
@@ -327,10 +427,10 @@ class Quiz extends HTMLElement {
             </div>
         `;
 
-        // 触发新添加内容的代码高亮
-        if (window.Prism) {
-            Prism.highlightAll();
-        }
+        // 使用highlight.js高亮代码
+        this.querySelectorAll('pre code').forEach(block => {
+            hljs.highlightElement(block);
+        });
 
         if (userAnswer === correctAnswer) {
             this.score++;
