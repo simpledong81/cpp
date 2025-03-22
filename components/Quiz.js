@@ -223,82 +223,41 @@ class Quiz extends HTMLElement {
                 .explanation-content code {
                     font-family: 'Fira Code', Consolas, Monaco, 'Andale Mono', monospace;
                     font-size: 14px;
-                    color: #abb2bf;
-                    background: #282c34;
-                    padding: 0.2em 0.4em;
-                    border-radius: 3px;
-                    white-space: pre;
-                }
-                /* Prism.js 自定义样式 */
-                .token.comment { color: #608b4e; font-style: italic; }
-                .token.keyword { color: #569cd6; font-weight: bold; }
-                .token.string { color: #ce9178; }
-                .token.number { color: #b5cea8; }
-                .token.operator { color: #d4d4d4; }
-                .token.punctuation { color: #d4d4d4; }
-                .token.function { color: #dcdcaa; }
-                .token.class-name { color: #4ec9b0; }
-                .token.variable { color: #9cdcfe; }
-                .token.parameter { color: #9cdcfe; }
-                .token.property { color: #9cdcfe; }
-                .token.constant { color: #4fc1ff; }
-                .token.namespace { color: #4ec9b0; }
-                .token.preprocessor { color: #c586c0; }
-                .token.type { color: #569cd6; }
-                .token.control { color: #c586c0; }
-                .token.regex { color: #d16969; }
-                .token.boolean { color: #569cd6; }
-                .token.null { color: #569cd6; }
-                .token.important { color: #569cd6; font-weight: bold; }
-                .token.inserted { color: #b5cea8; }
-                .token.deleted { color: #ce9178; }
-
-                .question-content pre,
-                .option pre,
-                .explanation-content pre {
-                    background-color: #1e1e1e;
-                    border: 1px solid #333;
-                    border-radius: 4px;
-                    padding: 12px;
-                    margin: 8px 0;
-                    overflow-x: auto;
-                }
-
-                .question-content code,
-                .option code,
-                .explanation-content code {
-                    font-family: 'Fira Code', Consolas, Monaco, 'Andale Mono', monospace;
-                    font-size: 14px;
                     line-height: 1.5;
                     color: #d4d4d4;
-                    text-shadow: none;
                 }
 
-                .question-description {
-                    font-size: 16px;
-                    margin-bottom: 15px;
-                    color: #333;
-                    font-weight: 500;
-                }
-
-                .question-code {
-                    margin: 15px 0;
-                    padding: 0;
-                }
-
-                .question-code pre {
-                    margin: 0;
-                    background-color: #1e1e1e;
-                    border: 1px solid #333;
-                    border-radius: 4px;
-                    padding: 12px;
-                }
-
-                .question-code code {
-                    font-family: 'Fira Code', Consolas, Monaco, 'Andale Mono', monospace;
-                    font-size: 14px;
-                    line-height: 1.5;
+                /* highlight.js 自定义样式 */
+                .hljs {
+                    background: #1e1e1e;
                     color: #d4d4d4;
+                }
+                .hljs-keyword {
+                    color: #569cd6;
+                }
+                .hljs-string {
+                    color: #ce9178;
+                }
+                .hljs-number {
+                    color: #b5cea8;
+                }
+                .hljs-function {
+                    color: #dcdcaa;
+                }
+                .hljs-title {
+                    color: #4ec9b0;
+                }
+                .hljs-params {
+                    color: #9cdcfe;
+                }
+                .hljs-comment {
+                    color: #608b4e;
+                }
+                .hljs-operator {
+                    color: #d4d4d4;
+                }
+                .hljs-built_in {
+                    color: #4ec9b0;
                 }
             </style>
         `;
