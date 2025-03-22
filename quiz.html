@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>C++编程学习测试题</title>
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #45a049;
+            --background-color: #f9f9f9;
+            --text-color: #333;
+            --border-color: #ddd;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+        }
+
+        .chapter-select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .quiz-container {
+            display: none;
+        }
+
+        .quiz-container.active {
+            display: block;
+        }
+
+        .question {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .question:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .question h3 {
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .options {
+            list-style: none;
+        }
+
+        .option {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option:hover {
+            background-color: #f0f0f0;
+        }
+
+        .option.selected {
+            background-color: #e3f2e3;
+            border-color: var(--primary-color);
+        }
+
+        .option.correct {
+            background-color: #dff0d8;
+            border-color: #3c763d;
+        }
+
+        .option.incorrect {
+            background-color: #f2dede;
+            border-color: #a94442;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            display: none;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            width: 0%;
+            height: 100%;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>C++编程学习测试题</h1>
+        
+        <select class="chapter-select" id="chapterSelect">
+            <option value="">请选择学习章节</option>
+            <option value="basic">第1章 - 程序基本概念</option>
+            <option value="datatype">第2章 - 基本数据类型</option>
+            <option value="statement">第3章 - 程序基本语句</option>
+            <option value="operation">第4章 - 基本运算</option>
+            <option value="math">第5章 - 数学库函数</option>
+            <option value="structure">第6章 - 结构化程序设计</option>
+            <option value="array">第7章 - 数组</option>
+            <option value="string">第8章 - 字符串处理</option>
+            <option value="function">第9章 - 函数与递归</option>
+            <option value="advanced">第10章 - 结构体与指针</option>
+        </select>
+
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+
+        <div id="quizContainer" class="quiz-container">
+            <!-- 测试题将通过JavaScript动态生成 -->
+        </div>
+
+        <button id="submitBtn" class="btn" style="display: none;">提交答案</button>
+        <button id="nextBtn" class="btn" style="display: none;">下一题</button>
+        <div id="result" class="result"></div>
+    </div>
+
+    <!-- 引入题库文件 -->
+    <script src="questions/array.js"></script>
+    <script src="questions/basic.js"></script>
+    <script src="questions/datatype.js"></script>
+    <script src="questions/statement.js"></script>
+    <script src="questions/operation.js"></script>
+    <script src="questions/math.js"></script>
+    <script src="questions/structure.js"></script>
+    <script src="questions/string.js"></script>
+    <script src="questions/function.js"></script>
+    <script src="questions/advanced.js"></script>
+
+    <script>
+        // 题库数据
+        const questionBank = {
+            array: arrayQuestions,
+            basic: basicQuestions,
+            datatype: datatypeQuestions,
+            statement: statementQuestions,
+            operation: operationQuestions,
+            math: mathQuestions,
+            structure: structureQuestions,
+            string: stringQuestions,
+            function: functionQuestions,
+            advanced: advancedQuestions
+        };
+
+        let currentChapter = '';
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = [];
+
+        const chapterSelect = document.getElementById('chapterSelect');
+        const quizContainer = document.getElementById('quizContainer');
+        const submitBtn = document.getElementById('submitBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const resultDiv = document.getElementById('result');
+        const progressBar = document.getElementById('progress');
+
+        chapterSelect.addEventListener('change', function() {
+            currentChapter = this.value;
+            if (currentChapter) {
+                startQuiz();
+            }
+        });
+
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = [];
+            showQuestion();
+            submitBtn.style.display = 'inline-block';
+            nextBtn.style.display = 'none';
+            resultDiv.style.display = 'none';
+        }
+
+        function showQuestion() {
+            const question = questionBank[currentChapter][currentQuestionIndex];
+            const progress = ((currentQuestionIndex + 1) / questionBank[currentChapter].length) * 100;
+            progressBar.style.width = `${progress}%`;
+
+            let html = `
+                <div class="question">
+                    <h3>问题 ${currentQuestionIndex + 1}: ${question.question}</h3>
+                    <ul class="options">
+            `;
+
+            question.options.forEach((option, index) => {
+                html += `
+                    <li class="option" data-index="${index}">
+                        ${String.fromCharCode(65 + index)}. ${option}
+                    </li>
+                `;
+            });
+
+            html += `</ul></div>`;
+            quizContainer.innerHTML = html;
+
+            // 添加选项点击事件
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                });
+            });
+        }
+
+        submitBtn.addEventListener('click', function() {
+            const selectedOption = document.querySelector('.option.selected');
+            if (!selectedOption) {
+                alert('请选择一个答案！');
+                return;
+            }
+
+            const userAnswer = parseInt(selectedOption.dataset.index);
+            const correctAnswer = questionBank[currentChapter][currentQuestionIndex].answer;
+            userAnswers.push(userAnswer);
+
+            document.querySelectorAll('.option').forEach(option => {
+                const optionIndex = parseInt(option.dataset.index);
+                if (optionIndex === correctAnswer) {
+                    option.classList.add('correct');
+                } else if (optionIndex === userAnswer && userAnswer !== correctAnswer) {
+                    option.classList.add('incorrect');
+                }
+            });
+
+            // 显示答案解释
+            const explanation = questionBank[currentChapter][currentQuestionIndex].explanation;
+            quizContainer.innerHTML += `
+                <div class="explanation" style="margin-top: 20px; padding: 10px; background-color: #f8f9fa; border-radius: 4px;">
+                    <strong>解释：</strong> ${explanation}
+                </div>
+            `;
+
+            if (userAnswer === correctAnswer) {
+                score++;
+            }
+
+            submitBtn.style.display = 'none';
+            if (currentQuestionIndex < questionBank[currentChapter].length - 1) {
+                nextBtn.style.display = 'inline-block';
+            } else {
+                showResult();
+            }
+        });
+
+        nextBtn.addEventListener('click', function() {
+            currentQuestionIndex++;
+            showQuestion();
+            submitBtn.style.display = 'inline-block';
+            nextBtn.style.display = 'none';
+        });
+
+        function showResult() {
+            const percentage = (score / questionBank[currentChapter].length) * 100;
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = `
+                <h2>测试结果</h2>
+                <p>总题数: ${questionBank[currentChapter].length}</p>
+                <p>正确答案: ${score}</p>
+                <p>正确率: ${percentage.toFixed(2)}%</p>
+                <button class="btn" onclick="startQuiz()">重新开始</button>
+            `;
+        }
+    </script>
+</body>
+</html> 

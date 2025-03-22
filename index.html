@@ -3,6 +3,24 @@
 <head>
     <title>C++编程学习指南</title>
     <meta charset="UTF-8">
+    <!-- 引入代码高亮库 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-cpp.min.js"></script>
+    <!-- 先加载题库文件 -->
+    <script src="questions/basic.js"></script>
+    <script src="questions/datatype.js"></script>
+    <script src="questions/statement.js"></script>
+    <script src="questions/operation.js"></script>
+    <script src="questions/math.js"></script>
+    <script src="questions/structure.js"></script>
+    <script src="questions/array.js"></script>
+    <script src="questions/string.js"></script>
+    <script src="questions/function.js"></script>
+    <script src="questions/advanced.js"></script>
+    <!-- 加载Quiz组件 -->
+    <script src="components/Quiz.js"></script>
     <style>
         :root {
             --primary-color: #4CAF50;
@@ -165,6 +183,51 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .test-btn {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        
+        .test-btn:hover {
+            background-color: #45a049;
+        }
+
+        .chapter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .test-btn {
+            padding: 6px 12px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .test-btn:hover {
+            background-color: var(--hover-color);
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 <body>
@@ -181,7 +244,10 @@
 
         <div class="chapter-grid">
             <div class="chapter-card">
-                <div class="chapter-number">01</div>
+                <div class="chapter-header">
+                    <div class="chapter-number">01</div>
+                    <button class="test-btn" onclick="startQuiz('basic')">测试</button>
+                </div>
                 <div class="chapter-title">程序基本概念</div>
                 <ul class="topic-list">
                     <li><a href="L1/1.程序基本概念-(1)标识符、关键字、常量、变量、字符串、表达式的概念.html">认识基本概念</a></li>
@@ -193,7 +259,10 @@
             </div>
 
             <div class="chapter-card">
-                <div class="chapter-number">02</div>
+                <div class="chapter-header">
+                    <div class="chapter-number">02</div>
+                    <button class="test-btn" onclick="startQuiz('datatype')">测试</button>
+                </div>
                 <div class="chapter-title">数据类型</div>
                 <ul class="topic-list">
                     <li><a href="L1/2.基本数据类型.html">基本数据类型详解</a></li>
@@ -202,7 +271,10 @@
             </div>
 
             <div class="chapter-card">
-                <div class="chapter-number">03</div>
+                <div class="chapter-header">
+                    <div class="chapter-number">03</div>
+                    <button class="test-btn" onclick="startQuiz('statement')">测试</button>
+                </div>
                 <div class="chapter-title">程序基本语句</div>
                 <ul class="topic-list">
                     <li><a href="L1/3.程序基本语句-(1)cin 语句、scanf 语句、cout 语句、printf 语句、赋值语句、复合语句.html">输入输出语句</a></li>
@@ -214,7 +286,10 @@
             </div>
 
             <div class="chapter-card">
-                <div class="chapter-number">04</div>
+                <div class="chapter-header">
+                    <div class="chapter-number">04</div>
+                    <button class="test-btn" onclick="startQuiz('operation')">测试</button>
+                </div>
                 <div class="chapter-title">基本运算</div>
                 <ul class="topic-list">
                     <li><a href="L1/4.基本运算-(1)算术运算：加、减、乘、除、整除、求余.html">算术运算</a></li>
@@ -228,7 +303,10 @@
             </div>
 
             <div class="chapter-card">
-                <div class="chapter-number">05</div>
+                <div class="chapter-header">
+                    <div class="chapter-number">05</div>
+                    <button class="test-btn" onclick="startQuiz('math')">测试</button>
+                </div>
                 <div class="chapter-title">数学库函数</div>
                 <ul class="topic-list">
                     <li><a href="L1/5.数学库常用函数-绝对值函数、四舍五入函数、下取整函数、上取整函数、平方根函数、常用三角函数、对数函数、指数函数.html">常用数学函数</a></li>
@@ -237,7 +315,10 @@
             </div>
 
             <div class="chapter-card">
-                <div class="chapter-number">06</div>
+                <div class="chapter-header">
+                    <div class="chapter-number">06</div>
+                    <button class="test-btn" onclick="startQuiz('structure')">测试</button>
+                </div>
                 <div class="chapter-title">结构化程序设计</div>
                 <ul class="topic-list">
                     <li><a href="L1/6.结构化程序设计-(1)顺序结构、分支结构和循环结构.html">程序结构</a></li>
@@ -248,7 +329,10 @@
             </div>
 
             <div class="chapter-card">
-                <div class="chapter-number">07</div>
+                <div class="chapter-header">
+                    <div class="chapter-number">07</div>
+                    <button class="test-btn" onclick="startQuiz('array')">测试</button>
+                </div>
                 <div class="chapter-title">数组</div>
                 <ul class="topic-list">
                     <li><a href="L1/7.数组-(1)数组与数组下标.html">数组基础</a></li>
@@ -259,7 +343,10 @@
             </div>
 
             <div class="chapter-card">
-                <div class="chapter-number">08</div>
+                <div class="chapter-header">
+                    <div class="chapter-number">08</div>
+                    <button class="test-btn" onclick="startQuiz('string')">测试</button>
+                </div>
                 <div class="chapter-title">字符串处理</div>
                 <ul class="topic-list">
                     <li><a href="L1/8.字符串的处理-(1)字符数组与相关函数.html">字符数组</a></li>
@@ -269,7 +356,10 @@
             </div>
 
             <div class="chapter-card">
-                <div class="chapter-number">09</div>
+                <div class="chapter-header">
+                    <div class="chapter-number">09</div>
+                    <button class="test-btn" onclick="startQuiz('function')">测试</button>
+                </div>
                 <div class="chapter-title">函数与递归</div>
                 <ul class="topic-list">
                     <li><a href="L1/9.函数与递归-(1)函数定义与调用、形参与实参.html">函数基础</a></li>
@@ -281,7 +371,10 @@
             </div>
 
             <div class="chapter-card">
-                <div class="chapter-number">10</div>
+                <div class="chapter-header">
+                    <div class="chapter-number">10</div>
+                    <button class="test-btn" onclick="startQuiz('advanced')">测试</button>
+                </div>
                 <div class="chapter-title">高级主题</div>
                 <ul class="topic-list">
                     <li><a href="L1/10.结构体与联合体.html">结构体与联合体</a></li>
@@ -304,7 +397,9 @@
 
         <div class="chapter-grid">
             <div class="chapter-card">
-                <div class="chapter-number">01</div>
+                <div class="chapter-header">
+                    <div class="chapter-number">01</div>
+                </div>
                 <div class="chapter-title">STL模板进阶</div>
                 <ul class="topic-list">
                     <li><a href="L2/1.STL 模板-链表(list)、向量（vector）容器.html">链表与向量容器</a></li>
@@ -313,7 +408,9 @@
             </div>
 
             <div class="chapter-card">
-                <div class="chapter-number">02</div>
+                <div class="chapter-header">
+                    <div class="chapter-number">02</div>
+                </div>
                 <div class="chapter-title">数据结构基础</div>
                 <ul class="topic-list">
                     <li><a href="L2/2.数据结构-(1)线性结构表.html">线性结构表</a></li>
@@ -325,7 +422,9 @@
             </div>
 
             <div class="chapter-card">
-                <div class="chapter-number">03</div>
+                <div class="chapter-header">
+                    <div class="chapter-number">03</div>
+                </div>
                 <div class="chapter-title">入门算法</div>
                 <ul class="topic-list">
                     <li><a href="L2/3.算法-入门算法-(1)枚举法.html">枚举法</a></li>
@@ -335,7 +434,9 @@
             </div>
 
             <div class="chapter-card">
-                <div class="chapter-number">04</div>
+                <div class="chapter-header">
+                    <div class="chapter-number">04</div>
+                </div>
                 <div class="chapter-title">基础算法</div>
                 <ul class="topic-list">
                     <li><a href="L2/3.算法-基础算法-(1)贪心法.html">贪心法</a></li>
@@ -348,7 +449,9 @@
             </div>
 
             <div class="chapter-card">
-                <div class="chapter-number">05</div>
+                <div class="chapter-header">
+                    <div class="chapter-number">05</div>
+                </div>
                 <div class="chapter-title">数值处理算法</div>
                 <ul class="topic-list">
                     <li><a href="L2/3.算法-数值处理算法-(1)高精度的加法.html">高精度加法</a></li>
@@ -360,7 +463,9 @@
             </div>
 
             <div class="chapter-card">
-                <div class="chapter-number">06</div>
+                <div class="chapter-header">
+                    <div class="chapter-number">06</div>
+                </div>
                 <div class="chapter-title">排序算法</div>
                 <ul class="topic-list">
                     <li><a href="L2/3.算法-排序算法-(1)排序的基本概念.html">排序基础</a></li>
@@ -373,7 +478,9 @@
             </div>
 
             <div class="chapter-card">
-                <div class="chapter-number">07</div>
+                <div class="chapter-header">
+                    <div class="chapter-number">07</div>
+                </div>
                 <div class="chapter-title">搜索与图论</div>
                 <ul class="topic-list">
                     <li><a href="L2/3.算法-搜索算法-(1)深度优先搜索.html">深度优先搜索</a></li>
@@ -386,7 +493,9 @@
             </div>
 
             <div class="chapter-card">
-                <div class="chapter-number">08</div>
+                <div class="chapter-header">
+                    <div class="chapter-number">08</div>
+                </div>
                 <div class="chapter-title">动态规划</div>
                 <ul class="topic-list">
                     <li><a href="L2/3.算法-动态规划-(1)动态规划的基本思路.html">动态规划入门</a></li>
@@ -398,5 +507,47 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // 检查题库加载状态
+        window.addEventListener('load', function() {
+            const chapters = ['basic', 'datatype', 'statement', 'operation', 'math', 
+                            'structure', 'array', 'string', 'function', 'advanced'];
+            
+            // 检查题库加载状态
+            let allLoaded = true;
+            const missingChapters = [];
+            
+            chapters.forEach(chapter => {
+                const questionsVar = `${chapter}Questions`;
+                if (typeof window[questionsVar] === 'undefined') {
+                    console.error(`题库未加载: ${questionsVar}`);
+                    allLoaded = false;
+                    missingChapters.push(chapter);
+                } else {
+                    console.log(`题库已加载: ${questionsVar}, 题目数量: ${window[questionsVar].length}`);
+                }
+            });
+
+            if (!allLoaded) {
+                console.error('以下章节的题库未能正确加载:', missingChapters.join(', '));
+            }
+        });
+
+        function startQuiz(chapter) {
+            const questionsVar = `${chapter}Questions`;
+            if (typeof window[questionsVar] === 'undefined') {
+                alert(`错误：${chapter}章节的题库未能正确加载，请刷新页面后重试。`);
+                return;
+            }
+            
+            console.log('Starting quiz for chapter:', chapter);
+            console.log('Available questions:', window[questionsVar]);
+            
+            const quiz = document.createElement('cpp-quiz');
+            document.body.appendChild(quiz);
+            quiz.setChapter(chapter);
+        }
+    </script>
 </body>
 </html> 
